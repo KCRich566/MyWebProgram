@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart Feature</title>
+</head>
+<body>
+    <h1>Shopping Cart</h1>
+    <div id="cart"></div>
+    <p>Total: <span id="totalPrice">0</span> USD</p>
+
+    <button onclick="addToCart('Apple', 5)">Add Apple ($5)</button>
+    <button onclick="addToCart('Orange', 3)">Add Orange ($3)</button>
+    
+    <script>
+        const cart = [];
+
+        function addToCart(item, price){
+            cart.push({ item, price });
+            displayCart();
+        }
+
+        function displayCart() {
+            const cartDiv = document.getElementById('cart');
+            cartDiv.innerHTML = '';
+            let total = 0;
+            cart.forEach(product => {
+                const div = document.createElement('div');
+                div.textContent = `${product.item} - $${product.price}`;
+                total += product.price;
+                cartDiv.appendChild(div)
+            });
+            document.getElementById('totalPrice').textContent = total;
+        }
+    </script>
+</body>
+</html>
