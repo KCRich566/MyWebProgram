@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_2143783_iq6z4ey5vu.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .xtx-login-header {
+            width: 1179px;
+            height: 132px;
+            margin: 0 auto;
+        }
+
+        .xtx-login-header .logo {
+            width: 200px;
+            height: 132px;
+            text-indent: -999px;
+            background-image: url(./images/logo.png);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            float: left;
+        }
+
+        .xtx-login-header .home {
+            float: right;
+            margin-top: 82px;
+            font-size: 16px;
+            padding-right: 24px;
+            background: url(./images/login-enter.png) no-repeat right;
+        }
+
+        .xtx-login-main {
+            height: 488px;
+            background: url(./images/login-bg.png) no-repeat center/cover;
+        }
+
+        .xtx-login-main .wrapper {
+            width: 1170px;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+        }
+        .xtx-login-main .wrapper .box{
+            width: 380px;
+            box-shadow:0px 0px 25px 0px rgba(3,3,3,0.14);
+            position:absolute;
+            top: 60px;
+            right: 100px;
+            background: #fff;
+            padding: 20px 40px;
+        }
+        .xtx-login-main .wrapper .box .tab-nav{
+            display:flex;
+            justify-content: space-between;
+            position:relative;
+        }
+        .xtx-login-main .wrapper .box .tab-nav::before{
+            content: "";
+            position:absolute;
+            left: 50%;
+            top: 8%;
+            width: 1px;
+            height: 20px;
+            background: #ededed;
+        }
+        .xtx-login-main .wrapper .box .tab-nav a{
+            font-size: 18px;
+            height:35px;
+            line-height: 35px;
+        }
+        .xtx-login-main .wrapper .box .tab-nav a.active{
+            border-bottom: 2px solid #17bb9b;
+        }
+        .xtx-login.main .wrapper .box .tab-pane .code{
+            display:block;
+            margin:44px auto;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .link{
+            text-align:right;
+            padding-top: 12px;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .link a{
+            color: #17bb9b;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .input{
+            border: 1px solid #17bb9b;
+            width: 100%;
+            height: 36px;
+            margin-top: 17px;
+            display:flex;
+            background: #CFCDCD;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .input .iconfont{
+            color:#fff;
+            width: 34px;
+            height: 34px;
+            text-align: center;
+            line-height: 34;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .input input{
+            flex:1;
+            padding-left: 15px;
+            background: #fff;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .input input::placeholder{
+            color:#B3B3B3;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .agree{
+            color: #B3B3B3;
+            padding: 17px 0;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .agree a{
+            color: #0683B1;
+        }
+        .xtx.-login-main .wrapper .box .tab-pane .agree > label input{
+            /* display: none; */
+        }
+        .xtx-login-main .wrapper .box .tab-pane .agree > label input:checked + span{
+            color: #17bb9b;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .button{
+            margin-bottom: 15px;
+        }
+        .xtx-login-main .wrapper .box .tab-pane .button .dl{
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background:#17bb9b;
+            color:#fff;
+            display:block;
+            font-size:16px;
+            margin-bottom: 17px;
+        }
+        .xtx-login-footer .copyright{
+            height: 115px;
+            padding-top: 40px;
+            text-align: center;
+            color:#999;
+            font-size:15px;
+        }
+        .xtx-login-footer .copyright p{
+            line-height: 1;
+            margin-bottom: 20px;
+        }
+        .xtx-login-footer .copyright a{
+            color:#999;
+            line-height: 1;
+            padding: 0 10px 0 6px;
+            border-right: 1px solid #999;
+        }
+        .xtx-login-footer .copyright a:last-child{
+            border-right: none;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div class="xtx-login-header">
+        <h1 class="logo"></h1>
+        <a href="./index.html" class="home">進入網站首頁</a>
+    </div>
+
+    <div class="xtx-login-main">
+        <div class="wrapper">
+            <form action="" autocomplete="off">
+                <div class="box">
+                    <div class="tab-nav">
+                        <a href="javascript:;" class="active" data-id="0">帳戶登入</a>
+                        <a href="javascript:;" data-id="1">二維碼登入</a>
+                    </div>
+                    <div class="tab-pane">
+                        <div class="link">
+                            <a href="javascript:;">手機驗證碼登入</a>
+                        </div>
+                        <div class="input">
+                            <span class="iconfont icon-zhanghao"></span>
+                            <input type="text" required placeholder="請輸入用戶名稱/手機號碼" name="username">
+                        </div>
+                        <div class="input">
+                            <span class="iconfont icon-suo"></span>
+                            <input type="password" required placeholder="清輸入密碼" name="password">
+                        </div>
+                        <div class="agree">
+                            <label for="my-checkbox">
+                                <input type="checkbox" name="agree" id="my-checkbox" value="1" class="remember">
+                                <span class="iconfont icon-xuanze"></span>
+                            </label>
+                            我已同意<a href="javascript:;">&lt服務條款&gt</a>和<a href="javascript:;">&lt服務條款&gt</a>
+                        </div>
+                        <div class="button clearfix">
+                            <button type="submit" class="dl">登入</button>
+                            <a href="./forget.html" class="fl">忘記密碼?</a>
+                            <a href="./142-register.html" class="fl">免費註冊</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane" style="display: none;">
+                        <img src="./images/code.png" alt="" class="code">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="xtx-login-footer">
+        <div class="copyright">
+            <p>
+                <a href="javascript:;">關於我們</a>
+                <a href="javascript:;">幫助中心</a>
+                <a href="javascript:;">售後服務</a>
+                <a href="javascript:;">配送與驗收</a>
+                <a href="javascript:;">商務合作</a>
+                <a href="javascript:;">搜索推薦</a>
+                <a href="javascript:;">友情鏈接</a>
+            </p>
+            <p>CopyRight &copy; K</p>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+</body>
+
+</html>

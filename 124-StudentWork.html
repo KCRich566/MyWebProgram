@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+            color: #721c24;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        table {
+            margin: 0 auto;
+            width: 800px;
+            border-collapse: collapse;
+            color: #004085;
+        }
+
+        th {
+            padding: 10px;
+            background: #cfe5ff;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        td,
+        th {
+            padding: 10px;
+            color: #666;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        tbody tr {
+            background: #fff;
+        }
+
+        tbody tr:hover {
+            background: #e1ecf8;
+        }
+
+        .info {
+            width: 900px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .info input .info select {
+            width: 80px;
+            height: 27px;
+            outline: none;
+            border-radius: 5px;
+            border: 1px solid #b8daff;
+            padding-left: 5px;
+            box-sizing: border-box;
+            margin-right: 15px;
+        }
+
+        .info button {
+            width: 60px;
+            height: 27px;
+            background-color: #004085;
+            outline: none;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .info .age {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>新增學員</h1>
+    <form class="info" autocomplete="off">
+        姓名:<input type="text" class="uname" name="uname" />
+        年齡:<input type="text" class="age" name="age" />
+        性別:<select name="gander" class="gender">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+        薪資: <input type="text" class="salary" name="salary" />
+        就業城市: <select name="city" class="city">
+            <option value="北京">北京</option>
+            <option value="上海">上海</option>
+            <option value="廣州">廣州</option>
+            <option value="深圳">深圳</option>
+            <option value="曹縣">曹縣</option>
+        </select>
+        <button class="add">登入</button>
+    </form>
+
+    <h1>就業榜</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>學號</th>
+                <th>姓名</th>
+                <th>年齡</th>
+                <th>性別</th>
+                <th>薪資</th>
+                <th>就業城市</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        const uname = document.querySelector('.uname');
+        const age = document.querySelector('.age');
+        const gender = document.querySelector('.gender');
+        const salary = document.querySelector('.salary');
+        const city = document.querySelector('.city');
+        const tbody = document.querySelector('tbody');
+        
+        const items = document.querySelectorAll('[name]');
+
+        const arr = [];
+
+        const info = document.querySelector('.info');
+
+
+        // 在form中的button按下都是submit
+        info.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].value === '') {
+                    return alert('輸入的內容不能為空');
+                }
+            }
+
+            const obj = {
+                stuId: arr.length + 1,
+                uname: uname.value,
+                age: age.value,
+                gender: gender.value,
+                salary: salary.value,
+                city: city.value
+            }
+
+            arr.push(obj);
+
+            this.reset;
+
+            render();
+        });
+
+        function render() {
+            tbody.innerHTML = '';
+            for (let i = 0; i < arr.length; i++) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                <td>${arr[i].studId}</td>
+                <td>${arr[i].uname}</td>
+                <td>${arr[i].age}</td>
+                <td>${arr[i].gender}</td>
+                <td>${arr[i].salary}</td>
+                <td>${arr[i].city}</td>
+                <td>
+                    <a href="javascript:" data-id=${i}> 刪除</a>
+                </td>
+                `
+                tbody.appendChild(tr);
+
+            }
+        }
+
+        tbody.addEventListener('click', function (e) {
+            if (e.target.tagName === 'A') {
+                arr.splice(e.target.dataset.id, 1);
+                render();
+            }
+        })
+    </script>
+</body>
+
+</html>

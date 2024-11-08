@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        a {
+            color: #721c24;
+
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        table {
+            margin: 0 auto;
+            width: 800px;
+            border-collapse: collapse;
+            color: #004085;
+        }
+
+        th {
+            padding: 10px;
+            background: #cfe5ff;
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        td,
+        th {
+            border: 1px solid #b8daff;
+        }
+
+        td {
+            padding: 10px;
+            color: #666;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        tbody tr {
+            background: #fff;
+        }
+
+        tbody tr:hover {
+            background: #e1ecf8;
+        }
+
+        .info {
+            width: 900px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .info input,
+        .info select {
+            width: 80px;
+            height: 27px;
+            outline: none;
+            border-radius: 5px;
+            border: 1px solid #b8daff;
+            padding-left: 5px;
+            box-sizing: border-box;
+            margin-right: 15px;
+        }
+
+        .info button {
+            width: 60px;
+            height: 27px;
+            background-color: #004085;
+            outline: none;
+            border: 0;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .info .age {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>新增學員</h1>
+    <form action="" class="info" autocomplete="off">
+        姓名: <input type="text" name="uname" class="uname">
+        年齡: <input type="text" name="age" class="age">
+        性別: <select name="gender" class="gender">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+        薪資: <input type="text" name="salary" class="salary">
+        就業城市: <select name="city" class="city">
+            <option value="北京">北京</option>
+            <option value="上海">上海</option>
+            <option value="廣州">廣州</option>
+            <option value="深圳">深圳</option>
+            <option value="曹縣">曹縣</option>
+        </select>
+        <button class="add">登入</button>
+    </form>
+    <h1>就業榜</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>學號</th>
+                <th>姓名</th>
+                <th>年齡</th>
+                <th>性別</th>
+                <th>薪資</th>
+                <th>就業城市</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <script>
+        const data = localStorage.getItem('students');
+        const arr = data ? JSON.parse(data) : [];
+
+        // if(arr.length === 0){
+        //     arr.push({
+        //         stuId: 0,
+        //         uname: 'K',
+        //         age: 15,
+        //         gender: '男',
+        //         salary: 20202,
+        //         city: '台灣'
+        //     });
+
+        //     localStorage.setItem('students', JSON.stringify(arr));
+
+        // }
+
+        const tbody = document.querySelector('tbody');
+        function render() {
+            // map有返回數值 ,forEach沒有返回數值
+            const trArr = arr.map(function (item, index) {
+                return `
+                <tr>
+                    <td>${item.stuId}</td>
+                    <td>${item.uname}</td>
+                    <td>${item.age}</td>
+                    <td>${item.gender}</td>
+                    <td>${item.salary}</td>
+                    <td>${item.city}</td>
+                    <td>
+                        <a href="javascript:" data-id=${index}>刪除</a>
+                    </td>
+                </tr>
+                `
+            });
+            // 將array串接
+            tbody.innerHTML = trArr.join('');
+        };
+        render();
+
+
+        const info = document.querySelector('.info');
+        const items = info.querySelectorAll('[name]');
+        info.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // 注意在push進arr時, 如果obj設定成陣列, JSON會出錯
+            const obj = {};
+            obj.stuId = arr.length ? arr[arr.length - 1].stuId + 1 : 1;
+            for (let i = 0; i < items.length; i++) {
+                const item = items[i];
+                if (items[i].value === '') {
+                    return alert('請輸入完整內容')
+                }
+                obj[item.name] = item.value;
+            }
+            console.log(obj);
+            arr.push(obj); 
+            console.log(arr);
+
+            localStorage.setItem('students', JSON.stringify(arr));
+            render();
+            // 重製表單
+            this.reset();
+        })
+
+
+        tbody.addEventListener('click', function (e) {
+            if (e.target.tagName === 'A') {
+                arr.splice(e.target.dataset.id, 1);
+                localStorage.setItem('students', JSON.stringify(arr));
+                render();
+            }
+        })
+    </script>
+</body>
+
+</html>

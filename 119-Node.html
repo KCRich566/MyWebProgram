@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="yeye">
+        <div class="dad">
+            <div class="baby">
+
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box1">我是廣告</div>
+    </div>
+    <div class="box">
+        <div class="box1">我是廣告</div>
+    </div>
+    <div class="box">
+        <div class="box1">我是廣告</div>
+    </div>
+
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+    <script>
+        // DOM節點: DOM樹裡的每一個容器都稱為節點
+        //      HTML是根節點 -> (head, html)
+        //      元素節點: 所有的標籤(增刪改查)
+        //      屬性節點: 所有的屬性,如href
+        //      文本節點: 所有的文本
+
+
+        // 查找節點,(父節點,子節點,兄弟節點)
+        // 父節點
+        const baby = document.querySelector('.baby');
+        console.log(baby);
+        console.log(baby.parentNode);
+
+
+        const closeBtn = document.querySelectorAll('.box1');
+
+        for (let i = 0; i < closeBtn.length; i++) {
+            closeBtn[i].addEventListener('click', function () {
+                this.parentNode.style.display = 'none';
+            })
+        }
+        // 子節點
+        const ul = document.querySelector('ul');
+        console.log(ul.children);
+
+        // 兄弟節點
+        const li = document.querySelector('ul li:nth-child(2)');
+        console.log('nextSibling = ', li.nextElementSibling);
+        console.log('previousSibling = ', li.previousElementSibling);
+        
+        // 新增節點(先創建,後放入)
+        let newDiv = document.createElement('div');
+        newDiv.classList.add('newDiv');
+        newDiv.innerHTML = '新的元素在這';
+        document.body.append(newDiv);
+
+        let newli = document.createElement('li');
+        newli.classList.add('newli');
+        newli.innerHTML = '新的li元素在這';
+        ul.insertBefore(newli, ul.children[3]);
+    </script>
+</body>
+
+</html>
