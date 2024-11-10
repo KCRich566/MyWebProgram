@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="shortcut icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/font_2143783_iq6z4ey5vu.css">
+    <script>
+        !(function () {
+            const userAgent = navigator.userAgent;
+            const android = userAgent.match(/(Android);?[\s\/]+([\d.]+)?/);
+            const iphone = userAgent.match(/(iPhone\sOS)\s([\d_]+)/);
+
+            if (androif || iphone) {
+                location.href = 'http://m.itcast.cn';
+            }
+        })
+    </script>
+    <style>
+        @charset "UTF-8";
+
+        /** 分类及焦点图 **/
+        .xtx_entry {
+            height: 500px;
+            background-color: #f2f2f2;
+            position: relative;
+        }
+
+        .xtx_category {
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.8);
+            position: absolute;
+            z-index: 9;
+        }
+
+        .xtx_category:hover .xtx_category_subset {
+            display: block;
+        }
+
+        .xtx_category_super li {
+            height: 50px;
+            padding: 0 20px 0 40px;
+            transition: background-color 0.25s;
+            cursor: pointer;
+        }
+
+        .xtx_category_super li:hover,
+        .xtx_category_super li.active {
+            background-color: #27BA9B;
+        }
+
+        .xtx_category_super a {
+            color: #fff;
+            font-size: 16px;
+            line-height: 50px;
+        }
+
+        .xtx_category_super a small {
+            font-size: 14px;
+        }
+
+        .xtx_category_super i {
+            display: block;
+            width: 12px;
+            height: 12px;
+            margin-top: 20px;
+            background-position: -75px -110px;
+            float: right;
+        }
+
+        .xtx_category_subset {
+            width: 990px;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 250px;
+        }
+
+        .xtx_banner {
+            width: 1240px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .xtx_banner:hover a {
+            opacity: 1;
+        }
+
+        .xtx_banner>a {
+            display: block;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            margin-top: -22px;
+            opacity: 0;
+            transition: opacity 0.5s;
+            background-color: rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+        }
+
+        .xtx_banner>a.prev {
+            left: 270px;
+            background-position: 14px -59px;
+        }
+
+        .xtx_banner>a.next {
+            right: 20px;
+            background-position: -24px -59px;
+        }
+
+        .xtx_banner .indicator {
+            width: 990px;
+            text-align: center;
+            font-size: 0;
+            position: absolute;
+            left: 250px;
+            bottom: 22px;
+        }
+
+        .xtx_banner .indicator span {
+            display: inline-block;
+            width: 9px;
+            height: 9px;
+            margin: 0 8px;
+            cursor: pointer;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.43);
+        }
+
+        .xtx_banner .indicator span.active {
+            background-color: #fff;
+        }
+
+        /** 公共面板 **/
+        .xtx_panel .xtx_panel_header {
+            height: 115px;
+            padding: 40px 0;
+        }
+
+        .xtx_panel .xtx_panel_header h3 {
+            height: 35px;
+            line-height: 35px;
+            margin-left: 6px;
+            font-size: 32px;
+            font-weight: 400;
+            color: #333;
+            float: left;
+        }
+
+        .xtx_panel .xtx_panel_header small {
+            margin-left: 22px;
+            font-size: 16px;
+            color: #999;
+        }
+
+        .xtx_panel .xtx_panel_header .more {
+            line-height: 1;
+            margin-top: 14px;
+            font-size: 16px;
+            color: #999;
+            float: right;
+        }
+
+        .xtx_panel .xtx_panel_header .more i {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            position: relative;
+            top: 1px;
+            background-position: 8px -106px;
+        }
+
+        .xtx_panel .xtx_panel_header .tabs-bar {
+            height: 35px;
+            padding-top: 13px;
+            font-size: 16px;
+            margin-right: 80px;
+            float: right;
+        }
+
+        .xtx_panel .xtx_panel_header .tabs-bar a {
+            padding: 2px 8px;
+            margin-left: 5px;
+            border-radius: 2px;
+        }
+
+        .xtx_panel .xtx_panel_header .tabs-bar a:hover,
+        .xtx_panel .xtx_panel_header .tabs-bar a.active {
+            background-color: #27BA9B;
+            color: #fff;
+        }
+
+        .xtx_panel .xtx_panel_goods_1 {
+            text-align: justify;
+            font-size: 0;
+        }
+
+        .xtx_panel .xtx_panel_goods_1:after {
+            content: "";
+            display: inline-block;
+            width: 306px;
+            height: 0;
+        }
+
+        .xtx_panel .xtx_panel_goods_1 a {
+            display: inline-block;
+            width: 306px;
+            height: 406px;
+            text-align: center;
+        }
+
+        .xtx_panel .xtx_panel_goods_1 img {
+            width: 306px;
+            height: 306px;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 {
+            height: 610px;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 li {
+            width: 240px;
+            height: 300px;
+            padding-top: 10px;
+            margin-left: 10px;
+            background-color: #fff;
+            border: 1px solid #fff;
+            overflow: hidden;
+            transition: 0.3s;
+            position: relative;
+            float: left;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 li:hover {
+            border-color: #27BA9B;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 li:hover .extra {
+            bottom: 0;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 li:first-child {
+            height: 610px;
+            padding-top: 0;
+            margin-left: 0;
+            border: 0;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 li:nth-last-child(-n + 4) {
+            margin-top: 10px;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 a {
+            display: block;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .img-box {
+            width: 240px;
+            height: 160px;
+            padding: 0 33px;
+            text-align: center;
+            margin: 0 auto;
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .meta {
+            height: 130px;
+            line-height: 1.3;
+            padding: 10px 22px 0;
+            font-size: 19px;
+            position: relative;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .name {
+            word-break: break-all;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .price {
+            font-size: 22px;
+            color: #CF4444;
+            position: absolute;
+            bottom: 10px;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .price small {
+            font-size: 17px;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .extra {
+            width: 100%;
+            height: 86px;
+            padding-top: 10px;
+            transition: bottom 0.3s;
+            background-color: #27BA9B;
+            position: absolute;
+            bottom: -86px;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .extra span {
+            display: block;
+            width: 124px;
+            line-height: 1;
+            padding: 9px 0 8px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 19px;
+            color: #fff;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .extra span:last-child {
+            font-size: 13px;
+            border-top: 1px solid #fff;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .label {
+            position: absolute;
+            left: 0;
+            bottom: 266px;
+            width: 188px;
+            height: 66px;
+            text-align: center;
+            line-height: 66px;
+            color: #fff;
+            font-size: 17px;
+            border-radius: 0 2px 2px 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            position: relative;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .label span:first-child {
+            display: block;
+            width: 76px;
+            background-color: #000;
+        }
+
+        .xtx_panel .xtx_panel_goods_2 .label span:last-child {
+            width: 112px;
+            line-height: 1.4;
+            transform: translate(0, -50%);
+            position: absolute;
+            left: 76px;
+            right: 0;
+            top: 50%;
+        }
+
+        /** 新鲜好物 **/
+        .xtx_goods_new .xtx_panel_goods_1 a {
+            background-color: #f0f9f4;
+            transition: 0.5s;
+            position: relative;
+            top: 0;
+        }
+
+        .xtx_goods_new .xtx_panel_goods_1 a:hover {
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            top: -3px;
+        }
+
+        .xtx_goods_new .xtx_panel_goods_1 .name {
+            display: inline-block;
+            width: 100%;
+            margin: 12px 0 10px;
+            font-size: 22px;
+        }
+
+        .xtx_goods_new .xtx_panel_goods_1 .price {
+            font-size: 23px;
+            color: #CF4444;
+        }
+
+        .xtx_goods_new .xtx_panel_goods_1 small {
+            font-size: 16px;
+        }
+
+        /** 人气推荐 **/
+        .xtx_goods_popular {
+            padding-bottom: 42px;
+        }
+
+        .xtx_goods_popular .xtx_panel_goods_1 a {
+            transition: 0.5s;
+        }
+
+        .xtx_goods_popular .xtx_panel_goods_1 a:hover {
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transform: translate(0, -3px);
+        }
+
+        .xtx_goods_popular .xtx_panel_goods_1 .title {
+            display: inline-block;
+            width: 100%;
+            line-height: 1;
+            margin: 20px 0 16px;
+            font-size: 22px;
+        }
+
+        .xtx_goods_popular .xtx_panel_goods_1 .alt {
+            font-size: 18px;
+            color: #999;
+        }
+
+        /** 热门品牌 **/
+        .xtx_goods_brand {
+            padding-bottom: 32px;
+            background-color: #f5f5f5;
+        }
+
+        .xtx_goods_brand .page-bar {
+            float: right;
+        }
+
+        .xtx_goods_brand .page-bar a {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 1;
+            margin-top: 10px;
+            background-color: #e2e2e2;
+        }
+
+        .xtx_goods_brand .page-bar a:hover,
+        .xtx_goods_brand .page-bar a.active {
+            background-color: #27BA9B;
+        }
+
+        .xtx_goods_brand .page-bar .prev {
+            margin-right: 5px;
+            background-position: -32px -106px;
+            transform: rotate(180deg);
+        }
+
+        .xtx_goods_brand .page-bar .next {
+            background-position: -32px -106px;
+        }
+
+        .xtx_goods_brand .xtx_goods {
+            height: 305px;
+        }
+
+        .xtx_goods_brand .xtx_goods li {
+            float: left;
+            font-size: 0;
+        }
+
+        .xtx_goods_brand .xtx_goods a {
+            margin-right: 10px;
+        }
+
+        .xtx_goods_brand .xtx_goods a img {
+            width: 240px;
+            height: 305px;
+        }
+
+        .xtx_goods_brand .xtx_goods a:last-child {
+            margin-right: 0;
+        }
+
+        /** 生鲜 **/
+        .xtx_goods_category {
+            padding-bottom: 80px;
+        }
+
+        /** 最新主题 **/
+        .xtx_goods_topic {
+            background-color: #f5f5f5;
+            padding-bottom: 52px;
+        }
+
+        .xtx_goods_topic li {
+            width: 406px;
+            margin-left: 11px;
+            transition: 0.5s;
+            float: left;
+            background: white;
+        }
+
+        .xtx_goods_topic li:hover {
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transform: translate(0, -3px);
+        }
+
+        .xtx_goods_topic li:first-child {
+            margin-left: 0;
+        }
+
+        .xtx_goods_topic li a {
+            display: block;
+            height: 287px;
+            position: relative;
+        }
+
+        .xtx_goods_topic .meta {
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent 50%);
+            position: absolute;
+            bottom: 0;
+        }
+
+        .xtx_goods_topic .meta .title {
+            height: 70px;
+            padding-left: 16px;
+            font-size: 22px;
+            position: absolute;
+            bottom: 0px;
+        }
+
+        .xtx_goods_topic .meta .title small {
+            display: block;
+            font-size: 19px;
+            color: #999;
+        }
+
+        .xtx_goods_topic .meta .price {
+            position: absolute;
+            bottom: 25px;
+            right: 16px;
+            display: block;
+            line-height: 1;
+            padding: 4px 8px 4px 7px;
+            color: #CF4444;
+            font-size: 17px;
+            background-color: #fff;
+            border-radius: 2px;
+        }
+
+        .xtx_goods_topic .meta .price small {
+            font-size: 15px;
+        }
+
+        .xtx_goods_topic .social {
+            height: 70px;
+            line-height: 70px;
+            padding: 0 20px;
+            font-size: 16px;
+        }
+
+        .xtx_goods_topic .social i {
+            display: inline-block;
+            width: 15px;
+            height: 14px;
+            margin-right: 5px;
+            position: relative;
+            top: 2px;
+        }
+
+        .xtx_goods_topic .social .like,
+        .xtx_goods_topic .social .liked,
+        .xtx_goods_topic .social .view {
+            float: left;
+            margin-right: 25px;
+        }
+
+        .xtx_goods_topic .social .reply {
+            float: right;
+        }
+
+        .xtx_goods_topic .social .like i {
+            background-position: -120px -110px;
+        }
+
+        .xtx_goods_topic .social .liked i {
+            background-position: -240px -110px;
+        }
+
+        .xtx_goods_topic .social .view i {
+            background-position: -160px -110px;
+        }
+
+        .xtx_goods_topic .social .reply i {
+            width: 17px;
+            height: 16px;
+            top: 4px;
+            background-position: -200px -110px;
+        }
+
+        .xtx-wrapper {
+            background: #f5f5f5;
+            line-height: 1.4;
+        }
+
+        .xtx-wrapper .container {
+            width: 1240px;
+            margin: 0 auto;
+        }
+
+        .xtx-wrapper .container .title {
+            height: 215px;
+            line-height: 215px;
+            font-size: 32px;
+            text-align: center;
+            font-weight: normal;
+        }
+
+        .xtx-bg-title {
+            width: 100%;
+            height: 180px;
+            padding-left: 213px;
+            background: no-repeat center / cover;
+        }
+
+        .xtx-bg-title h4 {
+            padding-top: 52px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .xtx-bg-title p {
+            padding-top: 5px;
+            font-size: 20px;
+        }
+
+        .xtx-large-product {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .xtx-large-product .item {
+            width: 610px;
+            height: 420px;
+            background: white;
+            position: relative;
+        }
+
+        .xtx-large-product .item img {
+            width: 100%;
+            height: 320px;
+            display: block;
+        }
+
+        .xtx-large-product .item p {
+            padding-left: 55px;
+        }
+
+        .xtx-large-product .item p.tit {
+            padding-top: 22px;
+            font-size: 16px;
+        }
+
+        .xtx-large-product .item p.desc {
+            padding-top: 12px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .xtx-large-product .item .price {
+            position: absolute;
+            bottom: 37px;
+            right: 33px;
+            color: #CF4444;
+            font-size: 18px;
+        }
+
+        .xtx-large-product .item .tag {
+            width: 170px;
+            height: 40px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            position: absolute;
+            top: 17px;
+            left: 15px;
+            line-height: 40px;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .xtx-mini-product {
+            padding-top: 40px;
+            padding-bottom: 20px;
+        }
+
+        .xtx-mini-product ul li {
+            width: 232px;
+            height: 320px;
+            float: left;
+            background: white;
+            margin-right: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .xtx-mini-product ul li:nth-child(5n) {
+            margin-right: 0;
+        }
+
+        .xtx-mini-product ul li img {
+            width: 160px;
+            height: 160px;
+            display: block;
+            margin: 22px auto 0;
+        }
+
+        .xtx-mini-product ul li .tit {
+            padding-top: 23px;
+            font-size: 16px;
+        }
+
+        .xtx-mini-product ul li .desc {
+            padding-top: 12px;
+            color: #999;
+        }
+
+        .xtx-mini-product ul li .price {
+            font-size: 18px;
+            color: #CF4444;
+            padding-top: 16px;
+        }
+
+        .xtx-simpla-title {
+            height: 40px;
+            font-size: 28px;
+            text-align: center;
+        }
+
+        .xtx-large-brand {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .xtx-large-brand .item {
+            width: 610px;
+            height: 480px;
+            background: white;
+            margin-bottom: 40px;
+        }
+
+        .xtx-large-brand .item img {
+            width: 100%;
+            height: 320px;
+            display: block;
+        }
+
+        .xtx-large-brand .item .info {
+            padding: 0 35px;
+            position: relative;
+        }
+
+        .xtx-large-brand .item .info p.name {
+            padding-top: 22px;
+            padding-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .xtx-large-brand .item .info p.name i {
+            width: 36px;
+            height: 18px;
+            line-height: 18px;
+            background: #27BA9B;
+            border-radius: 2px;
+            color: #fff;
+            font-size: 14px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .xtx-large-brand .item .info p.desc {
+            color: #999;
+            font-size: 14px;
+            height: 40px;
+            line-height: 20px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            padding-right: 40px;
+        }
+
+        .xtx-large-brand .item .info .price {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #CF4444;
+            font-size: 18px;
+        }
+
+        .xtx-large-brand .item .comment {
+            padding: 15px 35px 0;
+            line-height: 40px;
+            color: #999;
+        }
+
+        .xtx-large-brand .item .comment .line {
+            width: 100%;
+            height: 1px;
+            background: #E4E4E4;
+        }
+
+        .xtx-large-brand .item .comment .red {
+            color: #CF4444;
+        }
+
+        .xtx-large-brand .item .comment .mr18 {
+            margin-right: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 项部导航 -->
+    <div class="xtx_topnav">
+        <div class="wrapper">
+            <!-- 顶部导航 -->
+            <ul class="xtx_navs">
+                <li>
+                    <a href="./login.html">请先登录</a>
+                </li>
+                <li>
+                    <a href="./register.html">免费注册</a>
+                </li>
+                <li>
+                    <a href="./center-order.html">我的订单</a>
+                </li>
+                <li>
+                    <a href="./center.html">会员中心</a>
+                </li>
+                <li>
+                    <a href="javascript:;">帮助中心</a>
+                </li>
+                <li>
+                    <a href="javascript:;">在线客服</a>
+                </li>
+                <li>
+                    <a href="javascript:;">
+                        <i class="mobile sprites"></i>
+                        手机版
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 头部 -->
+    <div class="xtx_header">
+        <div class="wrapper">
+            <!-- 网站Logo -->
+            <h1 class="xtx_logo"><a href="/">小兔鲜儿</a></h1>
+            <!-- 主导航 -->
+            <div class="xtx_navs">
+                <ul class="clearfix">
+                    <li>
+                        <a href="./index.html">首页</a>
+                    </li>
+                    <li>
+                        <a href="./category01.html">生鲜</a>
+                    </li>
+                    <li>
+                        <a href="./category01.html">美食</a>
+                    </li>
+                    <li>
+                        <a href="./category01.html">餐厨</a>
+                    </li>
+                    <li>
+                        <a href="./category01.html">电器</a>
+                    </li>
+                    <li>
+                        <a href="./category01.html">居家</a>
+                    </li>
+                    <li>
+                        <a href="./category01.html">洗护</a>
+                    </li>
+                    <li>
+                        <a href="./category01.html">孕婴</a>
+                    </li>
+                    <li>
+                        <a href="./category01.html">服装</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- 站内搜索 -->
+            <div class="xtx_search clearfix">
+                <!-- 购物车 -->
+                <a href="./cart-none.html" class="xtx_search_cart sprites">
+                    <i>2</i>
+                </a>
+                <!-- 搜索框 -->
+                <div class="xtx_search_wrapper">
+                    <input type="text" placeholder="搜一搜" onclick="location.href='./search.html'">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 分类及焦点图 -->
+    <div class="xtx_entry">
+        <div class="wrapper">
+            <!-- 分类 -->
+            <div class="xtx_category">
+                <!-- 顶级分类 -->
+                <ul class="xtx_category_super">
+                    <li>
+                        <a href="javascript:;">
+                            生鲜
+                            <small>水果</small>
+                            <small>蔬菜</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li class="active">
+                        <a href="javascript:;">
+                            美食
+                            <small>面点</small>
+                            <small>干果</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            电器
+                            <small>数码产品</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            居家
+                            <small>床品</small>
+                            <small>四件套</small>
+                            <small>被枕</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            洗护
+                            <small>洗发洗护</small>
+                            <small>美妆</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            孕婴
+                            <small>奶粉</small>
+                            <small>玩具</small>
+                            <small>辅食</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            餐橱
+                            <small>数码产品</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            服饰
+                            <small>女装</small>
+                            <small>男装</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            杂货
+                            <small>户外</small>
+                            <small>图书</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            品牌
+                            <small>品牌制造</small>
+                        </a>
+                        <i class="sprites"></i>
+                    </li>
+                </ul>
+                <!-- 子分类 -->
+                <div class="xtx_category_subset">
+
+                </div>
+            </div>
+            <!-- 焦点图 -->
+            <div class="xtx_banner">
+
+                <ul>
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./uploads/banner_1.png" alt="">
+                        </a>
+                    </li>
+                </ul>
+                <!-- 切换按钮  -->
+                <a href="javascript:;" class="prev sprites"></a>
+                <a href="javascript:;" class="next sprites"></a>
+                <!-- 指示器 -->
+                <div class="indicator">
+                    <span></span>
+                    <span></span>
+                    <span class="active"></span>
+                    <span></span>
+                    <span></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 新鲜好物 -->
+    <div class="xtx_goods_new xtx_panel">
+        <div class="wrapper">
+            <!-- 面板头部 -->
+            <div class="xtx_panel_header">
+                <h3>新鲜好物<small>新鲜出炉 品质靠谱</small></h3>
+                <a href="./index-new.html" class="more">
+                    查看全部<i class="sprites"></i>
+                </a>
+            </div>
+            <!-- 商品列表 -->
+            <div class="xtx_panel_goods_1">
+                <a href="javascript:;">
+                    <img src="./uploads/new_goods_1.jpg" alt="">
+                    <span class="name">睿米无线吸尘器F8</span>
+                    <span class="price"><small>￥</small>899</span>
+                </a>
+                <a href="javascript:;">
+                    <img src="./uploads/new_goods_2.jpg" alt="">
+                    <span class="name">智能环绕3D空调</span>
+                    <span class="price"><small>￥</small>1299</span>
+                </a>
+                <a href="javascript:;">
+                    <img src="./uploads/new_goods_3.jpg" alt="">
+                    <span class="name">广东软软糯米煲仔饭</span>
+                    <span class="price"><small>￥</small>129</span>
+                </a>
+                <a href="javascript:;">
+                    <img src="./uploads/new_goods_4.jpg" alt="">
+                    <span class="name">罗西机械智能手表</span>
+                    <span class="price"><small>￥</small>3399</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- 人气推荐 -->
+    <div class="xtx_goods_popular xtx_panel">
+        <div class="wrapper">
+            <!-- 面板头部 -->
+            <div class="xtx_panel_header">
+                <h3>人气推荐<small>人气爆款 不容错过</small></h3>
+            </div>
+            <!-- 商品列表 -->
+            <div class="xtx_panel_goods_1">
+                <a href="javascript:;">
+                    <img src="./uploads/popular_1.jpg">
+                    <span class="title">特惠推荐</span>
+                    <span class="alt">我猜得到 你的需要</span>
+                </a>
+                <a href="./index-hot.html">
+                    <img src="./uploads/popular_2.jpg">
+                    <span class="title">爆款推荐</span>
+                    <span class="alt">人气好物推荐</span>
+                </a>
+                <a href="./index-one.html">
+                    <img src="./uploads/popular_3.jpg">
+                    <span class="title">场景使用一站买全</span>
+                    <span class="alt">编辑精心整理推荐</span>
+                </a>
+                <a href="javascript:;">
+                    <img src="./uploads/popular_4.jpg">
+                    <span class="title">领券中心</span>
+                    <span class="alt">发现更多超值优惠券</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- 热门品牌 -->
+    <div class="xtx_goods_brand xtx_panel">
+        <div class="wrapper">
+            <div class="xtx_panel_header">
+                <h3>热门品牌<small>国际经典 品质保证</small></h3>
+                <div class="page-bar">
+                    <a href="javascript:;" class="prev sprites"></a>
+                    <a href="javascript:;" class="next sprites active"></a>
+                </div>
+            </div>
+            <!-- 商品列表 -->
+            <div class="xtx_goods">
+                <ul>
+                    <li>
+                        <a href="./index-brand.html">
+                            <img src="./uploads/brand_goods_1.jpg" alt="">
+                        </a>
+                        <a href="./brand-list.html">
+                            <img src="./uploads/brand_goods_2.jpg" alt="">
+                        </a>
+                        <a href="javascript:;">
+                            <img src="./uploads/brand_goods_3.jpg" alt="">
+                        </a>
+                        <a href="javascript:;">
+                            <img src="./uploads/brand_goods_4.jpg" alt="">
+                        </a>
+                        <a href="javascript:;">
+                            <img src="./uploads/brand_goods_5.jpg" alt="">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 分类商品 -->
+    <div class="xtx_goods_category xtx_panel">
+        <div class="wrapper">
+            <!-- 生鲜 -->
+            <div class="xtx_panel_header">
+                <h3>生鲜</h3>
+                <a href="javascript:;" class="more">
+                    查看全部<i class="sprites"></i>
+                </a>
+                <div class="tabs-bar">
+                    <a href="javascript:;" class="active">水果</a>
+                    <a href="javascript:;">蔬菜</a>
+                    <a href="javascript:;">肉禽蛋</a>
+                    <a href="javascript:;">裤装</a>
+                    <a href="javascript:;">衬衫</a>
+                    <a href="javascript:;">内衣</a>
+                </div>
+            </div>
+            <!-- 商品列表 -->
+            <div class="xtx_panel_goods_2">
+                <ul class="clearfix">
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./uploads/fresh_goods_cover.jpg" alt="">
+                        </a>
+                        <div class="label">
+                            <span>生鲜馆</span>
+                            <span>全场3件8折</span>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- 商品图片 -->
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/fresh_goods_1.jpg" alt="">
+                            </div>
+                        </a>
+                        <!-- 商品信息 -->
+                        <div class="meta">
+                            <p class="name">美威 智利原味三文鱼排 240g/袋 4片装</p>
+                            <p class="flag">海鲜年货</p>
+                            <p class="price"><small>￥</small>59</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/fresh_goods_2.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">红功夫 麻辣小龙虾1.5kg 4-6钱/25-32只</p>
+                            <p class="flag">火锅食材</p>
+                            <p class="price"><small>￥</small>71.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/fresh_goods_3.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">三都港 冷冻无公害黄花鱼 700g 2条 袋装</p>
+                            <p class="flag">海鲜水产</p>
+                            <p class="price"><small>￥</small>49.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/fresh_goods_4.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">渔公码头 大连鲜食入味 即食海参 辽参刺参 调味海</p>
+                            <p class="flag">海鲜年货</p>
+                            <p class="price"><small>￥</small>899</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/fresh_goods_5.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">越南进口白心火龙果4个 装 标准果 单果400-550g </p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>29</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/fresh_goods_6.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">广西沃柑 柑橘1.5kg</p>
+                            <p class="flag">新鲜水果</p>
+                            <p class="price"><small>￥</small>59</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/fresh_goods_7.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">进口 牛油果 6个装 单果重约130-180g</p>
+                            <p class="flag">新鲜水果</p>
+                            <p class="price"><small>￥</small>39.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/fresh_goods_8.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">泰国进口山竹5A级 500g </p>
+                            <p class="flag">新鲜水果</p>
+                            <p class="price"><small>￥</small>29.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 服饰 -->
+            <div class="xtx_panel_header">
+                <h3>服饰</h3>
+                <a href="javascript:;" class="more">
+                    查看全部<i class="sprites"></i>
+                </a>
+                <div class="tabs-bar">
+                    <a href="javascript:;" class="active">行李箱</a>
+                    <a href="javascript:;">男士包袋</a>
+                    <a href="javascript:;">女士包袋</a>
+                    <a href="javascript:;">钱包及小提袋</a>
+                    <a href="javascript:;">男鞋</a>
+                    <a href="javascript:;">女鞋</a>
+                    <a href="javascript:;">拖鞋</a>
+                </div>
+            </div>
+            <!-- 商品列表 -->
+            <div class="xtx_panel_goods_2">
+                <ul class="clearfix">
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./uploads/clothes_goods_cover.jpg" alt="">
+                        </a>
+                        <div class="label">
+                            <span>服饰馆</span>
+                            <span>3折狂欢</span>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- 商品图片 -->
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/clothes_goods_1.jpg" alt="">
+                            </div>
+                        </a>
+                        <!-- 商品信息 -->
+                        <div class="meta">
+                            <p class="name">人本秋季厚底帆布鞋 韩版低帮增高学生</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>55</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/clothes_goods_2.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">迪士尼真皮针扣表带宽度 14-16mm规格双色压纹 女表带</p>
+                            <p class="flag">海鲜年货</p>
+                            <p class="price"><small>￥</small>20.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/clothes_goods_3.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">三都港 冷冻无公害黄花鱼 700g 2条 袋装</p>
+                            <p class="flag">海鲜水产</p>
+                            <p class="price"><small>￥</small>209</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/clothes_goods_4.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">ONLY夏季新款高腰宽松 七分阔腿裙裤休闲裤</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>274.5</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/clothes_goods_5.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">拉夫劳伦t恤男正品 </p>
+                            <p class="flag">圆领短袖</p>
+                            <p class="price"><small>￥</small>99</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/clothes_goods_6.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">李宁跑步鞋男鞋空气 弧2018春季款</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>79</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/clothes_goods_7.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">Dickies男鞋2020春季 英伦休闲工装鞋低帮</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>179</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/clothes_goods_8.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">北极绒春夏季纯棉背心 男士修身纯色打底</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>69</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 餐厨 -->
+            <div class="xtx_panel_header">
+                <h3>餐厨</h3>
+                <a href="javascript:;" class="more">
+                    查看全部<i class="sprites"></i>
+                </a>
+                <div class="tabs-bar">
+                    <a href="javascript:;" class="active">水果</a>
+                    <a href="javascript:;">蔬菜</a>
+                    <a href="javascript:;">肉禽蛋</a>
+                    <a href="javascript:;">裤装</a>
+                    <a href="javascript:;">衬衫</a>
+                    <a href="javascript:;">内衣</a>
+                </div>
+            </div>
+            <!-- 商品列表 -->
+            <div class="xtx_panel_goods_2">
+                <ul class="clearfix">
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./uploads/kitchen_goods_cover.jpg" alt="">
+                        </a>
+                        <div class="label">
+                            <span>餐厨馆</span>
+                            <span>大额优惠<br>等你来拿</span>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- 商品图片 -->
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/kitchen_goods_1.jpg" alt="">
+                            </div>
+                        </a>
+                        <!-- 商品信息 -->
+                        <div class="meta">
+                            <p class="name">创意可爱不锈钢便携餐具 套装筷子便携三件套</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>5.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/kitchen_goods_2.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">三金西瓜霜竹炭牙刷软毛 成人家用家庭装</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>20.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/kitchen_goods_3.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">朴（TOPOTO）大卫免手 洗平板拖把拓扑懒人木地 板刮刮乐桶拖布</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>129</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/kitchen_goods_4.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">ONLY夏季新款高腰宽松 七分阔腿裙裤休闲裤</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>274.5</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/kitchen_goods_5.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">金纺不伤手柔顺剂 妈妈的选择</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>29</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/kitchen_goods_6.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">洁成绵柔抹布洗碗巾超 值5片装 洗锅刷碗</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>10.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/kitchen_goods_7.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">大卫双驱动旋转拖把桶 免手洗拓扑拖布地拖墩布 </p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>159</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/kitchen_goods_8.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">斧头牌（AXE）去污地板 清洁剂2L 柠檬清香 </p>
+                            <p class="flag">海鲜年货</p>
+                            <p class="price"><small>￥</small>22.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 居家 -->
+            <div class="xtx_panel_header">
+                <h3>居家</h3>
+                <a href="javascript:;" class="more">
+                    查看全部<i class="sprites"></i>
+                </a>
+                <div class="tabs-bar">
+                    <a href="javascript:;" class="active">咖啡具</a>
+                    <a href="javascript:;">水具酒具</a>
+                    <a href="javascript:;">锅具</a>
+                    <a href="javascript:;">餐具</a>
+                    <a href="javascript:;">功能厨具</a>
+                    <a href="javascript:;">茶具</a>
+                    <a href="javascript:;">清洁保鲜</a>
+                </div>
+            </div>
+            <!-- 商品列表 -->
+            <div class="xtx_panel_goods_2">
+                <ul class="clearfix">
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./uploads/home_goods_cover.jpg" alt="">
+                        </a>
+                        <div class="label">
+                            <span>居家馆</span>
+                            <span>全场满减</span>
+                        </div>
+                    </li>
+                    <li>
+                        <!-- 商品图片 -->
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/home_goods_1.jpg" alt="">
+                            </div>
+                        </a>
+                        <!-- 商品信息 -->
+                        <div class="meta">
+                            <p class="name">菜鸟异常专用链接 非请 勿拍</p>
+                            <p class="flag">海鲜年货</p>
+                            <p class="price"><small>￥</small>8999</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/home_goods_2.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">【中盐软水盐】汉斯希 尔家用软水机适配</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>65</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/home_goods_3.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">云米净水壶家用直饮台式 净水机渗透过滤自来水</p>
+                            <p class="flag">海鲜年货</p>
+                            <p class="price"><small>￥</small>129</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/home_goods_4.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">ztk恒温调奶器配件玻璃壶 炖盅</p>
+                            <p class="flag">海鲜年货</p>
+                            <p class="price"><small>￥</small>129</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/home_goods_5.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">荞麦枕头单人枕芯双人 护颈椎枕头芯</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>29</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/home_goods_6.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">Bear/小熊 LLJ-B04G1 家用多功能切碎机 电动</p>
+                            <p class="flag">料理机</p>
+                            <p class="price"><small>￥</small>10.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/home_goods_7.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">荣事达薄饼机春饼春卷皮 家用博饼机电饼铛 </p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>159</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="img-box">
+                                <img src="./uploads/home_goods_8.jpg" alt="">
+                            </div>
+                        </a>
+                        <div class="meta">
+                            <p class="name">美式双人实木床 红实木 显档次</p>
+                            <p class="flag"></p>
+                            <p class="price"><small>￥</small>22.9</p>
+                        </div>
+                        <!-- 其它 -->
+                        <div class="extra">
+                            <a href="javascript:;">
+                                <span>找相似</span>
+                                <span>发现现多宝贝&gt;</span>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 最新主题 -->
+    <div class="xtx_goods_topic xtx_panel">
+        <div class="wrapper">
+            <div class="xtx_panel_header">
+                <h3>最新专题</h3>
+                <a href="javascript:;" class="more">
+                    查看全部<i class="sprites"></i>
+                </a>
+            </div>
+            <div class="xtx_topic">
+                <ul class="clearfix">
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./uploads/topic_goods_1.jpg" alt="">
+                            <div class="meta">
+                                <p class="title">
+                                    吃这些美食才不算辜负自己
+                                    <small>餐厨起居洗护好物</small>
+                                </p>
+                                <span class="price"><small>￥</small>29.9起</span>
+                            </div>
+                        </a>
+                        <div class="social">
+                            <span class="like">
+                                <i class="sprites"></i>1220
+                            </span>
+                            <span class="view">
+                                <i class="sprites"></i>1800
+                            </span>
+
+                            <span class="reply">
+                                <i class="sprites"></i>1220
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./uploads/topic_goods_2.jpg" alt="">
+                            <div class="meta">
+                                <p class="title">
+                                    吃这些美食才不算辜负自己
+                                    <small>餐厨起居洗护好物</small>
+                                </p>
+                                <span class="price"><small>￥</small>29.9起</span>
+                            </div>
+                        </a>
+                        <div class="social">
+                            <span class="liked">
+                                <i class="sprites"></i>1220
+                            </span>
+                            <span class="view">
+                                <i class="sprites"></i>1800
+                            </span>
+
+                            <span class="reply">
+                                <i class="sprites"></i>1220
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <img src="./uploads/topic_goods_3.jpg" alt="">
+                            <div class="meta">
+                                <p class="title">
+                                    吃这些美食才不算辜负自己
+                                    <small>餐厨起居洗护好物</small>
+                                </p>
+                                <span class="price"><small>￥</small>29.9起</span>
+                            </div>
+                        </a>
+                        <div class="social">
+                            <span class="like">
+                                <i class="sprites"></i>1220
+                            </span>
+                            <span class="view">
+                                <i class="sprites"></i>1800
+                            </span>
+
+                            <span class="reply">
+                                <i class="sprites"></i>1220
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- 公共底部 -->
+    <div class="xtx_footer clearfix">
+        <div class="wrapper">
+            <!-- 联系我们 -->
+            <div class="contact clearfix">
+                <dl>
+                    <dt>客户服务</dt>
+                    <dd class="chat">在线客服</dd>
+                    <dd class="feedback">问题反馈</dd>
+                </dl>
+                <dl>
+                    <dt>关注我们</dt>
+                    <dd class="weixin">公众号</dd>
+                    <dd class="weibo">微博</dd>
+                </dl>
+                <dl>
+                    <dt>下载APP</dt>
+                    <dd class="qrcode">
+                        <img src="./uploads/qrcode.jpg">
+                    </dd>
+                    <dd class="download">
+                        <span>扫描二维码</span>
+                        <span>立马下载APP</span>
+                        <a href="javascript:;">下载页面</a>
+                    </dd>
+                </dl>
+                <dl>
+                    <dt>服务热线</dt>
+                    <dd class="hotline">
+                        400-0000-000
+                        <small>周一至周日 8:00-18:00</small>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <!-- 其它 -->
+        <div class="extra">
+            <div class="wrapper">
+                <!-- 口号 -->
+                <div class="slogan">
+                    <a href="javascript:;" class="price">价格亲民</a>
+                    <a href="javascript:;" class="express">物流快捷</a>
+                    <a href="javascript:;" class="quality">品质新鲜</a>
+                </div>
+                <!-- 版权信息 -->
+                <div class="copyright">
+                    <p>
+                        <a href="javascript:;">关于我们</a>
+                        <a href="javascript:;">帮助中心</a>
+                        <a href="javascript:;">售后服务</a>
+                        <a href="javascript:;">配送与验收</a>
+                        <a href="javascript:;">商务合作</a>
+                        <a href="javascript:;">搜索推荐</a>
+                        <a href="javascript:;">友情链接</a>
+                    </p>
+                    <p>CopyRight &copy; 小兔鲜儿</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const li1 = document.querySelector('.xtx_navs li:first-child');
+        const li2 = li1.nextElementSibling;
+        function render() {
+            const uname = localStorage.getItem('xtx-uname');
+            if (uname) {
+                li1.innerHTML = `
+                <a href="javascript:;">
+                    <i class="iconfont icon-user">${uname}</i>
+                </a>
+                `
+                li2.innerHTML = `
+                <a href="javascript:;">退出登入</a>
+                `
+            } else {
+                li1.innerHTML=`
+                <a href="./142-login.html">請先登入</a>
+                `
+                li2.innerHTML=`
+                <a href="./142-register.html">免費註冊</a>
+                `
+            }
+        }
+        render();
+
+        li2.addEventListener('click', function(){
+            localStorage.removeItem('xtx-uname');
+            render();
+        })
+    </script>
+</body>
+
+</html>

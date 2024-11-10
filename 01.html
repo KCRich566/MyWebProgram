@@ -905,9 +905,101 @@
         const { uname2: uname3, age2: age3 } = objjj;
 
         // 數組對象
-        const pig = [{uname: 'Ken', age:16},{uname: 'Ted', age:18} ];
-        const [,{uname: u2, age:a2}] = pig;
+        const pig = [{ uname: 'Ken', age: 16 }, { uname: 'Ted', age: 18 }];
+        const [, { uname: u2, age: a2 }] = pig;
         console.log(u2, a2);
+    </script>
+
+    <script>
+        // 三種創建對象的方式
+        // 1
+        const o = {
+            name: 'KO'
+        }
+        // 2
+        const ooobj = new Object();
+        ooobj.uanme = "KO";
+
+        const oooobj = new Object({ name: 'Pink' })
+        // 3. 構造函數(要大寫開頭喔)
+        // 實例化執行過程 -> 
+        // new 創建一個新的對象
+        // this就會直接指向新的對象的位置
+        // 否則他就只是個function的操作
+        function Pigg(name, age, gender) {
+            // 實例成員: 實例屬性與實例方法
+
+            // 實例屬性
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+            // 實例方法
+            this.fullName = () => {
+                console.log(name, age, gender);
+            }
+        }
+        const p1 = new Pigg('KO', 19, 'male');
+        const p2 = new Pigg('KOO', 20, 'male');
+        // 結構一樣，但實際上是不同對象
+        console.log('p1 === p2 ? ', p1 === p2);
+
+        // 靜態成員
+        p1.eyes = 2;
+        p2.arms = 2;
+        // 靜態方法
+        p2.walk = function () {
+            console.log(this.name, ' can walk');
+        };
+
+    </script>
+
+    <!-- 內置構造函數 
+     Object
+     Array
+     String
+     Number
+     -->
+    <script>
+
+        var strrr = 'test';
+        // 底層會寫成(var與let依樣喔)
+        var strrr = new String('test');
+
+        // 引用數據類型Object, Array, RegExp(正則表達式), Date
+
+        // Object
+        const uuser = new Object({ name: 'KKO', age: 33 });
+
+        // Object.keys 靜態方法: 
+        console.log(Object.keys(uuser));
+        for (uprop in uuser) {
+            console.log(uprop, uuser[uprop]);
+        }
+        const oo = {name: "KO", agge: 232}
+        // 相當於對象複製與添加
+        Object.assign(oo, uuser);
+        console.log('oo=', oo)
+        // 相當於對象複製與添加
+        Object.assign(uuser, {gender:'女'});
+        console.log('uuser=', uuser)
+
+        // Array
+        //  forEach
+        //  map
+        //  filter
+        //  reduce: 累計器，返回累計處理的結果。(很像遍歷數組,但會把前一次的結果傳到目前運算中)
+        // arr.reduce(上一次的值, 當前值){}, 初始值); 
+        const arrrr = [1,2,3,4];
+        const ttoal = arrrr.reduce(function(prev, current){
+            return prev + current;
+        })
+        const ttttoal = arrrr.reduce(function(prev, current){
+            return prev + current;
+        }, 10)
+        const tttoal = arrrr.reduce((prev, current) => prev+current, 10);
+
+        
+        
     </script>
 </body>
 
