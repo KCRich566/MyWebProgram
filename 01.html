@@ -975,12 +975,12 @@
         for (uprop in uuser) {
             console.log(uprop, uuser[uprop]);
         }
-        const oo = {name: "KO", agge: 232}
+        const oo = { name: "KO", agge: 232 }
         // 相當於對象複製與添加
         Object.assign(oo, uuser);
         console.log('oo=', oo)
         // 相當於對象複製與添加
-        Object.assign(uuser, {gender:'女'});
+        Object.assign(uuser, { gender: '女' });
         console.log('uuser=', uuser)
 
         // Array
@@ -989,18 +989,75 @@
         //  filter
         //  reduce: 累計器，返回累計處理的結果。(很像遍歷數組,但會把前一次的結果傳到目前運算中)
         // arr.reduce(上一次的值, 當前值){}, 初始值); 
-        const arrrr = [1,2,3,4];
-        const ttoal = arrrr.reduce(function(prev, current){
+        // 如果arr是個對象，要使其屬性累加，一定要將初始值設定為0,否則會變成初始對象開始累加
+        const arrrr = [1, 2, 3, 4];
+        const ttoal = arrrr.reduce(function (prev, current) {
             return prev + current;
         })
-        const ttttoal = arrrr.reduce(function(prev, current){
+        const ttttoal = arrrr.reduce(function (prev, current) {
             return prev + current;
         }, 10)
-        const tttoal = arrrr.reduce((prev, current) => prev+current, 10);
+        const tttoal = arrrr.reduce((prev, current) => prev + current, 10);
 
-        
-        
+
+        // Array常見方法
+        // join: 拼接多個字串
+        // find
+        // every: 看看全部數組是否等於指定內容
+        // some
+        // concat
+        // sort
+        // from: 將偽數組轉為真的數組，沒有pop與push
+        const arrar = [
+            {
+                name: '小米',
+                price: 1999
+            },
+            {
+                name: '華為',
+                price: 3999
+            }
+        ]
+        let result = arrar.find(function (item) {
+            return item.name === '小米';
+        });
+        console.log('result =', result);
+
+        let temp1 = Object.values(arrar);
+        console.log('temp1 =', temp1);
+
+        // String
+        /*
+        length
+        split
+        substring
+        startWidth
+        includes
+        toUpperCase
+        toLowerCase
+        indexOf
+        endsWith
+        replace
+        match
+        String:轉換為字符串
+        */
+        //Number
+        /*
+        Number(): 專換為數值
+        toFixed(): 保留小數點位數
+        */
+
+
     </script>
+    <!--
+    原型對象:
+    對象原型: 
+    面相過程: 使用函數一次調用，按造步驟一次執行。步驟劃分
+    面相對象:  分工，分門別類。以功能化分，而不是步驟(OOP)
+        封裝性
+        繼承性
+        多態性
+    -->
 </body>
 
 </html>
