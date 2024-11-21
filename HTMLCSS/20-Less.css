@@ -1,0 +1,28 @@
+/*
+多航註釋
+*/
+.width {
+  /* 
+        加:A+B單位
+        減:A-B單位
+        乘:A*B單位
+        除:(A/B單位) or A ./ B單位(用後者會有個語法錯誤，但實際上是允許的)
+    */
+  width: 1.33333333rem;
+  height: 2000px;
+}
+.father {
+  color: red;
+}
+.father .son {
+  color: green;
+}
+.father .son a {
+  color: yellow;
+}
+.father .son a:hover {
+  color: orange;
+}
+.father {
+  color: pink;
+}

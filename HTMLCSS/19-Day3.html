@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- 視口標籤在這唷
+     視口寬度 = 設備寬度
+     initial-scale=1.0: 表示不縮放 -->
+
+    <!-- 設計師為了圖像不失真，都匯出二倍圖 750px ,現在都是一375px為準(iphone6/7/8)-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* rem是配方案
+        vw視口 */
+
+        /* 分辨率
+        物理分辨率: (出場設置)
+        邏輯分辨率: 縮放調節後的分辨率
+        */
+
+        /* 視配方案
+        寬度視配(寬度自適應): 百分比布局, Flex布局
+        等比視配(寬高等比縮放): rem, vw */
+
+        /* rem 是相對單位: 相對於HTML標籤的字號大小, 1rem = 1HTML字號大小 */
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* media有順序唷 */
+        @media (width:375px) {
+            html {
+                font-size: 8px;
+            }
+
+            body {
+                background-color: green;
+            }
+        }
+
+        @media (width<375px) {
+            html {
+                font-size: 16px;
+            }
+
+            body {
+                background-color: red;
+            }
+        }
+
+        @media (width:320px) {
+            html {
+                font-size: 4px;
+            }
+
+            body {
+                background-color: orange;
+            }
+        }
+
+        html {
+            height: 100%;
+            /* 固定字號 */
+            /* font-size: 60px; */
+            /* 手機屏幕大小不同，分辨率也不同: 可以使用媒體查詢 
+            @media (媒體特性){
+                選擇器 {
+                    CSS屬性
+                }
+            }
+
+            */
+        }
+
+        .box {
+            width: 5rem;
+            height: 3rem;
+            background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+    <!-- flexible.js 視配移動端的js庫
+    核心是根據不同的視口寬度，給網頁中的HTML不同的font-size(取視口端的1/10)
+     -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flexibility/2.0.1/flexibility.js" integrity="sha512-RShXKLsEuWDEo16rDAnxSEE3ZsCb9fH6/khyQqoFN3h6fybkaIb4EW5DTqQNNkCG7SsWGPtiU8dppBdFxeC/gw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
+
+    <!-- Less:一個CSS的預處理器，擴充CSS語言，使CSS具備一定的邏輯與計算能力
+      安裝Easy Less -> 開啟less附檔名的檔案 -> 轉寫CSS語法 -> 儲存 -> 會產生CSS
+
+      Less語法:
+      .father{
+      color:red;
+      width: (68/37.5rem)
+      }
+    -->
+</body>
+
+</html>

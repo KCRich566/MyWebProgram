@@ -652,11 +652,13 @@
     <script>
         // 使用first-child一定要確保有父節點
         const back = document.querySelector('button.control:first-child')
+        debugger
         console.log('back = ', back);
         const next = back.nextElementSibling;
         back.addEventListener('click', function () {
             // 以下兩者一樣
             //history.back();
+            
             history.go(-1);
         });
         next.addEventListener('click', function () {
@@ -1050,14 +1052,198 @@
 
     </script>
     <!--
-    原型對象:
-    對象原型: 
-    面相過程: 使用函數一次調用，按造步驟一次執行。步驟劃分
-    面相對象:  分工，分門別類。以功能化分，而不是步驟(OOP)
+    原型對象(類) prototype, constructor(指向構造函數):
+    對象原型(物件) constructor(指向構造函數), __proto__(指向類別原型): 
+    面相過程: 使用函數一次調用，按造步驟一次執行。步驟劃分。性能比面向對像高(前端更多是用面相過程)
+    面相對象:  分工，分門別類。以功能化分，而不是步驟(OOP)。易維護、易復用、易擴展
         封裝性
         繼承性
         多態性
+        重用性
+        閉耦合
     -->
+    <script>
+        // 封裝
+        let that;
+        function Star(uname, age) {
+            this.uname = uname;
+            this.age = age;
+            // 這個function會存在浪費內存的問題，因為不同實例化會視為不同內容
+            // 可以使用原型來解決
+            this.sing = function () {
+                that = this;
+                console.log(this.uname, ' 唱歌');
+            }
+        };
+        const lu = new Star('劉德華', 56);
+        console.log(lu);
+        lu.sing();
+        const chang = new Star('張學友', 59);
+        console.log("沒有使用原型的function: ", lu.sing === chang.sing);
+
+        // 原型: 構造函數通過原型分配的函數是共享的
+        // 每個構造函數都有個原型prototype;
+
+        function Boy(uname, age) {
+            // 公共的屬性寫在構造函數身上
+            this.uname = uname;
+            this.age = age;
+
+            // this.play = function () {
+            //     console.log(uname, ' 在玩');
+            // }
+        }
+        // prototype: 公共的方法寫在原型對象
+        Boy.prototype.play = function () {
+            console.log(this.uname, ' 在玩');
+        }
+        const b1 = new Boy("b1", 11);
+        const b2 = new Boy("b2", 5);
+        console.log("使用原型的function: ", b1.play === b2.play);
+
+        console.log('This差別', lu.sing(), b1.play());
+
+        // 在Array中使用原型
+        Array.prototype.myMax = function () {
+            console.log('Array.prototype.myMax=', this);
+            return Math.max(...this);
+        }
+
+        const arrayy = [1, 2, 3, 4];
+        console.log('arrayy.myMax = ', arrayy.myMax());
+        console.log(' Array.prototype = ', Array.prototype);
+
+        // constructor: 每個原型都有的(prototype.construct);將原型對象找到父親(構造函數)
+        // 
+        function Girl() {
+
+        }
+        Girl.prototype = {
+            //這樣復值prototype會不知道constructor是誰，所以要將constuctor指向回構造函數
+            constructor: Girl,
+            sing: function () { console.log('唱歌'); },
+            dance: function () { console.log('跳舞'); }
+        }
+        const g1 = new Girl();
+        console.log(' g1 === Girl.prototype.constructor =', Girl === Girl.prototype.constructor);
+
+        // 對象原型: 實力對象如何拿到原型函數
+        // 每個實例對象有個原型屬性會指向原型對象: __proto__(只讀喔)
+        // __proto__ == [[prototype]]非標準JS標準屬性喔
+        // __proto__ 也佑個Constructor
+        console.log(g1.__proto__);
+        console.log(g1.__proto__.constructor === Girl);
+
+
+        // 原型對象(類)
+        // 對象原型(物件)
+        // 原型繼承
+        // 組合繼承
+        function Person() {
+            this.eyes= 2;
+            this.head= 1;
+        }
+        function Woman() {
+            
+        }
+        
+        // Person使用構造函數: 結構一樣唷
+        // Person使用物件: 結構會一樣，指向位址也會一樣導致男生也可以生孩子
+        Woman.prototype = new Person();
+        // 要記得將constructor指向回類別
+        Woman.prototype.constructor = Woman;
+        // 這樣寫的話man也可以生孩子喔，因為指標指向同一個父親Person
+        Woman.prototype.baby = function(){
+            console.log('生孩子');
+        }
+        function Man(){
+                    
+        }
+        Man.prototype = new Person();
+        Man.prototype.contructor = Man;
+        const w = new Woman();
+        console.log(w.eyes);
+        const m = new Man();
+        console.log(m.eyes);
+
+        // 作用域鏈
+        // 原型鏈: 查找資料的規則
+        
+        // 構造函數(繼承) -> 原型對象(物件) -> prototype -> __proto__(指向父親(Object)原型對象)
+        // 實例化 -> __proto__ 指向原型對象的prototype
+
+        //(鏈) 只要是對象就會有__proto__->可以往上找直到找到null為止
+        // 只要是夠原型對象就會有constructor, prototype
+    </script>
+
+    <!-- 深,淺拷貝: 只針對引用類型
+     淺拷貝: 拷貝地址
+     深拷貝: 全部拷貝 -->
+
+     <script>
+        const oobj = {
+            uname: 'Ken',
+            age: 14,
+            family:{
+                baby: "Small Ken"
+            }
+        }
+        // 解構
+        const shallow = {...oobj}
+        shallow.age = 18;
+        // 引用類型 只會在淺拷貝中被參考
+        shallow.family.baby = "Big Ken";
+        console.log('shallow = ', shallow);
+        console.log('oobj = ', oobj);
+
+        // 深拷貝(recusive)
+        const newObj = {};
+        function deepCopyRecursive(newObj, oldObj){
+            for(let k in oldObj){
+
+                // 一定先寫數組再寫物件
+                if(oldObj[k] instanceof Array){
+                    newObj[k] = []
+                    deepCopyRecursive(newObj[k], oldObj[k]);
+                } else if(oldObj[k] instanceof Object){
+                    newObj[k] = {}
+                    deepCopyRecursive(newObj[k], oldObj[k]);
+                }else {
+                    newObj[k] = oldObj[k];
+                }
+            }
+        }
+        deepCopyRecursive(newObj, oobj);
+        console.log('newObj=',newObj);
+
+        let newObjJson = {s: 'ss'};
+        function deepCopyJson(newObj, oldObj){
+            const jsonString = JSON.stringify(oldObj);
+            Object.assign(newObj, JSON.parse(jsonString));
+        }
+        deepCopyJson(newObjJson, oobj);
+        console.log('newObjJson=', newObjJson);
+    </script>
+
+    <p class="try">123</p>
+    <script>
+        function tryFn(){
+            try{
+                const p = document.querySelector('.try');
+                p.style.color = 'red';
+                throw new Error("This is Error Message")
+            } catch(err){
+                console.log(err.message);
+            }
+            finally{
+            console.log('finnally');
+
+            }
+            console.log('is stop = false');
+            // debugger
+        }
+        tryFn();
+    </script>
 </body>
 
 </html>

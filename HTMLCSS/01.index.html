@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 
+        CSS書寫順序:
+        盒子模型
+        文字樣式
+        圓角、陰影等修飾屬性
+         */
+        * {
+            padding: 10;
+            margin: 10;
+        }
+
+        table {
+            border: 1px solid black;
+
+        }
+
+        tr,
+        th,
+        td {
+            border: 1px solid black;
+        }
+
+        /* CSS 字體大小 */
+        .myText {
+            font-size: 40px;
+            /* 字體粗細: 400, 700, normal, bold */
+            font-weight: 400;
+            /* normal, italic */
+            font-style: italic;
+            /* 行高: 30px, 2.  如果沒有單位則為font-size的倍數 */
+            /* 行高 = 文字高 + 文字上下間距 */
+            /* 唯一能改被行內屬型垂直位子的指令喔 */
+            line-height: 20px;
+            /* 有左至右查詢是否有改字體 sens-serif(無襯線字體) */
+            font-family: 'Courier New', Courier, monospace;
+            /* font: italic 700 30px/2 楷體 */
+            /* font: font-style font-weight font-size/line-height font-family */
+
+            /* 縮進效果 em 為當前字號大小 */
+            text-indent: 20px;
+            text-align: center;
+            /* none, underline, line-through, everline(上划線) */
+            text-decoration: dashed;
+            /* rgb(r,g,b), rgba(r,g,b,a), red, #F0F, # FF00FF*/
+            color: #ff0;
+        }
+
+        .textTest {
+            font-size: 30px;
+            line-height: 30px;
+        }
+
+        .myCenter {
+            background-color: aqua;
+            width: 100%;
+            height: 100px;
+            line-height: 100px;
+        }
+
+        .myCenter p {
+            width: 10%;
+            margin: 0 auto;
+        }
+
+        /* 選擇器
+        div p: 父子選擇器(包含孫子)
+        div > p: 父子選擇器(只選兒子)
+        div.text: 選擇有text類別的div標籤
+        選擇器:hover -> 偽類選擇器
+
+        超鏈結偽類
+        :link 訪問前
+        :visited 訪問後
+        :hover 懸停
+        :active 點即時的變換
+
+        color: red !important; !important提權功能
+
+        CSS 選擇器選中範圍越大，優先權限越小
+        選擇器從左到右的個數 (行內樣式 > id選擇器個數 > 類選擇器個數 > 標籤選擇器個數)
+        */
+
+        /* emmet: VS Code的簡寫寫法 */
+
+        /* 背景屬性
+        background-image: url('')
+        background-color
+        background-repeat: no-repeat, repeat, repeat-x, repeat-y
+        background-position: left top, 0 0, center
+        background-size: contain, cover(縮放背景圖完全覆蓋背景), 100%(主要調整寬度，高度按比例縮放)
+        background-attachment: 背景圖固定: fixed(內容滾動，背景圖是否要跟者滾動])
+        background: (color image repeat position)/size
+        */
+
+        /* display
+        block: div 獨佔1行, 寬度默認是父級100%, 寬高屬性生效 
+        inline: span 高度與內容依樣高，由內容撐開尺寸
+        inline-block: img 寬高默認由內容撐開，寬高屬性生效*/
+
+        /* E:first-child: 查找第一個E元素 */
+        /* E:last-child: 查找最後一個E元素 */
+        /* E:nth-child(n): 查找第n個E元素, n = odd, even, 2, 2n(偶數標籤), 2n+1, n+5(找到第五個之後的標籤), -n+5(找到第五個以前的標籤) */
+
+        th:nth-child(2) {
+            background-color: green;
+        }
+
+        /* 偽元素: 擺放裝飾性內容, 預設是inline模式，必須要有content:""; 
+        E::before -> 在選中的標籤前邊創建元素
+        E::after ->  在選中的標籤後邊創建元素
+        */
+        p.textTest:before{
+            content: "老鼠";
+        }  
+        p.textTest:after{
+            content: "";
+            display: block;
+            margin: 50px 0;
+            border-bottom: 2px solid black;
+        }
+
+        /* 尺寸計算: 
+        預設尺寸計算: 指定寬高(width, height) + padding
+        box-sizing: border-box 尺寸計算 -> 指定寬高 = border + padding + content
+        */
+
+        /* overflow: 當內容溢出後是否顯示滾動條 hidden, scroll, auto */
+
+        /* margin合併: 上下兩個盒子的Margin重疊，會取大的數值，不會相加唷*/
+        /* margin塌陷: 父子結構，子節點添加top margin會有沒作用，因為被父親節點的margin吃掉 
+            可以用非零padding或是overflow:hidden解決。重點是讓瀏覽器找到父節點邊緣
+        */
+
+        .father{
+            background-color: black;
+            width: 500px;
+            height: 500px;
+            margin: 0;
+            /* padding: 10px; */
+            overflow: hidden;
+        }
+        .son{
+            background-color: blue;
+            width: 200px;
+            height: 200px;
+            margin: 40px;
+        }
+
+        /* 行內屬性
+        margin, padding: 只會改變水平位子
+        line-height: 改變垂直位子
+        */
+
+        /*
+        border-radius: px [px px px],
+        box-shadow: x軸偏移量(3px) y軸偏移量(3px) 模糊半徑(10px) 擴散半徑(1px) 顏色(rgba(0,0,0,0.5)) 內外陰影(inset, outset)
+        
+        */
+    </style>
+</head>
+
+<body>
+
+    <!-- 子節點的margin-top沒有作用，因為會與father的margin合併 -->
+    <div class="father">
+        <div class="son">son</div>
+    </div>
+
+    <p class="textTest">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ipsum, culpa! Vel sequi deserunt
+        quisquam odit repellendus molestias sint illum, voluptatum exercitationem placeat laudantium, magnam, pariatur
+        autem ipsum magni quos optio.</p>
+    <div class="myCenter">
+        <p>center</p>
+    </div>
+    <h1>H1</h1>
+    <h2>H2</h2>
+    <h3>H3</h3>
+    <h4>H4</h4>
+    <h5>H5</h5>
+    <h6>H6</h6>
+    <p>p</p>
+
+    <!-- 加粗 -->
+    <strong>strong</strong>
+    <b>b</b>
+    <!-- 斜線 -->
+    <em>em</em>
+    <i>i</i>
+    <!-- 下滑線 -->
+    <ins>ins</ins>
+    <u>u</u>
+    <!-- 刪除縣 -->
+    <del>del</del>
+    <s>s</s>
+    <img src="../images/1.jpg" alt="" width="100px">
+    <a href="https://www.google.com" target="_blank">link blank</a>
+    <a href="https://www.google.com" target="_parent">link parent</a>
+    <a href="https://www.google.com" target="_self">link self</a>
+    <a href="https://www.google.com" target="_top">link top</a>
+    <!-- 屬性值與內容值一樣的可以只寫屬性質，如controls -->
+    <!-- 瀏覽器會自動屏蔽autoplay -->
+    <audio src="" controls loop autoplay>audio</audio>
+    <video src="" controls></video>
+    <embed src="" type="">
+    <iframe src="" frameborder="0"></iframe>
+
+    <ol>
+        <li>ol li1</li>
+        <li>ol li2</li>
+    </ol>
+    <ul>
+        <li>ul li1</li>
+        <li>ul li2</li>
+    </ul>
+
+    <dl>
+        <dt>dl dt</dt>
+        <dd>dl dd1</dd>
+        <dd>dl dd2</dd>
+    </dl>
+    <table>
+        <!-- thead, tbody, tfoot是表格結構標簽，可以更清晰 -->
+        <thead>
+            <tr>
+                <th>thead tr th1</th>
+                <th>thead tr th2</th>
+                <th>thead tr th3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>tbody tr td1</td>
+                <td>tbody tr td2</td>
+                <td>tbody tr td2</td>
+            </tr>
+            <tr>
+                <td>tbody tr rd1</td>
+                <td colspan="2">tbody tr rd2</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>tfoot tr td1</td>
+                <td>tfoot tr td2</td>
+                <td>tfoot tr td3</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form action="#">
+        <label for="uname">名字</label>
+        <input type="text" name="" id="uname" placeholder="請輸入名字">
+        <label for="upassword">密碼</label>
+        <input type="password" name="" id="upassword" placeholder="請輸入密碼">
+        <label for="uradio">性別</label>
+        <input type="radio" name="uradio" id="male" value="男">
+        <label for="male">男</label>
+        <input type="radio" name="uradio" id="female" value="女" checked>
+        <label for="female">女</label>
+        <label for="ucheckbox">是否滿18歲</label>
+        <input type="checkbox" name="" id="ucheckbox" placeholder="是否滿18歲">
+        <label for="ufile">檔案</label>
+        <input type="file" name="" id="ufile" placeholder="請上傳檔案">
+
+        <label for="uselect">城市</label>
+        <select name="" id="uselect">
+            <option value="T">台灣</option>
+            <option value="A">美國</option>
+            <option value="B" selected>北京</option>
+            <option value="J">日本</option>
+        </select>
+        <textarea name="" id="">textarea</textarea>
+
+        <button type="submit">提交</button>
+        <button type="reset">重置表單</button>
+        <button type="button">按鈕，可以寫寫JavaScript</button>
+
+        <!-- 無語意的標籤，只是用來布局用 -->
+        <div>div1</div>
+        <div>div2</div>
+        <span>span1</span>
+        <span>span2</span>
+        <!-- 預留字符 -->
+        <p>大於</p>
+        <pre> > : &gt; </pre>
+        <p>小於</p>
+        <pre> < : &lt; </pre>
+        <p>空格，如果要多個空格</p>
+        <pre>   : &nbsp; </pre>
+
+        
+    </form>
+
+
+    <style>
+        p.child:first-child {
+            background: green;
+        }
+    </style>
+    <div>
+        <p class="child">123</p>
+        <p class="child">123</p>
+    </div>
+    <div>
+        <p class="child">123</p>
+        <p class="child">123</p>
+    </div>
+    <script>
+        const child = document.querySelector('.child:first-child');
+        console.log(child);
+    </script>
+</body>
+
+</html>

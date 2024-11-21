@@ -1,0 +1,59 @@
+// out: ./20-.index.css
+
+// out: false
+
+// 註釋
+/*
+多航註釋
+*/
+.width {
+    // 像素轉REM
+    /* 
+        加:A+B單位
+        減:A-B單位
+        乘:A*B單位
+        除:(A/B單位) or A ./ B單位(用後者會有個語法錯誤，但實際上是允許的)
+    */
+
+    width: (50/37.5rem);
+    // width: 50 ./ 37.5rem;
+    height: (100*20px);
+
+}
+
+// 嵌套寫法
+// &: 不生成後代，表示當前選擇器，且不生成後代
+.father {
+    color: red;
+
+    .son {
+        color: green;
+
+        a {
+            color: yellow;
+
+            &:hover {
+                color: orange;
+            }
+        }
+
+    }
+}
+
+// 變量: 容器，儲存數據。
+// 定義方式: @變量名: 數據
+@myColor: pink;
+.father{
+    color:@myColor;
+}
+
+// 導入，如公共樣式
+// 定義方式: @import "文件路徑",
+// 如果是less附檔名稱，可以忽略撰寫副檔名
+
+// 導出-寫法跟註釋一樣，但這是導出，必須寫在第一行
+// 定義方式: // out: 文件路徑
+// 如: // out: ./css/index.css
+// 如不要導出: // out: false
+
+

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 在默認狀況下，主軸靠內容撐開，側軸為strech拉伸 */
+        .box-flex {
+            /* 預設主軸水平 */
+            display: flex;
+            /* 調整主軸對其方式: 
+            flex-start, 
+            flex-end, 
+            center, 
+            space-between, 
+            space-around, 
+            space-evenly */
+            justify-content: space-between ;
+            /*  測軸對其方式有align-items與align-self(個別測軸設定): 
+            stretch(拉伸,前提是不能設定側軸數值),
+             center, 
+             flex-start, 
+             flex-end*/
+            align-items: stretch;
+            /* 修改主軸方向: row(預設), column, row-reverse, colimn-reverse */
+            flex-direction: row;
+            /* 換行
+            nowrap
+            wrap
+             */
+            flex-wrap: wrap;
+            /* align-content側軸對其方式，前提是有設定wrap
+            對單行flex不生效
+            flex-start, 
+            flex-end, 
+            center, 
+            space-between, 
+            space-around, 
+            space-evenly */
+            align-content: space-between;
+            background-color: #000;
+            height: 500px;
+        }
+
+        .box-flex div {
+            /* align-self */
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+
+        .box-flex .div2 {
+            /* 彈性伸縮比，取得剩餘空間。如果有設定flex: n則會被flex伸縮 */
+        }
+
+        .box-flex .div3 {
+            /* 彈性伸縮比，前提是有剩餘尺寸喔 */
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box-flex">
+        <div class="div1">1</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+        <div class="div2">2</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+        <div class="div2">2</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+        <div class="div2">2</div>
+        <div class="div3">3</div>
+        <div class="div4">4</div>
+
+
+    </div>
+</body>
+
+</html>

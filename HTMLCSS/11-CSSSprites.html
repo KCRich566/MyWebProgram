@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./iconfont/iconfont.css">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        div.test{
+            width:112px;
+            height: 110px;
+            background-color: pink;
+            background-image: url("./images/abcd.jpg");
+            /* 位置是負值喔，因為要移動圖片，將位置移到0,0(左上角) */
+            background-position: -256px -276px;
+        }
+
+
+        /* 阿里巴巴圖標庫(官方圖標) www.iconfont.cn */
+
+        
+        .iconfont{
+            color: red;
+            font-size:200px;
+            line-height: 400px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test"></div>
+
+    <div class="myIconfont">
+        <span class="iconfont icon-icon-test2"></span>
+    </div>
+</body>
+
+</html>

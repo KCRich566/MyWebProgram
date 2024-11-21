@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* transform: 最好是有個父結構，不然使用hover觸發時，容易遺失hover
+        translate(px %)
+        rotate(deg)
+        scale(numberX numberY),(number)
+        skew(deg)
+
+        transform-origin: 改變旋轉原點(如時鐘指針) right(left,center) bottom(top, center)
+        */
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        div.father2 {
+            height: 300px;
+            border: 1px solid black;
+            /* 鏡像漸變(半徑 at 圓心位置, 顏色 終點位置 , 顏色 終點位置);*/
+            background-image: radial-gradient(100px 50px at center, blue 50%, purple 100%)
+        }
+
+        div.son2 {
+            margin: 100px 0;
+            width: 100px;
+            height: 100px;
+            /* 漸變linear-gradient(方向, 顏色 終點位置, 顏色 終點位置)*/
+            background-image: linear-gradient(45deg, rgba(0, 255, 0, 0.3) 15%, rgba(255, 0, 0, 0.9) 30%);
+            transition: all 1s;
+        }
+
+        div.father2:hover div.son2 {
+            /* 計算自己的尺寸 */
+            transform: translate(200%) rotate(180deg) scale(2) skew(50deg);
+        }
+
+        .father {
+            display: flex;
+            margin: 0 auto;
+            width: 600px;
+            height: 600px;
+            background-image: url("./images/bg.jpg");
+            background-size: 600px 600px;
+
+        }
+
+        .father .left,
+        .father .right {
+            width: 50%;
+            height: 600px;
+            background-image: url("./images/fm.jpg");
+            background-size: 600px 600px;
+            transition: all 1s;
+
+        }
+
+        .father .right {
+            /* right表示精靈圖右邊剩餘區域 */
+            background-position: right 0;
+        }
+
+        .father:hover .left {
+            transform: translate(-100%);
+        }
+
+        .father:hover .right {
+            transform: translateX(100%);
+        }
+
+        img {
+            width: 100%;
+        }
+
+        .box {
+            width: 249px;
+            height: 210px;
+            margin: 50px auto;
+        }
+
+        .box p {
+            color: #3b3b3b;
+            padding: 10px 10px 0 10px;
+        }
+
+        .box li {
+            overflow: hidden;
+        }
+
+        .pic {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pic::after {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* margin-top: -29px;
+            margin-left: -29px; */
+
+
+            content: '';
+            width: 58px;
+            height: 58px;
+            background-image: url("./images/play.png");
+            transform: translate(-50%, -50%) scale(5);
+            opacity: 0;
+
+            transition: all 2s;
+        }
+
+        .box li:hover .pic::after {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        /* transform: translate3D(x,y,z) -> 實現空間轉換 */
+        .father-box3D {
+            perspective: 800px;
+        }
+
+        .son-box3D {
+            width: 200px;
+            height: 200px;
+            margin: 100px auto;
+            background-color: pink;
+            transition: all 0.5s;
+        }
+
+        .son-box3D:hover {
+            /* 因為電腦是平面的，所以默認狀態下無法觀察z軸平移效果 */
+            /* 視距(透視) perspective: 指定了觀察者與z=0平面距離，為元素增加透視效果 */
+            /* 透視效果: (z)近大遠小、近實遠虛 */
+            /* 透視屬性是放在'直接'父級，通常在800~1200*/
+            transform: translate3D(10px, 0px, -300px) rotateX(30deg);
+            /* transform: translateZ(-300px); */
+        }
+
+
+        .cube {
+            /* 父級建立立方體圖形，子級定位 */
+            transform-style: preserve-3d;
+
+            width: 200px;
+            height: 200px;
+            margin: 100px auto;
+            /* background-color: pink; */
+            transition: all 2s;
+            /* transform: rotateY(89deg); */
+        }
+
+
+        .cube div {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 200px;
+            height: 200px;
+        }
+
+        .front {
+            transform: translateZ(100px);
+            background-color: orange;
+        }
+
+        .back {
+            transform: translateZ(-100px);
+            background-color: green;
+        }
+
+        .cube:hover {
+            transform: rotateY(90deg);
+        }
+
+
+        .nav ul {
+            display: flex;
+        }
+
+        .nav li {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            transition: all 0.5s;
+
+            transform-style: preserve-3d;
+            /* transform:rotateX(-20deg) rotateY(30deg); */
+        }
+
+        .nav li a {
+            position: absolute;
+            display: block;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+
+        }
+
+        /* 立方體每個面都有獨立的座標軸，互不影響 */
+        .nav li a:first-child {
+            transform: translateZ(20px);
+            background-color: green;
+
+        }
+
+        .nav li a:last-child {
+            transform: rotateX(90deg) translateZ(20px);
+
+            background-color: orange;
+        }
+
+        .nav li:hover {
+            transform: rotateZ(50deg) rotateX(-90deg) scale3d(2, 9, 3);
+        }
+
+        div.animation {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+
+            /* animcation: 
+            動畫名稱(animate-name)
+            動畫時長(animation-duration) 1s
+            速度曲線 linear, step(3)分布動畫(實現精靈動畫)
+            延遲時間(animation-delay)
+            重複次數(animation-iteration-count): 3, infinite
+            動畫方向(animation-direction): alternate(反向)
+            執行完畢時的狀態(animation-fill-mode): forwards(停在結束狀態), backwards(預設,停在開始狀態)
+            暫停動畫(animcation-play-state): paused (通常配合hover使用) 
+             */
+            animation: change 1s infinite alternate;
+        }
+
+        /* 
+        @keyframws 名稱{
+            from {...}
+            to {...}
+        } 
+        @keyframws 名稱{
+            0% {...}
+            20% {...}
+            40% {...}
+            80% {...}
+            100% {...}
+        } 
+        */
+        @keyframes change {
+            from {
+                transform: translate(0px, 0px);
+            }
+
+            to {
+                transform: translate(100px, 100px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father2">
+        <div class="son2"></div>
+    </div>
+    <div class="father">
+        <div class="left"></div>
+        <div class="right"></div>
+    </div>
+    <div class="box">
+        <ul>
+            <li>
+                <div class="pic">
+                    <img src="./images/party.jpeg" alt="">
+                </div>
+                <p>[和平菁英] "初火"音樂概念片: 四聖覺醒</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="father-box3D">
+        <div class="son-box3D"></div>
+    </div>
+
+    <div class="cube">
+        <div class="front">前面</div>
+        <div class="back">後面</div>
+    </div>
+
+
+    <div class="nav">
+        <ul>
+            <li>
+                <a href="#">首頁</a>
+                <a href="#">Index</a>
+            </li>
+            <li>
+                <a href="#">登錄</a>
+                <a href="#">Login</a>
+            </li>
+            <li>
+                <a href="#">註冊</a>
+                <a href="#">Register</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="animation"></div>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .GoStop img {
+            display: block;
+            width: 200px;
+        }
+
+        .GoStop {
+            width: 400px;
+            height: 112px;
+            border: 5px solid #000;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+
+        .GoStop ul {
+            display: flex;
+            animation: move 10s infinite linear;
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(0);
+
+            }
+
+            100% {
+                transform: translate(-1400px);
+            }
+        }
+
+        .GoStop:hover ul {
+            animation-play-state: paused;
+        }
+    </style>
+    <div class="GoStop">
+        <ul>
+            <li><img src="./images/1.jpg" alt=""></li>
+            <li><img src="./images/2.jpg" alt=""></li>
+            <li><img src="./images/3.jpg" alt=""></li>
+            <li><img src="./images/4.jpg" alt=""></li>
+            <li><img src="./images/5.jpg" alt=""></li>
+            <li><img src="./images/6.jpg" alt=""></li>
+            <li><img src="./images/7.jpg" alt=""></li>
+            <!-- 替身：填补显示区域的露白 圖片累加寬度=顯示區域寬度-->
+            <li><img src="./images/1.jpg" alt=""></li>
+            <li><img src="./images/2.jpg" alt=""></li>
+            <li><img src="./images/3.jpg" alt=""></li>
+        </ul>
+    </div>
+
+    <style>
+        div.sprites {
+            width: 140px;
+            height: 140px;
+            background-image: url("./images/bg.png");
+            animation: run 1s steps(12) infinite, move 3s infinite;
+        }
+
+        @keyframes run {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: -1680px 0;
+            }
+        }
+
+        @keyframes move {
+            0% {
+                transform: translate(0px);
+            }
+            50% {
+                transform: translate(400px) rotateY(180deg);
+            }
+            100% {
+                transform: translate(0px);
+                
+            }
+        }
+    </style>
+    <div class="sprites">
+
+    </div>
+
+
+</body>
+
+</html>

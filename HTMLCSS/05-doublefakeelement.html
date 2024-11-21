@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .father {
+            margin: 10px auto;
+            width: 1200px;
+            /* 讓父節點有高度 */
+            /* height: 300px; */
+            background-color: pink;
+        }
+
+        .left {
+            float: left;
+            width: 200px;
+            height: 300px;
+            background-color: skyblue;
+        }
+
+        .right {
+            float: right;
+            width: 950px;
+            height: 300px;
+            background-color: orange;
+        }
+
+        .bottom {
+            height: 100px;
+            background-color: brown;
+        }
+
+        /* before用來解決外兼距塌陷問題 */
+        .father::before,
+        .father::after {
+            content: "";
+            display: table;
+        }
+
+        .father::after {
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="father">
+        <div class="left"></div>
+        <div class="right"></div>
+        <!-- 也可以使用clearfix並加入clear: both; -->
+        <!-- 這個標籤具有撐開父層高度的作用 -->
+        <!-- <div style="clear: both;" class="clearfix"></div> -->
+        <!-- 也可以使用父級的單偽元素(after)來確定父級高度 -->
+        <!-- 也可以使用父級的雙偽元素(after)來確定父級高度 -->
+         <!-- 也可以直接讓父級使用overflow:hidden; 這樣瀏覽器會強制檢查父級高度 -->
+    </div>
+    <div class="bottom"></div>
+</body>
+
+</html>

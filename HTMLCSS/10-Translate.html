@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+       /* postion: fixed, relative, absolute */
+       /* z-index: 預設是後寫的標籤，會顯示在越上面，使用此屬性來改變。數值越大越上層顯示 */
+        div.myTranslate{
+            /* 因為絕對定位會定位邊角的位置，所以要再使用transform偏移來移動目標物件的一半 */
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+        }
+        /* 使用margin要看父節點是多大 */
+        div.myMargin {
+            background-color: pink;
+            height: 100vh;
+            width: 100vw;
+            /* Margin崩解:所以要加入以下兩個擇一的內容 */
+            overflow: hidden;
+            /* padding:10px; */
+            z-index: 999;
+        }
+        div.myMargin img{
+            display: block;
+            margin: auto auto;
+            /* vertical-align: middle;
+            行內，行內塊被當成文字處理，會以baseline基線排台.vertical-align用來改變對其的方式
+            那要放在誰身上? 放在height較高的原件上，如img + p
+            */
+
+            /* 為什麼圖片與文字顯示會有個底部空白(約1px)，因為行內塊標籤的基線問題，所以轉成display: block或是使用vertical-align:bottom就可以了 */
+            
+        }
+    </style>
+</head>
+
+<body>
+    <div class="myTranslate">
+        <img src="../uploads/qrcode.jpg" alt="">
+    </div>
+    <div class="myMargin">
+        <img src="../uploads/qrcode.jpg" alt="">
+    </div>
+</body>
+
+</html>

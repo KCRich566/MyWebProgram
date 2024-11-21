@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>點擊</button>
+    <script>
+        // 'use strict'
+        console.log('全局:', this);
+        function fn() {
+            console.log('function內(普通函數):', this);
+        };
+        fn();
+        setTimeout(function () {
+            console.log('setTimeout內(普通函數):', this);
+        });
+        const btn = document.querySelector('button');
+        btn.addEventListener('click', function () {
+            console.log('button內(普通函數):', this);
+        });
+        const obj = {
+            sayHi: function () {
+                console.log('obj內(普通函數):', this)
+            },
+            sayHi2: () => {
+                console.log('obj內(箭頭函數):', this)
+            }
+        }
+        function Class(name) {
+            this.name = name
+        }
+        Class.prototype.walk = function () {
+            console.log('原型內(普通函數)', this);
+        };
+        Class.prototype.walk2 = () => {
+            console.log('原型內(箭頭函數)', this);
+        };
+        obj.sayHi();
+        const t1 = new Class('T1')
+        t1.walk();
+        // 普通函數: 誰掉我用我就將This指向誰
+        // 沒用調用者就指向Window, 在嚴格條件下指向undefined
+
+        // 箭頭函數: 本身沒有This, 但需要根據上下文來使用(最近的This)
+        // ?? 那些東西會有This window -> 物件
+
+        const test = () => {
+            console.log('function內(箭頭函數):', this);
+        };
+        test();
+        setTimeout(() => {
+            console.log('setTimeout內(箭頭函數):', this);
+
+        })
+        btn.addEventListener('click', () => {
+            console.log('button內(箭頭函數):', this);
+        });
+        obj.sayHi2();
+
+        const t2 = new Class('T2');
+        t2.walk2();
+
+        // 改變this
+        // call(thisArg, arg1, arg2...) --> 少用
+        const callObj = {
+            uname: 'pink'
+        }
+        function callFn(x, y) {
+            console.log('callFn', this);  //改變this指向喔
+        }
+        callFn.call(callObj, 1, 2);
+        // apply(thisArg[,arg])
+        const applyObj = {
+            uname: 'pink'
+        }
+        function applyFn(x, y) {
+            console.log('applyFn', this);
+        }
+        applyFn.apply(applyObj, [1, 2]);
+
+        const arr = [1, 2, 3, 4];
+        var max = Math.max.apply(null, arr);
+        var max = Math.max.apply(Math, arr);
+        var max = Math.max(...arr);
+        console.log(max);
+        // bind(thisArg, arg1, arg2,...): 不要調用函數，但改變this指向;
+        const bindObj = {
+            uname: 'pink'
+        }
+        function bindFn() {
+            console.log('bindFn', this);
+        }
+        const newFn = bindFn.bind(bindObj); // 實際上會複製一份函數，並將其指向為指定this
+        newFn();
+
+        btn.addEventListener('click', function () {
+            this.disabled = true;
+            // 使用bind讓setTimeout的調用者this，改為btn
+            window.setTimeout(function () {
+                this.disabled = false;
+            }.bind(btn), 2000)
+        });
+    </script>
+</body>
+
+</html>

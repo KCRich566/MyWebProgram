@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        div.myRelative {
+            /* 相對定位，其他定位的基礎，子節點，會依照此節點位移:
+            特點，不會改變大小，只會改變位置，
+            但要注意div預設是站滿整合，
+            所以往右偏移時，會溢出瀏覽器; */
+            position: relative;
+            top: 20px;
+            left: 20px;
+        }
+
+        /* 絕對定位: 子級絕對定位，父級相對定位(子絕父相) */
+        div.myAbsolute {
+            position: relative;
+
+        }
+
+        /* 絕對定位，脫標(脫離標準流)不占位喔 */
+        /* 會向上找父節點位置，如果祖先都沒訂位，就預設使用window來定位
+        絕對定位會改變元素的寬高生效，行內元素會變成行內塊級元素 */
+        div.myAbsolute img {
+            position: absolute;
+            top: 0px;
+            left: 20px;
+        }
+        /* CSS sprites精靈: 減少服務企被請求的次數，提高加載速度。主要是將網頁的背景圖片整合照一張圖片 */
+        
+    </style>
+</head>
+
+<body>
+    <!-- 定位: 可使內容重疊，靈活改變標簽位置(如輪播圖的左右按鈕與圖片和目前位置)
+     標準流無法重疊
+     flex也不法
+     float可以讓不同層的堆跌，但同層的無法重疊
+
+     定位起手試: position: relative
+     改變位置: left, right, top, bottom
+    -->
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt nostrum quam perspiciatis quasi incidunt blanditiis
+        beatae aliquid minima laboriosam vel.</p>
+    <div class="myRelative">相對定位<img src="./uploads/ai02.png" alt=""></div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt nostrum quam perspiciatis quasi incidunt blanditiis
+        beatae aliquid minima laboriosam vel.</p>
+    <div class="myAbsolute">絕對定位<img src="./uploads/ai02.png" alt=""></div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt nostrum quam perspiciatis quasi incidunt blanditiis
+        beatae aliquid minima laboriosam vel.</p>
+
+    
+</body>
+
+</html>

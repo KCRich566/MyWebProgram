@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .clock {
+            width: 250px;
+            height: 250px;
+            border: 8px solid #000;
+            border-radius: 50%;
+            margin: 100px auto;
+            position: relative;
+
+        }
+
+
+        .line {
+            position: absolute;
+            width: 4px;
+            height: 250px;
+            background-color: #999;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .line:nth-child(2) {
+            transform: translate(-50%) rotate(30deg);
+        }
+
+        .line:nth-child(3) {
+            transform: translate(-50%) rotate(60deg);
+        }
+
+        .line:nth-child(4) {
+            transform: translate(-50%) rotate(90deg);
+        }
+
+        .line:nth-child(5) {
+            transform: translate(-50%) rotate(120deg);
+        }
+
+        .line:nth-child(6) {
+            transform: translate(-50%) rotate(150deg);
+        }
+
+        .line:nth-child(1),
+        .line:nth-child(4) {
+            width: 6px;
+        }
+
+        .cover {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+
+        .hour,
+        .minute,
+        .second {
+            position: absolute;
+            left: 50%;
+            bottom: 50%;
+        }
+
+        .hour {
+            width: 6px;
+            height: 50px;
+            background-color: #333;
+            transform: translate(-50%) rotate(15deg);
+            transform-origin: center bottom;
+        }
+
+        .minute {
+            width: 5px;
+            height: 65px;
+            background-color: #333;
+            margin-left: -3px;
+            transform: rotate(100deg);
+            transform-origin: center bottom;
+        }
+        .second {
+            width: 2px;
+            height: 80px;
+            background-color: red;
+            transform: translate(-50%) rotate(240deg);
+            transform-origin: center bottom;
+            transition: all 5s;
+        }
+       
+
+        .clock:hover .second {
+            transform: rotate(0deg);
+        }
+
+
+        .dotted {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 18px;
+            height: 18px;
+            background-color: #333;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="clock">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+
+        <div class="cover"></div>
+
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+
+        <div class="dotted"></div>
+    </div>
+</body>
+
+</html>

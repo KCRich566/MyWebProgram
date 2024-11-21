@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .father{
+            margin: 10px auto;
+            width: 1200px;
+            /* 讓父節點有高度 */
+            /* height: 300px; */
+            background-color: pink;
+        }
+        .left{
+            float: left;
+            width: 200px;
+            height: 300px;
+            background-color: skyblue;
+        }
+        .right{
+            float:right;
+            width: 950px;
+            height: 300px;
+            background-color: orange;
+        }
+        .bottom{
+            height: 100px;
+            background-color: brown;
+        }
+        /*  也可以使用父級的偽元素(after)來確定父級高度  */
+        .father::after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+    場景: 浮動元素會脫離標準顯示流。如果父級沒有高度，子級無法撐開父及高度(可能導致頁面錯亂)
+    解決辦法: 清除浮動
+      -->
+</body>
+
+<div class="father">
+    <div class="left"></div>
+    <div class="right"></div>
+    <!-- 也可以使用clearfix並加入clear: both; -->
+     <!-- 這個標籤具有撐開父層高度的作用 -->
+    <!-- <div style="clear: both;" class="clearfix"></div> -->
+     <!-- 也可以使用父級的偽元素(after)來確定父級高度 -->
+</div>
+<div class="bottom"></div>
+
+</html>

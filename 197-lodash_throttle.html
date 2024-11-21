@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            width: 500px;
+            height: 500px;
+            background-color: #ccc;
+            color: #fff;
+            text-align: center;
+            font-size:100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+    <!-- throttle節流: 單位時間內，頻繁觸發事件，只執行一次 -->
+    <!-- mousemove, resize, scroll等等 會常使用到 -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+        integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
+    <script>
+        // lodash
+        // _throttle(func, [wait=0], [options=0]);
+
+        // 在setTimeout中是無法使用clearTimeout的要直接給null
+
+        const box = document.querySelector('.box');
+        let i =1;
+        function mouseMove(){
+            box.innerHTML = ++i;
+        }
+
+        //box.addEventListener('mousemove', _.debounce(mouseMove,500));
+        box.addEventListener('mousemove', _.throttle(mouseMove,500));
+    </script>
+</body>
+
+</html>

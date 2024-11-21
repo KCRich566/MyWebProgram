@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+
+        body {
+            background-color: antiquewhite;
+        }
+
+        .product {
+            width: 270px;
+            height: 253px;
+            padding-top: 40px;
+            background-color: #fff;
+            margin: 50px auto;
+            text-align: center;
+            border-radius: 10px;
+            transition: box-shadow 1s;
+        }
+
+        .product:hover {
+            box-shadow: 5px 5px 5px 5px gray;
+        }
+
+        .product img {
+            border-radius: 50%;
+        }
+
+        .product h3 {
+            margin-top: 20px;
+        }
+
+        .product p {
+            margin-top: 10px;
+        }
+
+        .news {
+            width: 360px;
+            height: 200px;
+            background-color: green;
+            margin: 3px auto;
+        }
+
+        .news .hd {
+            height: 34px;
+            background-color: #eee;
+            border: 1px solid #dbdee1;
+            border-left: 0;
+
+        }
+
+        .news .hd a {
+            display: block;
+            margin-top: -1px;
+            border-top: 3px solid #ff8400;
+            border-right: 1px solid dbdee1;
+            width: 48px;
+            height: 34px;
+            background-color: #fff;
+            text-align: center;
+            line-height: 32px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .news .bd li {
+            padding-left: 30px;
+            background: url(../images/center-aq.png) no-repeat 0 center/contain;
+        }
+
+        .news .bd li a {
+            padding-left: 20px;
+            background: url(../images/center-dz.png) no-repeat 0 center/contain;
+            color: 666;
+            font-size: 12px;
+            line-height: 24px;
+        }
+
+        .news .bd li a:hover {
+            color: #ff8400;
+        }
+
+        .one {
+            width: 100px;
+            height: 100px;
+            background-color: brown;
+            float:left;
+        }
+
+        .two {
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="product">
+        <img src="../images/1.jpg" alt="" width="100px" height="100px">
+        <h3>抖音直播SDK</h3>
+        <p>包含抖音直播看播功能</p>
+    </div>
+
+    <div class="news">
+        <div class="hd">
+            <a href="#">新聞</a>
+        </div>
+        <div class="bd">
+            <ul>
+                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 標準流(文檔流): 默認的布局規則，如塊級(獨佔一行)與行內(一行顯示多個) -->
+    <!-- 浮動屬性: 讓塊級元素水平排列-->
+    <div class="one">one</div>
+    <div class="two">two</div>
+</body>
+
+</html>

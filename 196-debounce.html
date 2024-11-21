@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 500px;
+            height: 500px;
+            background-color: #ccc;
+            color: #fff;
+            text-align: center;
+            font-size: 100px;
+        }
+    </style>
+</head>
+<div class="box"></div>
+
+<body>
+    <!-- 單位時間內，頻繁觸發事件，只執行最後一次(取消前次的觸發) -->
+    <!-- 如果里面存在大量操作 dom 的情况，可能会卡顿 -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"
+        integrity="sha256-qXBd/EfAdjOA2FGrGAG+b3YBn2tn5A6bhz+LSgYD96k=" crossorigin="anonymous"></script>
+    <script>
+       const box = document.querySelector('.box')
+        let i = 1;
+        function mouseMove() {
+            box.innerHTML = ++i;
+        }
+
+        function debounce(fn, t) {
+            let timeId;
+            return function () {
+                if (timeId) {
+                    clearTimeout(timeId);
+                }
+                timeId = setTimeout(function () {
+                    fn()
+                }, t);
+            }
+        };
+        box.addEventListener('mousemove', debounce(mouseMove, 200));
+    </script>
+</body>
+
+</html>
