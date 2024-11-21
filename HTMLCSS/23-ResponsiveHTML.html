@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 媒體查詢
+        當網頁寬度小於320則執行 
+        max-width: 書寫順序需要由大到小
+        min-width: 書寫順序需要由小到大
+
+        邏輯操作符
+        @media(max-width:1200px and max-height:800px)
+        and
+        only
+        not
+
+        媒體類型
+        @media (screen and ...)
+        screen: 螢幕
+        print: 打印機
+        speech: 閱讀器
+        all: 不區分類型
+
+        媒體屬性
+        width, height
+        max-width, max-height
+        min-width, min-height
+        orientation: 媒體方向(portrait豎屏, landscape橫屏)
+        */
+        @media(max-width: 1200px) {
+            html {
+                background-color: blue;
+            }
+        }
+
+        @media(max-width:992px) {
+            html {
+                background-color: pink;
+            }
+        }
+    </style>
+    <!-- 也可是再引入CSS時加入媒體判斷 -->
+    <!-- <link rel="stylesheet" href="*.css" media=()"媒體類型 and (媒體屬性))"> -->
+
+
+    
+</head>
+
+<body>
+
+</body>
+
+</html>
