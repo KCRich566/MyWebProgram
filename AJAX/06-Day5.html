@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 專案應有的目錄結構
+     1. assets: 資源文件夾(圖片. 字體)
+     2. lib: 資料文件夾(引用的庫)
+     3. page文件夾: 每個頁面資料夾 -> HTML, css, js
+     4. utils: 工具插件 
+     -->
+
+
+    <!-- token令牌: 查詢本地是否有這個Token，如果沒有則要從新登入 
+      判斷目前使用者是否登入過，並且限制存取權限
+      401身分驗證失敗
+      前端只有判斷有無Token,後端來驗證Token
+      -->
+    <script>
+        
+        //   axios請求攔截器: 發起請求之前，觸發的配置函數，隊請求參數進行額外配置
+        
+        axios.interceptors.request.use(function (config) {
+            const token = localStorage.getItem('token');
+            token && (config.headers.Autorization = `Bearer ${token}`);
+            return config;
+        }, function (error) {
+            return Promise.reject(error);
+        });
+
+        axios({
+            url: "目標",
+            // 每次都要用很麻煩所以就可以使用請求攔截器來組裝
+            // headers: {
+            //     Authorization: `Bearer ${localStorage.getItem('token')}`
+            // }
+        }).then(result =>{
+            console.log(result);
+        })
+        // axios響應攔截器: 當響應回到then/catch之前，觸發的攔截函數，對象應結果統一處理
+
+        axios.interceptors.response.use(function( response){
+            // 可以簡化response,直接回傳data
+            return response.data;
+        }, function (error) {
+            if(error?.response?.status === 401){
+                alert('登陸狀態過期，請重新登入')
+                localStorage.clear();
+                location.href='../login/index.html';
+            }
+            return Promise.reject(error);
+        })
+
+
+        // 富文本(wangeditor5): 帶樣式, 多格式的文本 => 搭配innerHTML使用
+        // CSS
+        // HTML
+        // JS創建編輯器
+        // 監聽內容改變，包存隱藏文本域
+    </script>
+</body>
+
+</html>

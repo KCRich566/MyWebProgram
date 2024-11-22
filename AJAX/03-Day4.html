@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 
+    回調函數地獄: 在一個回調函數中，嵌套了其他回調函數
+        難以閱讀，依賴嚴重，無法去得異常
+
+    使用Promise的鏈式調用來解決回調函數地獄
+    -->
+
+    <script>
+        // 回調函數地獄
+        axios({ url: '取得全球國家' }).then(result => {
+            const pcountry = result.data.list[0];
+            axios({ url: '取得國家市縣區', params: { pcountry } }).then(result => {
+                const pprovince = result.data.list[0];
+                axios({ url: '取得鄉鎮', params: { pprovince } }).then(result => {
+                });
+            });
+            // catch會無法捕獲
+        }).catch(error => {
+            console.dir(error);
+        });
+
+        // 使用Promise的鏈式調用
+        const p = new Promise((resolve, reject) => {
+            axios({ url: '取得全球國家' }).then(result => {
+
+            }).then(result => {
+                resolve('取得全球國家');
+
+            }).catch(error => {
+
+            });
+
+        })
+        // then函式式新的Promise對象
+        const p2 = p.then(result => {
+            console.log(result);
+            return new Promise((resolve, reject) => {
+                axios({ url: '取得國家市縣區' }).then(result => {
+
+                    resolve('取得國家市縣區')
+                }).catch(error => {
+
+                })
+            })
+        })
+        const p3 = p2.then(result => {
+            console.log(result);
+            return new Promise((resolve, reject) => {
+                axios({ url: '取得鄉鎮' }).then(result => {
+                    resolve('取得鄉鎮');
+                }).catch(error => {
+
+                })
+            })
+        });
+        p3.then(result => {
+            console.log(result);
+        });
+
+        // 使用axios來處理
+        let apname = '';
+        axios({ url: '取得鄉鎮' }).then(result => {
+            apname = result.data.list[0];
+            return axios({ url: '取得國家市縣區' }).then(result => {
+            }).then(result => {
+                return axios({ url: '取得鄉鎮' }).then(result => {
+                })
+            }).then(result => {
+                console.log(result);
+            })
+        });
+
+        // async與await不需刻意調用promise
+        async function getDefaultArea() {
+            try {
+                const pObj = await axios({ url: "" });
+                const pname = pObj.data.list[0];
+                const cObj = await axios({ url: "", params: { pname } });
+                const cname = cObj.data.list[0];
+                const aObj = await axios({ url: "", params: { cname } });
+                console.log(aObj.data.list[0]);
+            } catch (error) {
+                console.dir(error);
+            }
+        };
+
+
+        // EventLoop事件循環: 執行代碼和收集異步任務的模型，再調用棧空閒，反覆調用任務隊列裡的回調函數的執行機制
+        // JavaScript有個基於事件循環的併發模型，事件循環負責執行代碼、收集和處理事件以及執行對列中的子任務。(與C和Java完全不同)
+        // 原因: JavaScript是單線程，為了讓耗時代碼不阻塞其他代碼運行，設計了事件循環模型
+        // 調用棧 <--- 任務隊列 ---> 宿主環境(瀏覽器)(異步代碼會先放在這)
+
+
+        // 延伸: 任務隊列再劃分宏任務與微任務
+        // 宏任務: 由瀏覽器執行與管理的的代碼(Script, setTimeout/setInterval, AJAX, 用戶交互)
+        // 微任務: 由JS引擎環境執行與管理的代碼(Promise對象.then()與.catch())
+
+        // 優先調用微任務，再執行宏任務
+
+
+        // Promise.all靜態方法
+        const pp1 = new Promise(resoluvs, reject => {
+            resoluvs(1);
+        }).then(result => {
+
+        }).catch(error => {
+
+        });
+        const pp2 = new Promise(resoluvs, reject => {
+            resoluvs(1);
+
+        }).then(result => {
+
+        }).catch(error => {
+
+        });
+
+        const pp3 = new Promise(resoluvs, reject => {
+            resoluvs(1);
+
+        }).then(result => {
+
+        }).catch(error => {
+
+        });
+        //等待pp1,pp2,pp3全部都完成
+        const pp = Promise.all([pp1, pp2, pp3]).then(result => {
+            // result會是一個數組，且順序與前方列的Promise順序是相同的
+        });
+
+    </script>
+</body>
+
+</html>

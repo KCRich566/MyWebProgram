@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <ul>
+        </ul>
+    </div>
+    <script>
+        // axios是對Promise(多執行緒)與XHR(XMLHttpRequest)的封裝
+
+
+
+        // 使用Promise執行多執行緒，如果成功完成，會回調resolve進入then，否則回調reject進入catch
+        const p = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'https://api.restful-api.dev/objects');
+            // 當XHR取得資訊，會觸法loadend
+            xhr.addEventListener('loadend', () => {
+
+                // 2xx開頭是成功的訊息
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    resolve(JSON.parse(xhr.response));
+                } else {
+                    reject(new Error(xhr.response))
+                }
+            });
+            xhr.send();
+        })
+
+        p.then(result => {
+            console.log('XHR:', result);
+            const ul = document.querySelector('ul');
+            let temp = null;
+            for (let i = 0; i < result.length; i++) {
+                const li = document.createElement('li');
+                li.innerHTML = `<li>${result[i].id} ${result[i].name}</li`;
+                ul.appendChild(li);
+            }
+
+        }).catch(error => {
+            // console.dir 詳細打印
+            console.dir('XHR:', error.message);
+        })
+
+
+
+        // 建議版自製axios
+
+        function myAxios(config) {
+            return new Promise((resolve, reject) => {
+                // XHR請求
+                const xhr = new XMLHttpRequest();
+                if (config.params) {
+                    const paramsObj = new URLSearchParams(config.params);
+                    const queryString = paramsObj.toString();
+                    config.url += `?${queryString};`
+                }
+                console.log('url=', config.url)
+                xhr.open(config.method || 'GET', config.url);
+                xhr.addEventListener('loadend', () => {
+                    // 調用成功/失敗
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        resolve(JSON.parse(xhr.response));
+                    } else {
+                        reject(new Error(xhr.response));
+                    }
+                });
+
+                if (config.data) {
+                    const jsonStr = JSON.stringify(config.data);
+                    xhr.setRequestHeader('Content-Type', 'application/json')
+                    xhr.send(jsonStr);
+                } else {
+                    xhr.send();
+                }
+            });
+        }
+
+        myAxios({
+            url: 'https://api.restful-api.dev/objects',
+            // GET參數
+            params: {
+                "test1": 1,
+                "test2": 2
+            },
+            // Body資料
+            data: {
+                "test1": 1,
+                "test2": 2
+            }
+        }).then(result => {
+            console.log('myAxios', result);
+        }).catch(error => {
+            console.log('myAxios', error.message);
+        });
+
+        
+    </script>
+</body>
+
+</html>
