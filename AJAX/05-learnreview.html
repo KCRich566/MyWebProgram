@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 初始化样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset.css@2.0.2/reset.min.css">
+    <!-- 引入bootstrap.css -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 核心样式 -->
+    <title>学习反馈</title>
+    <!-- 副文本: 帶標籤帶樣式的文本 -->
+    <style>
+        .container {
+            width: 1000px;
+            padding-top: 20px;
+            margin: 0 auto 0;
+            position: relative;
+        }
+
+        .container .stu-title {
+            font-weight: 900;
+            font-size: 36px;
+        }
+
+        .container .bg {
+            display: block;
+            width: 100%;
+        }
+
+        .item-wrap .hot-area {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .item-wrap .hot-area .hot {
+            color: #c32f32;
+            font-weight: 600;
+            margin-right: 20px;
+        }
+
+
+        .item-wrap .nav {
+            display: flex;
+        }
+
+        .item-wrap .nav li {
+            margin-right: 10px;
+        }
+
+        .item-wrap .nav li a {
+            text-decoration: none;
+            color: black;
+        }
+
+
+        .item-wrap .title {
+            font-weight: 600;
+            white-space: nowrap;
+            margin-right: 20px;
+        }
+
+        .item-wrap select {
+            width: 150px;
+            height: 40px;
+            font-size: 14px;
+            color: black;
+            letter-spacing: 0;
+            font-weight: 400;
+            background: #FFFFFF;
+            border: 1px solid rgba(232, 232, 233, 1);
+            border-radius: 4px;
+            padding: 10px;
+            outline: none;
+            margin-right: 10px;
+
+        }
+
+        .item-wrap select option {
+            font-weight: normal;
+            display: block;
+            white-space: nowrap;
+            min-height: 1.2em;
+            padding: 0px 2px 1px;
+            font-size: 16px;
+
+        }
+
+        .item-wrap input {
+            font-weight: normal;
+            display: block;
+            white-space: nowrap;
+            min-height: 1.2em;
+            padding: 0px 2px 1px;
+            height: 40px;
+            font-size: 16px;
+            border: 1px solid rgba(232, 232, 233, 0.682);
+            color: black;
+        }
+
+        .item-wrap .feedback {
+            width: 400px;
+            height: 150px;
+            border: 1px solid rgba(232, 232, 233, 0.682);
+        }
+
+        .item-wrap .area-box {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feedback::-webkit-input-placeholder {
+            /* WebKit browsers */
+            color: #BFBFBF;
+        }
+
+        .feedback:-moz-placeholder {
+            /* Mozilla Firefox 4 to 18 */
+            color: #BFBFBF;
+        }
+
+        .feedback::-moz-placeholder {
+            /* Mozilla Firefox 19+ */
+            color: #BFBFBF;
+        }
+
+        .feedback:-ms-input-placeholder {
+            /* Internet Explorer 10+ */
+            color: #BFBFBF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h4 class="stu-title">学习反馈</h4>
+        <img class="bg" src="./img/head.png" alt="">
+        <div class="item-wrap">
+            <div class="hot-area">
+                <span class="hot">热门校区</span>
+                <ul class="nav">
+                    <li><a target="_blank" href="http://bjcp.itheima.com/">北京</a> </li>
+                    <li><a target="_blank" href="http://sh.itheima.com/">上海</a> </li>
+                    <li><a target="_blank" href="http://gz.itheima.com/">广州</a> </li>
+                    <li><a target="_blank" href="http://sz.itheima.com/">深圳</a> </li>
+                </ul>
+            </div>
+            <form class="info-form">
+                <div class="area-box">
+                    <span class="title">地区选择</span>
+                    <select name="province" class="province">
+                        <option value="">省份</option>
+                    </select>
+                    <select name="city" class="city">
+                        <option value="">城市</option>
+                    </select>
+                    <select name="area" class="area">
+                        <option value="">地区</option>
+                    </select>
+                </div>
+                <div class="area-box">
+                    <span class="title">您的称呼</span>
+                    <input type="text" name="nickname" class="nickname" value="播仔">
+                </div>
+                <div class="area-box">
+                    <span class="title">宝贵建议</span>
+                    <textarea type="text" name="feedback" class="feedback" placeholder="您对AJAX阶段课程宝贵的建议"></textarea>
+                </div>
+                <div class="area-box">
+                    <button type="button" class="btn btn-secondary submit">
+                        确定提交
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.2.0/axios.min.js"></script>
+    <script src="./js/form-serialize.js"></script>
+    <!-- 核心代码 -->
+    <script>
+        /**
+     * 目标1：完成省市区下拉列表切换
+     *  1.1 设置省份下拉菜单数据
+     *  1.2 切换省份，设置城市下拉菜单数据，清空地区下拉菜单
+     *  1.3 切换城市，设置地区下拉菜单数据
+     */
+        // 1.1 设置省份下拉菜单数据
+        axios({
+            url: 'http://hmajax.itheima.net/api/province'
+        }).then(result => {
+            const optionStr = result.data.list.map(pname => `<option value="${pname}">${pname}</option>`).join('')
+            document.querySelector('.province').innerHTML = `<option value="">省份</option>` + optionStr
+        })
+
+        // 1.2 切换省份，设置城市下拉菜单数据，清空地区下拉菜单
+        document.querySelector('.province').addEventListener('change', async e => {
+            // 获取用户选择省份名字
+            // console.log(e.target.value)
+            const result = await axios({ url: 'http://hmajax.itheima.net/api/city', params: { pname: e.target.value } })
+            const optionStr = result.data.list.map(cname => `<option value="${cname}">${cname}</option>`).join('')
+            // 把默认城市选项+下属城市数据插入select中
+            document.querySelector('.city').innerHTML = `<option value="">城市</option>` + optionStr
+
+            // 清空地区数据
+            document.querySelector('.area').innerHTML = `<option value="">地区</option>`
+        })
+
+        // 1.3 切换城市，设置地区下拉菜单数据
+        document.querySelector('.city').addEventListener('change', async e => {
+            console.log(e.target.value)
+            const result = await axios({
+                url: 'http://hmajax.itheima.net/api/area', params: {
+                    pname: document.querySelector('.province').value,
+                    cname: e.target.value
+                }
+            })
+            console.log(result)
+            const optionStr = result.data.list.map(aname => `<option value="${aname}">${aname}</option>`).join('')
+            console.log(optionStr)
+            document.querySelector('.area').innerHTML = `<option value="">地区</option>` + optionStr
+        })
+
+        /**
+         * 目标2：收集数据提交保存
+         *  2.1 监听提交的点击事件
+         *  2.2 依靠插件收集表单数据
+         *  2.3 基于axios提交保存，显示结果
+         */
+        // 2.1 监听提交的点击事件
+        document.querySelector('.submit').addEventListener('click', async () => {
+            // 2.2 依靠插件收集表单数据
+            const form = document.querySelector('.info-form')
+            const data = serialize(form, { hash: true, empty: true })
+            console.log(data)
+            // 2.3 基于axios提交保存，显示结果
+            try {
+                const result = await axios({
+                    url: 'http://hmajax.itheima.net/api/feedback',
+                    method: 'POST',
+                    data
+                })
+                console.log(result)
+                alert(result.data.message)
+            } catch (error) {
+                console.dir(error)
+                alert(error.response.data.message)
+            }
+        })
+
+    </script>
+</body>
+
+</html>
