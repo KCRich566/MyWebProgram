@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Model Recognition Images</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #dropZone {
+            width: 100%;
+            height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+
+        #dropZone.dragover {
+            border-color: #0d6efd;
+            color: #0d6efd;
+            background-color: #e9ecef;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        /* JS新增的圖片容器 */
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .image-container img {
+            max-width: 200px;
+            max-height: 200px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .image-container .modelNameInput {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <h1 id="title" class="mt-4">Upload Model Recognition Images</h1>
+
+    <!-- 拖放區域 -->
+    <div id="dropZone">
+        <label for="imageInput" class="btn" id="dropZoneLabel">Drop images here or click this region to choose
+            images</label>
+        <input type="file" class="from-control d-none" name="images" id="imageInput" accept="image/*" multiple>
+    </div>
+
+    <!-- 上傳資料表單 -->
+    <form action="" id="uploadForm" enctype="multipart/form-data">
+        <div id="imagePreview" class="image-preview">
+            <!-- JS會渲染圖片容器與此 -->
+        </div>
+        <button type="submit" class="btn btn-success mt-4">上傳</button>
+    </form>
+
+    <!-- 圖片預覽框 -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">圖片預覽</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" alt="預覽圖片" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 初始化上傳圖片列表
+            function DataFileClass(file, modelName) {
+                this.imageFile = file;
+                this.modelName = modelName;
+            }
+
+            const imageFiles = [];
+
+
+            // 檢查localStorage是否有設定
+            let computerName = localStorage.getItem("computerName");
+            if (computerName === null) {
+                computerName = prompt("Please input your computer name!!!");
+                localStorage.setItem("computerName", computerName);
+            }
+            document.querySelector('#title').innerHTML += ` (${computerName})`;
+
+            // 處理拖放圖片的功能
+            const dropZone = document.getElementById("dropZone");
+            dropZone.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
+            });
+            dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragover"));
+            dropZone.addEventListener("drop", (e) => {
+                e.preventDefault();
+                dropZone.classList.remove("dragover");
+                const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith("image/"));
+                files.forEach((file) => {
+                    imageFiles.push(new DataFileClass(file, null));
+                })
+                updatePreview();
+            });
+
+            // 處理文件選擇圖片的功能
+            const imageInput = document.getElementById("imageInput");
+            imageInput.addEventListener('change', (e) => {
+                e.preventDefault();
+                const files = Array.from(e.target.files).filter(file => file.type.startsWith("image/"));
+                files.forEach((file) => {
+                    imageFiles.push(new DataFileClass(file, null));
+                })
+                updatePreview();
+            });
+
+
+
+            // 建立Modal框
+            const imageModal = new bootstrap.Modal(document.getElementById("imageModal"));
+
+            const imagePreview = document.querySelector('#imagePreview');
+
+            // 更新圖片預覽
+            const updatePreview = () => {
+                imagePreview.innerHTML = "";
+                imageFiles.forEach((datum, index) => {
+                    createImagePreview(datum, index);
+                });
+            }
+
+            const createImagePreview = (datum, index) => {
+
+                // 用來異步讀取文件內容，並將其轉換成data url(一種Base64編碼)
+                // 當圖片讀取完成後，會觸發onload事件
+                const reader = new FileReader();
+                // e.target.result會包含圖片的Base64字串
+                reader.onload = (e) => {
+                    const fileName = datum.imageFile.name.split(".")[0];
+
+                    const container = document.createElement("div");
+                    container.className = "image-container";
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.addEventListener("click", () => {
+                        document.querySelector('#imageModalLabel').innerText = fileName;
+                        modalImage.src = e.target.result;
+                        imageModal.show();
+                    });
+                    container.appendChild(img);
+
+                    // 建立model name 輸入
+                    const modelNameInput = document.createElement("input");
+                    modelNameInput.type = "text";
+                    modelNameInput.placeholder = "Enter the model name for this image";
+                    modelNameInput.value = datum.modelName;
+                    // 在上傳時，使用index來確認圖片
+                    modelNameInput.name = `modelNames[${index}]`;
+                    modelNameInput.className = "form-control mt-2";
+                    modelNameInput.required = true;
+                    modelNameInput.addEventListener('change', function (e) {
+                        imageFiles[index].modelName = e.target.value;
+                    })
+
+                    container.appendChild(modelNameInput);
+
+                    // 建立刪除按鈕
+                    const removeButton = document.createElement("button");
+                    removeButton.type = "button";
+                    removeButton.textContent = "移除";
+                    removeButton.className = "btn btn-danger mt-2";
+                    removeButton.addEventListener("click", () => {
+                        // 刪除指定位置往後一個元素
+                        imageFiles.splice(index, 1);
+                        updatePreview();
+                    });
+
+                    container.appendChild(removeButton);
+
+                    imagePreview.appendChild(container);
+                };
+                // 開始讀取圖片並轉換成Base64編碼，讀取完後觸發onload
+                reader.readAsDataURL(datum.imageFile);
+
+            };
+
+            const uploadForm = document.querySelector("#uploadForm");
+            uploadForm.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                if (imageFiles.length === 0) {
+                    return alert('沒有資料被上傳喔!!!');
+                }
+                var formData = new FormData();
+                formData.append("computerName", computerName);
+                imageFiles.forEach((datum, index) => {
+                    formData.append("images", datum.imageFile);
+                    const modelNameInput = document.querySelector(`input[name="modelNames[${index}]"]`);
+                    if (modelNameInput) {
+                        formData.append(new Object(`${modelNameInput.name}`), modelNameInput.value);
+                    }
+                });
+                formData.forEach((value, key) => {
+                    console.log(key, value);
+                });
+                try {
+                    // FormData 會自動設置 Content-Type 為 multipart/form-data 並自動生成邊界
+                    const response = await fetch("/upload",
+                        {
+                            method: "POST",
+                            headers: {
+                                //"Accept": "multipart/form-data", // 設置期望的回應格式
+                                // "Content-Type": "multipart/form-data" // 設置表單資料的類型
+                            },
+                            body: formData
+                        });
+                    if (response.ok) {
+                        alert("上傳成功");
+                    } else {
+                        alert("上傳失敗");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("上傳過程中發生錯誤");
+                }
+
+            });
+        });
+
+
+
+    </script>
+</body>
+
+</html>
