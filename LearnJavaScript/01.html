@@ -13,26 +13,7 @@
 </head>
 
 <body>
-    <div>123</div>
-    <div class="box">123</div>
-    <div class="box">abc</div>
-
-
-
-
-    <!--
-    [MDN網站]
-    JavaScript 組成:
-        1. ECMAScript: 規定JS基礎語法核心
-        2. Web APIs -
-            1. DOM: 頁面文檔對象模型
-            2. BOM: 瀏覽器對象模型
-    -->
-
-    <button class="pink">按鈕1</button>
-    <button>按鈕2</button>
-    <button>按鈕3</button>
-    <button>按鈕4</button>
+ 
     <script>
         // 因為執行是由上往下，所以比較建議JS寫在Body尾端。
         // alert()與Prompt會跳過頁面渲染先被執行
@@ -41,13 +22,6 @@
         // 如果document write再載時使用，會直接append在網頁後端。
         // 但如果是在載入後觸發，則會覆蓋原先的document
 
-        // var 可以先使用在聲明
-        // var 可以重複聲明
-        // var 沒有塊級作用域
-
-        // let 不能重複聲明
-        // let 用來解決var的問題
-        // let 有塊級作用域
 
         const PI = 3.1415926
         let pi = PI;
@@ -89,36 +63,7 @@
         console.log('undefined + 1 = ', undefined + 1, 'typeof = ', typeof (undefined + 1))
         console.log('null + 1 =    ', null + 1, 'typeof = ', typeof (null + 1))
 
-        let t;
-        document.write('出', pi, t, '');
-        let multitypeArray = ['test', 12]
-        multitypeArray[2] = 5;
-        multitypeArray[3] = '';
-        multitypeArray[4] = NaN;
-        multitypeArray[5] = undefined;
-        multitypeArray[6] = undefined;
-        // 從前最前端插入
-        multitypeArray.unshift("first");
-        // 從最後端插入
-        multitypeArray.push("last")
-        multitypeArray.splice(4, 1);
-        multitypeArray.pop();
-        multitypeArray.push("last")
-
-        let arr = [5, 1, 3, 4, 6, 2];
-        arr.sort(function (a, b) {
-            // 生冪排列
-            return a - b;
-            // 降冪排列
-            // return a+b;
-        })
-
-        // (不推薦)如果變數沒有聲明，但直接賦值，會直接變成var
-        for (let i = 0; i < multitypeArray.length - 1; i++) {
-            console.log('i = ', i, '  array:', multitypeArray[i]);
-        }
-        console.log(multitypeArray[0], multitypeArray[1], multitypeArray[2])
-        console.log('Length:', multitypeArray.length, 'data:', multitypeArray);
+      
 
         alert('你好,JS~');
         let age = 32;
@@ -133,19 +78,7 @@
             })
         }
 
-        // 匿名函數
-        // 函數表達式
-        let fn = function () {
-            let test = 3 + 64
-            return test;
-        }
-        console.log("test:", fn(), " function:", fn);
-
-        // 立即執行的函數
-        // (function(){}  ())
-        (function () {
-            let num = 20;
-        })();
+  
 
         // 邏輯中斷
         // 邏輯左邊有數值x || y就執行x跳過y，否則執行y.
@@ -210,20 +143,7 @@
 
 
 
-        // var
-        // let
-        // const 盡量優先使用此宣告，因為語意化更好，如果發現後面會被修改，再改為let就好
-        let numlet = 4;
-        const numconst = numlet;
-        console.log(numlet)
-        console.log(numconst)
-
-        const arrayconst = [1, 2, 3, 4];
-        let arraylet = arrayconst;
-        arraylet.push(5);
-        console.log(arrayconst)
-        console.log(arraylet)
-
+  
         // Web API主要在修改DOM,BOM
         // DOM 是文檔對象類型 - 操作網頁內容與實現用戶交互
         // DOM tree - 樹狀的HTML定義，Root為document(最大的對象) -> HTML -> (head, body) ，顯示標籤與標籤之間的關係
@@ -326,10 +246,7 @@
 
         //1.(舊) 元件.on事件 = function(){}
         //2. 元素對象.addEventListener('事件類型', function(){}); 此方法可以重複綁定
-        // 鼠標事件: click, mouseover, mouseleave
-        // 焦點事件: focus, blur(失去焦點)
-        // 鍵盤事件: keydown, keyup
-        // 文本事件: input
+       
     </script>
 
     <!-- 事件對象: 既然是對象一定會有屬性與方法

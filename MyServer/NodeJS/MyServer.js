@@ -114,51 +114,52 @@ app.post("/upload", multerUpload.array("images"), (req, res) => {
     if (req.headers["content-type"].includes('application/json')) {
       modelNames = req.body.modelNames.split(',') || []; // 從表單中取得 modelNames 資料，避免未定義
     } else if (req.headers["content-type"].includes('multipart/form-data')) {
-  modelNames = req.body.modelNames || []; // 從表單中取得 modelNames 資料，避免未定義
-}
-
-const computerName = req.body.computerName;
-// 初始化儲存結果的陣列
-const savedData = [];
-
-files.forEach((file, index) => {
-  const modelName = modelNames[index];
-
-  if (modelName) {
-    // 建立對應的 Model 資料夾
-    const modelDir = path.join(uploadDir, computerName, modelName);
-    if (!fs.existsSync(modelDir)) {
-      fs.mkdirSync(modelDir, { recursive: true });
+      modelNames = req.body.modelNames || []; // 從表單中取得 modelNames 資料，避免未定義
     }
 
-    // 移動檔案到對應的資料夾
-    const newFilePath = path.join(modelDir, path.basename(file.path));
-    fs.renameSync(file.path, newFilePath);
+    const computerName = req.body.computerName;
+    // 初始化儲存結果的陣列
+    const savedData = [];
 
-    // 儲存檔案資料
-    // 如果key與value一樣，可以省略定義key
-    savedData.push({
-      modelName,
-      originalName: file.originalname,
-      filePath: newFilePath,
+    files.forEach((file, index) => {
+      const modelName = modelNames[index];
+
+      if (modelName) {
+        // 建立對應的 Model 資料夾
+        const modelDir = path.join(uploadDir, computerName, modelName);
+        if (!fs.existsSync(modelDir)) {
+          fs.mkdirSync(modelDir, { recursive: true });
+        }
+
+        // 移動檔案到對應的資料夾
+        const newFilePath = path.join(modelDir, path.basename(file.path));
+        fs.renameSync(file.path, newFilePath);
+
+        // 儲存檔案資料
+        // 如果key與value一樣，可以省略定義key
+        savedData.push({
+          index,
+          modelName,
+          originalName: file.originalname,
+          filePath: newFilePath,
+        });
+      }
     });
-  }
-});
 
-// 將資料儲存到 imageData.json
-const dataFilePath = path.join(__dirname, `${GetNowTimeStamp(true)}-${computerName}-imageData.json`);
-const existingData = fs.existsSync(dataFilePath)
-  ? JSON.parse(fs.readFileSync(dataFilePath))
-  : [];
-const updatedData = [...existingData, ...savedData];
+    // 將資料儲存到 imageData.json
+    const dataFilePath = path.join(__dirname, `${GetNowTimeStamp(true)}-${computerName}-imageData.json`);
+    const existingData = fs.existsSync(dataFilePath) ? JSON.parse(fs.readFileSync(dataFilePath)) : [];
 
-fs.writeFileSync(dataFilePath, JSON.stringify(updatedData, null, 2));
+    // 展開運算
+    const updatedData = [...existingData, ...savedData];
 
-res.status(200).json({ message: "上傳成功", savedData });
+    fs.writeFileSync(dataFilePath, JSON.stringify(updatedData, null, 2));
+
+    res.status(200).json({ message: "上傳成功", savedData });
   } catch (error) {
-  console.error(error);
-  res.status(500).json({ message: "上傳失敗", error: error.message });
-}
+    console.error(error);
+    res.status(500).json({ message: "上傳失敗", error: error.message });
+  }
 });
 
 // 提供 UploadMRImgs.html 頁面

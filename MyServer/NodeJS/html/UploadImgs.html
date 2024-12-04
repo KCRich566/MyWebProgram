@@ -52,6 +52,32 @@
         .image-container .modelNameInput {
             margin-top: 10px;
         }
+
+        .image-container.selected {
+            border: 2px solid #0d6efd;
+            background-color: #e9ecef;
+        }
+
+        /* 滑鼠右鍵選單 */
+        .context-menu {
+            position: absolute;
+            z-index: 1000;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .context-menu li {
+            list-style: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .context-menu li:hover {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
 
@@ -88,11 +114,37 @@
         </div>
     </div>
 
+
+    <ul id="contextMenu" class="context-menu">
+        <li id="editSelectedModelName">Edit Selected Model Name</li>
+        <li id="deleteSelectedImage">Delete Selected Images</li>
+    </ul>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+
+
+            const imagePreview = document.querySelector('#imagePreview');
+            
+            // 處理多選 尚未完成
+            imagePreview.addEventListener('click', (e) => {
+                if (e.target.tagName === 'DIV' ||e.target.classList.contains('image-container')) {
+                    if (e.target.classList.contains('selected')) {
+                        e.target.classList.remove('selected');
+                    } else {
+                        e.target.classList.add('selected');
+                    }
+                }
+            })
+            const contextMenu = document.querySelector('#contextMenu');
+            const editSelectedModelName = document.querySelector('#editSelectedModelName');
+            const delectSelectedImages = document.querySelector('#deleteSelectedImages');
+            // 
+
+
+
             // 初始化上傳圖片列表
             function DataFileClass(file, modelName) {
                 this.imageFile = file;
@@ -143,7 +195,6 @@
             // 建立Modal框
             const imageModal = new bootstrap.Modal(document.getElementById("imageModal"));
 
-            const imagePreview = document.querySelector('#imagePreview');
 
             // 更新圖片預覽
             const updatePreview = () => {
@@ -167,7 +218,7 @@
 
                     const img = document.createElement('img');
                     img.src = e.target.result;
-                    img.addEventListener("click", () => {
+                    img.addEventListener("dblclick", () => {
                         document.querySelector('#imageModalLabel').innerText = fileName;
                         modalImage.src = e.target.result;
                         imageModal.show();
@@ -233,13 +284,16 @@
                         {
                             method: "POST",
                             headers: {
-                                //"Accept": "multipart/form-data", // 設置期望的回應格式
-                                // "Content-Type": "multipart/form-data" // 設置表單資料的類型
+                                "Accept": "application/json", // 設置期望的回應格式
+                                // "Content-Type": "application/json" // 設置表單資料的類型
                             },
                             body: formData
                         });
                     if (response.ok) {
                         alert("上傳成功");
+                        response.json().then(data => {
+                            console.log(data);  // 顯示回應的 JSON 數據
+                        });
                     } else {
                         alert("上傳失敗");
                     }
