@@ -306,5 +306,12 @@ console.log('require=', utils.url);
     output:{
         filename: './[name]/index.js
     }
+
+
+    ----
+
+    bootCDN
+    unpkg
+    npmjs
     */
 // 

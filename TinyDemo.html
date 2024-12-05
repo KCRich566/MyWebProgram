@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body {
+            text-align: center;
+        }
+
+        /* table */
+        table {
+            border-collapse: collapse;
+            height: 80px;
+            margin: 10px auto;
+        }
+
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid #000;
+        }
+
+        th,
+        td {
+            padding: 20px;
+        }
+
+        tr th {
+            background-color: blue;
+        }
+
+        tr:nth-child(even) td {
+            background-color: darkgoldenrod;
+        }
+
+        /* 直條圖 */
+        .barBox {
+            display: flex;
+            width: 700px;
+            height: 300px;
+            border-left: 1px solid black;
+            border-bottom: 1px solid black;
+            margin: 50px auto;
+            justify-content: space-around;
+
+            align-items: flex-end;
+            text-align: center;
+        }
+
+        .barBox>div {
+            display: flex;
+            width: 50px;
+            background-color: yellow;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .barBox div span {
+            margin-top: -20px;
+        }
+
+        .barBox div h4 {
+            margin-bottom: -35px;
+            width: 350px;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <th>商品名稱</th>
+            <th>商品價格</th>
+            <th>商品數量</th>
+            <th>總價</th>
+            <th>收貨地址</th>
+        </tr>
+        <tr>
+            <td>Apple iPhone 15 Pro Max</td>
+            <td>58900元</td>
+            <td>3</td>
+            <td>17670</td>
+            <td>新北市林口區文化三路</td>
+        </tr>
+        <tr>
+            <td>Apple iPhone 15 Pro Max</td>
+            <td>58900元</td>
+            <td>100</td>
+            <td>5890000</td>
+            <td>新北市林口區文化三路</td>
+        </tr>
+        <tr>
+            <td>Galaxy Watch 7</td>
+            <td>12990元</td>
+            <td>100</td>
+            <td>1299000</td>
+            <td>桃園市桃園區中正路一段</td>
+        </tr>
+        <tr>
+            <td>Galaxy Watch 7</td>
+            <td>12990元</td>
+            <td>10</td>
+            <td>129900</td>
+            <td>桃園市桃園區中正路一段</td>
+        </tr>
+    </table>
+
+    <div class="barBox">
+        <div class="GalaxyWatch7" style="height: 103px;">
+            <span>103</span>
+            <h4>Galaxy Watch 7 數量</h4>
+        </div>
+        <div class="AppleiPhone15ProMax" style="height: 110px;">
+            <span>110</span>
+            <h4>Apple iPhone 15 Pro Max 數量</h4>
+        </div>
+    </div>
+
+    <script>
+        const iPhone15ProMax = 58900;
+        const galaxyWatch = 12900;
+
+        const user1 = +prompt('請輸入User1 Apple手機購買數量') || 300;
+        const user2 = +prompt('請輸入User2 Apple手機購買數量') || 20;
+        const user3 = +prompt('請輸入User3 Galaxy Watch7購買數量') || 80;
+        const user4 = +prompt('請輸入User4 Galaxy Watch7購買數量') || 100;
+        users = [user1, user2, user3, user4];
+        const table = document.querySelector('table');
+        table.innerHTML =
+            `
+        <tr>
+            <th>商品名稱</th>
+            <th>商品價格</th>
+            <th>商品數量</th>
+            <th>總價</th>
+            <th>收貨地址</th>
+        </tr>
+        `;
+        for (let i = 0; i < users.length; i++) {
+            table.innerHTML +=
+                `
+            <tr>
+                <td>${(i < 2) ? "Apple iPhone 15 Pro Max" : "Galaxy Watch7"}</td>
+                <td>${(i < 2) ? "58900元" : "12900元"}</td>
+                <td>${users[i]}</td>
+                <td>${(i < 2) ? users[i] * iPhone15ProMax : users[i] * galaxyWatch}</td>
+                <td>新北市</td>
+            </tr>
+            `
+        }
+
+        const barGalaxyWatch7 = document.querySelector('.GalaxyWatch7');
+        const barAppleiPhone15ProMax = document.querySelector('.AppleiPhone15ProMax');
+
+        barGalaxyWatch7.style.height = `${user3 + user4}px`;
+        barGalaxyWatch7.firstElementChild.innerText = `${user3 + user4}`;
+        barAppleiPhone15ProMax.style.height = `${user1 + user2}px`;
+        barAppleiPhone15ProMax.firstElementChild.innerText = `${user1 + user2}`;
+
+        function getRandomColor(flag = true) {
+            if (flag == true) {
+                let str = "#";
+                let arr = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'];
+                for (let i = 0; i <= 5; i++) {
+                    let random = Math.floor(Math.random() * arr.length);
+                    str += arr[random];
+                }
+                return str;
+            } else {
+                let r = Math.floor(Math.random() * 256);
+                let g = Math.floor(Math.random() * 256);
+                let b = Math.floor(Math.random() * 256);
+                return `rgb(${r},${g},${b})`;
+            }
+        };
+        document.body.style.backgroundColor = getRandomColor(true);
+    </script>
+</body>
+
+</html>
