@@ -15,7 +15,6 @@
 <body>
  
     <script>
-        // 因為執行是由上往下，所以比較建議JS寫在Body尾端。
         // alert()與Prompt會跳過頁面渲染先被執行
         // <script src=''/>
 
@@ -25,40 +24,14 @@
         // prompt()
         // alert();
         // input()
+
+        /*  環境對象(this) 
+            他代表當前執行所使用的環境
+            [誰調用，誰是this]
+        */
     </script>
 
 
-
-    <!-- 環境對象(this) 
-他代表當前執行所使用的環境
-[誰調用，誰是this]
--->
-
-    <script>
-        function fsn() {
-            console.log(this)
-        }
-        btn.addEventListener('click', function (e) {
-            this.style.color = 'red';
-        })
-        // window.fn(): 普通function內的this是指向window
-        // 事件監聽: 但this會在函數的調用者間切換。
-    </script>
-
-
-    <!-- 其他事件
-
-      A. 頁面加載事件: 主要是要等頁面資源加仔完成後才執行的事情。
-      如Script在head中，就時常需要使用此方法
-      1. [windows] load event: 頁面加載完所有資源與外部才執行
-      2. [document] DOMContentLoaded event: DOM被建立時就加載
-     -->
-    <script>
-        window.addEventListener('load', function () {
-            // 撰寫載button宣告之前，但實際執行是在load結束後
-            const btn = document.querySelector('.loadButton');
-            console.log('btn=', btn.offsetTop);
-        })
     </script>
     <button class="loadButton"></button>
     <!-- 其他事件  scroll event
@@ -89,113 +62,11 @@
        document.documentElement.clientWidth
        document.documentElement.scrollTop
        
-
-       獲取自己離父元素多遠
-       offsetTop, offsetTop
-       
-
-       getboundingClientRect(): 返回元素的大小與其相對視口位置
        -->
 
 
 
-    <!-- Window對象:
-        BOM(Broser Object Model, 瀏覽器對象模型): BOM(整個瀏覽器)打開DOM(HTML顯示區域)
-            window(最大對象) -> (navigator, location, document, history, screen)
-            document -> HTML -> (head, body)
-        定時器-延遲函數
-        JS執行機制
-        location對象
-        navigator對象
-        history對象
-       -->
-    <script>
-        //window.document.querySelector(): window可以忽略
-        console.log('window === window.document = ', window === window.document);
 
-        // function也會變成window的方法
-        function fnn() {
-            console.log(1);
-        }
-        window.fnn();
-        console.log('1221312312323asdsfd')
-
-        var num = 10; // 所有透過var定義的屬性與方法，都會變成window的屬性與方法
-    </script>
-  
-    <!-- JS執行機制 
-    最大特點是 單線程，同一個時間只可以做一件事，像是setTimout為0秒，仍不會先被執行。因為要先等待同步任務完成 
-
-    同步: 前一個任務執行完才會執行後一個任務: (JS沒有這東西唷，但類似)有個執行棧
-    異步: 同時執行: 通過回調函數實現的: (JS沒有這東西唷，但類似)有個任務對列(也稱消息對列)
-        當異步任務結束後，會透過回調函數進入消息對列。主線程再從消息對列取出資料。
-        1. 普通事件: click, resize
-        2. 資源加載: load, error
-        3. 定時器: setInterval, setTimeout
-
-    一旦執行棧中的同步任務執行完畢，系統就會一次讀取任務對列中的異步任務
-    那一步任務在哪裡執行呢? Ans: 瀏覽器，因為瀏覽器可以處理多線程操作，但JS只能是單線程
-    在瀏覽器執行的有異步WebAPI, AJAX, DOM, setTimout, setInterval
-    
-    事件循環Event loop: 由於主線程不斷的重複獲得任務、執行、再獲取任務、再執行的機制
-    -->
-    <script>
-        console.log(1);
-        console.log(2);
-        setTimeout(function () {
-            console.log(3);
-
-        }, 2000)
-        console.log(4);
-
-    </script>
-
-
-    <!-- location對象: 網址類 -->
-
-    <a class="trans" href="http://www.itcast.cn">支付成功，<span>60</span>秒後跳轉到首頁</a>
-    <script>
-
-        console.log(window.location);
-        console.log(location)
-        console.log(location.href)
-        // 經常用href的JS方式來跳轉頁面
-        const a_trans = document.querySelector('.trans');
-        num = 9999;
-        setInterval(function () {
-            num--;
-            a_trans.innerHTML = ``;
-            a_trans.innerHTML = `支付成功，將在${num}秒後跳轉至首頁`;
-            if (num === 0) {
-                clearInterval();
-                location.href = "http://www.itcast.cn";
-            }
-        }, 1000)
-    </script>
-
-    <form action="">
-        <input type="text" name="uername">
-        <input type="password" name="pwd">
-        <button type="submit">submit </button>
-    </form>
-    <a href='#/my'>我的</a>
-    <a href='#/friend'>朋友</a>
-    <button class="reload">Reload</button>
-    <script>
-        //submit按下後location.search可以取得[get]form的內容
-        console.log('location.serach = ', location.serach);
-        // 獲取'#'號後面的值，減少頁面載入的資源
-        console.log('location.hash', location.hash);
-
-        const reload = document.querySelector('.reload');
-        reload.addEventListener('click', function () {
-            location.reload(); //相當於按下F5
-            //reload(true) 參數給true表示強制刷新
-        });
-    </script>
-    <!-- navigator  : 瀏覽器相關信息
-    userAgent: 檢測瀏覽器版本與平台 
-    -->
     <!-- history: 使用在瀏覽器的上一頁與下一頁的功能
       -->
     <div>
