@@ -52,8 +52,6 @@
     </script>
 
     <!-- 其他事件
-       [window, document]scroll
-       [window, document] resize
        [div] clientWidth, clientHeight(不包含Border) 
        
        window.devicePixelRatio || 1
@@ -63,128 +61,9 @@
        document.documentElement.scrollTop
        
        -->
-
-
-
-
-    <!-- history: 使用在瀏覽器的上一頁與下一頁的功能
-      -->
-    <div>
-        <button class="control">prev</button>
-        <button class="control">next</button>
-    </div>
-    <script>
-        // 使用first-child一定要確保有父節點
-        const back = document.querySelector('button.control:first-child')
-        debugger
-        console.log('back = ', back);
-        const next = back.nextElementSibling;
-        back.addEventListener('click', function () {
-            // 以下兩者一樣
-            //history.back();
-            
-            history.go(-1);
-        });
-        next.addEventListener('click', function () {
-            // 以下兩者一樣
-            //history.forward();
-            history.go(1);
-
-        });
-
-    </script>
-
-    <!-- 本地存儲 : 只能存字符串喔
-    1. 存在瀏覽器中
-    2. session storage, local storage約5MB
-        local storage可以多窗口共享，已鑑值的方式儲存。只能儲存字符串類型喔
-        session storage與local storage一樣，只是生命週期時當流覽器關閉時結束
-    -->
-    <script>
-        // window.localStorage.setItem(key,value)
-        // window.sessionStorage
-
-        localStorage.setItem('uname', 'Ken');
-        localStorage.setItem('age', 20);
-
-        console.log('localStorage.getItem(\'uname\') = ', localStorage.getItem('uname'));
-        console.log('localStorage.getItem(\'age\') = ', localStorage.getItem('age'), typeof (localStorage.getItem('age')));
-
-        localStorage.setItem('uname', 'Ted');
-
-        console.log('localStorage.getItem(\'uname\') = ', localStorage.getItem('uname'));
-
-
-        const objs = {
-            uname: 'K',
-            age: 15,
-            gender: '女'
-        }
-        //localStorage.remove('uname');
-
-        //localStorage.clear();
-
-
-        // 不能直接存obj對象
-        localStorage.setItem('objs', objs);
-        console.log('localStorage.getItem(\'objs\') = ', localStorage.getItem('objs'));
-        //需要先轉換成json字串
-        localStorage.setItem('objjson', JSON.stringify(objs));
-        console.log('localStorage.getItem(\'objjson\') = ', localStorage.getItem('objjson'));
-        console.log('localStorage.getItem(\'objjson\')[\'uname\'] = ', JSON.parse(localStorage.getItem('objjson'))['uname']);
-
     </script>
 
 
-    <!-- 正規表達式
-        表單驗證，敏感詞偵測
-        const reg = /正規式/
-        正規式 元字符: 
-            邊界符: ^開始  $結尾
-            量詞: 
-                *重複零次或多次 
-                +重複一次或多次 
-                ?重複零次或一次 
-                {n}重複n次 
-                {n,}重複n次一上 
-                {n,m}重複n~m次
-            字符類: 
-                \d: 相當於[0-9]
-                \D: 相當於[^0-9/] 
-                \w: 相當於[a-zA-Z0-9_]
-                \W: 相當於[^a-zA-Z0-9_]
-                \s: 匹配空格(包括換行符號,制表符,空格符) 相當於[\t\r\n\v\f]
-                \S: 相當於[^\t\r\n\v\f]
-                []匹配字符集的集合: [abc]包含其中元素即可, [a-zA-Z0-9]
-                [^]以上取反,表示不包含: [^abc], [^a-z]
-                . 匹配除了換行符衣外的單個字符
-            修飾符: 在正規表達是後面的符號 /表達式/修飾符號
-                i: ignore不區分大小寫
-                g: global全局匹配，預設只抓取第一次匹配的內容
-                
-            (abc|cba): 指匹配abc或cba的字詞
-        reg.test("a string"): 是否匹配
-        reg.exec("a string"): return a array
--->
-    <script>
-        // 正規表達式的變數，使用兩個斜線包裹
-        const str = '我在學習前端，希望學習前端能高薪畢業'
-        const reg = /前端/
-        let isMatch = reg.test(str)
-        console.log('reg.test(str) = ', isMatch, ' typeof(reg) = ', typeof (reg));
-        let matchArr = reg.exec(str);
-        console.log('reg.exec(str) = ', matchArr, ' typeof(reg) = ', typeof (reg));
-
-        //用戶名驗證
-        const username = /^[a-zA-Z0-9-_]{6,16}$/;
-        //日期格式
-        const date = /^\d{4}-\d{1,2}-\d{1,2}/;
-
-        const str2 = 'java是一門編成語言,學完java工資很高'
-        console.log("str2.replace(/java/i, '前端') = ", str2.replace(/java/i, '前端'));
-        console.log("str2.replace(/java/i, '前端') = ", str2.replace(/java/ig, '前端'));
-
-    </script>
     <!--作用域鏈: 就是塊級或函數級變量的取得方式 -->
 
     <!-- GC 垃圾回收機制:
@@ -302,40 +181,7 @@
 
     </script>
 
-    <!-- 解構賦值
-      1. 數組解構(將數組快速批量賦值給變量): const arr=[1,2,3]; const [a,b,c] = arr.
-      2. 對象解構(將屬性與方法塊數賦值給變量): 屬性名與變量名要相同，也可以重新改名
-       -->
-    <script>
-        // 數組解構
-        let aaa = 1;
-        let bbb = 2;
-        [aaa, bbb] = [bbb, aaa];
-        //防止undifined傳遞
-        const [aaaa, bbbb = 0, ...cccc] = [1, 2, 3, 4, 5, 6];
-        // 放棄3
-        const [aaaaa, bbbbb = 0, , ccccc] = [1, 2, 3, 4];
-        // 多為數組解構
-        const [aaaaaa, [bbbbbb, cccccc]] = [1, [2, 3]];
-
-
-        //對象解構
-        const objjj = {
-            uname2: 'Ken',
-            age2: 18
-        }
-        const { uname2, age2 } = objjj;
-        console.log(uname2, age2);
-
-        // 改名
-        const { uname2: uname3, age2: age3 } = objjj;
-
-        // 數組對象
-        const pig = [{ uname: 'Ken', age: 16 }, { uname: 'Ted', age: 18 }];
-        const [, { uname: u2, age: a2 }] = pig;
-        console.log(u2, a2);
-    </script>
-
+  
     <script>
         // 三種創建對象的方式
         // 1
@@ -379,102 +225,6 @@
 
     </script>
 
-    <!-- 內置構造函數 
-     Object
-     Array
-     String
-     Number
-     -->
-    <script>
-
-        var strrr = 'test';
-        // 底層會寫成(var與let依樣喔)
-        var strrr = new String('test');
-
-        // 引用數據類型Object, Array, RegExp(正則表達式), Date
-
-        // Object
-        const uuser = new Object({ name: 'KKO', age: 33 });
-
-        // Object.keys 靜態方法: 
-        console.log(Object.keys(uuser));
-        for (uprop in uuser) {
-            console.log(uprop, uuser[uprop]);
-        }
-        const oo = { name: "KO", agge: 232 }
-        // 相當於對象複製與添加
-        Object.assign(oo, uuser);
-        console.log('oo=', oo)
-        // 相當於對象複製與添加
-        Object.assign(uuser, { gender: '女' });
-        console.log('uuser=', uuser)
-
-        // Array
-        //  forEach
-        //  map
-        //  filter
-        //  reduce: 累計器，返回累計處理的結果。(很像遍歷數組,但會把前一次的結果傳到目前運算中)
-        // arr.reduce(上一次的值, 當前值){}, 初始值); 
-        // 如果arr是個對象，要使其屬性累加，一定要將初始值設定為0,否則會變成初始對象開始累加
-        const arrrr = [1, 2, 3, 4];
-        const ttoal = arrrr.reduce(function (prev, current) {
-            return prev + current;
-        })
-        const ttttoal = arrrr.reduce(function (prev, current) {
-            return prev + current;
-        }, 10)
-        const tttoal = arrrr.reduce((prev, current) => prev + current, 10);
-
-
-        // Array常見方法
-        // join: 拼接多個字串
-        // find
-        // every: 看看全部數組是否等於指定內容
-        // some
-        // concat
-        // sort
-        // from: 將偽數組轉為真的數組，沒有pop與push
-        const arrar = [
-            {
-                name: '小米',
-                price: 1999
-            },
-            {
-                name: '華為',
-                price: 3999
-            }
-        ]
-        let result = arrar.find(function (item) {
-            return item.name === '小米';
-        });
-        console.log('result =', result);
-
-        let temp1 = Object.values(arrar);
-        console.log('temp1 =', temp1);
-
-        // String
-        /*
-        length
-        split
-        substring
-        startWidth
-        includes
-        toUpperCase
-        toLowerCase
-        indexOf
-        endsWith
-        replace
-        match
-        String:轉換為字符串
-        */
-        //Number
-        /*
-        Number(): 專換為數值
-        toFixed(): 保留小數點位數
-        */
-
-
-    </script>
     <!--
     原型對象(類) prototype, constructor(指向構造函數):
     對象原型(物件) constructor(指向構造函數), __proto__(指向類別原型): 
