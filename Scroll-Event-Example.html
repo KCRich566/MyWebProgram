@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>滾動事件範例</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        #content {
+            height: 2000px; /* 模擬長頁面 */
+            padding: 20px;
+            background: linear-gradient(to bottom, #f0f8ff, #add8e6);
+        }
+
+        #hiddenText {
+            margin-top: 800px;
+            display: none;
+            font-size: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        #progressBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 5px;
+            background: blue;
+            z-index: 9999;
+            transition: width 0.1s ease-in-out;
+        }
+
+        #scrollTop {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #scrollTop:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="progressBar"></div>
+    <div id="content">
+        <h1>滾動事件範例</h1>
+        <p>滾動頁面觀察效果：</p>
+        <ul>
+            <li>滾動時顯示進度條。</li>
+            <li>滾動到特定位置時顯示隱藏的文字。</li>
+            <li>點擊按鈕可回到頂部。</li>
+        </ul>
+        <p id="hiddenText">🎉 恭喜！你滾動到這裡啦！ 🎉</p>
+    </div>
+    <button id="scrollTop">回到頂部</button>
+
+    <script>
+        const progressBar = document.getElementById('progressBar');
+        const hiddenText = document.getElementById('hiddenText');
+        const scrollTopButton = document.getElementById('scrollTop');
+
+        // 監聽滾動事件
+        window.addEventListener('scroll', () => {
+            // 更新進度條
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = (window.scrollY / docHeight) * 100;
+            progressBar.style.width = scrolled + '%';
+
+            // 顯示隱藏的文字
+            const position = hiddenText.getBoundingClientRect().top;
+            if (position < window.innerHeight) {
+                hiddenText.style.display = 'block';
+            }
+
+            // 顯示或隱藏 "回到頂部" 按鈕
+            if (window.scrollY > 300) {
+                scrollTopButton.style.display = 'block';
+            } else {
+                scrollTopButton.style.display = 'none';
+            }
+        });
+
+        // 回到頂部按鈕
+        scrollTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>

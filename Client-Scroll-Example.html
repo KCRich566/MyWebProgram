@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client and Scroll Event Example</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .content {
+            height: 1500px;
+            padding: 20px;
+            background: linear-gradient(to bottom, #f0f8ff, #87cefa);
+        }
+
+        .info {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div class="info" id="infoBox">
+        <p><strong>Viewport Info:</strong></p>
+        <p>Width: <span id="viewportWidth"></span></p>
+        <p>Height: <span id="viewportHeight"></span></p>
+        <p>Device Pixel Ratio: <span id="dpr"></span></p>
+        <p>Scroll Top: <span id="scrollTop"></span></p>
+    </div>
+    <div class="content">
+        <h1>Scroll and Client Dimensions Example</h1>
+        <p>Scroll the page and observe the updates in the fixed info box.</p>
+    </div>
+
+    <script>
+        const infoBox = document.getElementById('infoBox');
+        const viewportWidth = document.getElementById('viewportWidth');
+        const viewportHeight = document.getElementById('viewportHeight');
+        const dpr = document.getElementById('dpr');
+        const scrollTop = document.getElementById('scrollTop');
+
+        // 初始化頁面信息
+        function updateInfo() {
+            viewportWidth.textContent = document.documentElement.clientWidth + 'px';
+            viewportHeight.textContent = document.documentElement.clientHeight + 'px';
+            dpr.textContent = window.devicePixelRatio || 1;
+            scrollTop.textContent = document.documentElement.scrollTop + 'px';
+        }
+
+        // 滾動事件和視窗大小改變事件
+        window.addEventListener('scroll', updateInfo);
+        window.addEventListener('resize', updateInfo);
+
+        // 頁面加載時更新信息
+        updateInfo();
+    </script>
+</body>
+</html>

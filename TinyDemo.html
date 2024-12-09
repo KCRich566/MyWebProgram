@@ -74,60 +74,181 @@
             margin-bottom: -35px;
             width: 350px;
         }
+
+
+        /* 產品表 */
+        .cardBox {
+            width: 800px;
+            margin: 30px auto;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .clearfix:before,
+        .clearfix::after {
+            content: "";
+            display: table;
+        }
+
+        .clearfix::after {
+            clear: both;
+        }
+
+        .clearfix {
+            zoom: 1;
+        }
+        .cardBox .title {
+            height: 45px;
+            
+        }
+
+        .cardBox .title h3 {
+            float: left;
+            font-size: 20px;
+            color: #494949;
+        }
+
+        .cardBox .title a {
+            float: right;
+            font-size: 12px;
+            color: #a5a5a5;
+            margin-top: 10px;
+            margin-right: 30px;
+        }
+
+        .card ul {
+            width: 1440px;
+        }
+
+        .card ul li {
+            position: relative;
+            top: 0;
+            float: left;
+            width: 228px;
+            height: 270px;
+            background-color: #fff;
+            margin: 15px;
+            margin-bottom: 15px;
+            transition: all .3s;
+        }
+
+        .card ul li a {
+            display: block;
+        }
+
+        .card ul li:hover {
+            top: -8px;
+            box-shadow: 0 15px 30px rgb(0 0 0 / 10%);
+
+        }
+
+        .card ul li img {
+            width: 100%;
+            height: 170px;
+        }
+
+        .card ul li h4 {
+            margin: 20px 20px 20px 25px;
+            font-size: 14px;
+            color: #050505;
+            font-weight: 400;
+        }
+
+        .card .info {
+            margin: 0 20px 0 25px;
+            font-size: 12px;
+            color: #999;
+
+        }
+
+        .card .info span {
+            color: #ff7c2d;
+        }
     </style>
 </head>
 
 <body>
-    <table>
-        <tr>
-            <th>商品名稱</th>
-            <th>商品價格</th>
-            <th>商品數量</th>
-            <th>總價</th>
-            <th>收貨地址</th>
-        </tr>
-        <tr>
-            <td>Apple iPhone 15 Pro Max</td>
-            <td>58900元</td>
-            <td>3</td>
-            <td>17670</td>
-            <td>新北市林口區文化三路</td>
-        </tr>
-        <tr>
-            <td>Apple iPhone 15 Pro Max</td>
-            <td>58900元</td>
-            <td>100</td>
-            <td>5890000</td>
-            <td>新北市林口區文化三路</td>
-        </tr>
-        <tr>
-            <td>Galaxy Watch 7</td>
-            <td>12990元</td>
-            <td>100</td>
-            <td>1299000</td>
-            <td>桃園市桃園區中正路一段</td>
-        </tr>
-        <tr>
-            <td>Galaxy Watch 7</td>
-            <td>12990元</td>
-            <td>10</td>
-            <td>129900</td>
-            <td>桃園市桃園區中正路一段</td>
-        </tr>
-    </table>
-
-    <div class="barBox">
-        <div class="GalaxyWatch7" style="height: 103px;">
-            <span>103</span>
-            <h4>Galaxy Watch 7 數量</h4>
-        </div>
-        <div class="AppleiPhone15ProMax" style="height: 110px;">
-            <span>110</span>
-            <h4>Apple iPhone 15 Pro Max 數量</h4>
+    <div>
+        <H2>訂購單</H2>
+        <table>
+            <tr>
+                <th>商品名稱</th>
+                <th>商品價格</th>
+                <th>商品數量</th>
+                <th>總價</th>
+                <th>收貨地址</th>
+            </tr>
+            <tr>
+                <td>Apple iPhone 15 Pro Max</td>
+                <td>58900元</td>
+                <td>3</td>
+                <td>17670</td>
+                <td>新北市林口區文化三路</td>
+            </tr>
+            <tr>
+                <td>Apple iPhone 15 Pro Max</td>
+                <td>58900元</td>
+                <td>100</td>
+                <td>5890000</td>
+                <td>新北市林口區文化三路</td>
+            </tr>
+            <tr>
+                <td>Galaxy Watch 7</td>
+                <td>12990元</td>
+                <td>100</td>
+                <td>1299000</td>
+                <td>桃園市桃園區中正路一段</td>
+            </tr>
+            <tr>
+                <td>Galaxy Watch 7</td>
+                <td>12990元</td>
+                <td>10</td>
+                <td>129900</td>
+                <td>桃園市桃園區中正路一段</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>訂購數量圖表</h2>
+        <div class="barBox">
+            <div class="GalaxyWatch7" style="height: 103px;">
+                <span>103</span>
+                <h4>Galaxy Watch 7 數量</h4>
+            </div>
+            <div class="AppleiPhone15ProMax" style="height: 110px;">
+                <span>110</span>
+                <h4>Apple iPhone 15 Pro Max 數量</h4>
+            </div>
         </div>
     </div>
 
+    <div>
+        <h2>產品卡</h2>
+        <div class="cardBox">
+            <div class="title">
+                <h3>精品</h3>
+                <a href="#">查看全部</a>
+            </div>
+            <div class="card">
+                <ul class="clearfix">
+                    <li>
+                        <a href="#">
+                            <img src="" alt="" title="" />
+                            <h4>title</h4>
+                        </a>
+                        <div class="info">
+                            <span>庫存</span>.<span>還有N庫存</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <script>
+        // 訂購單
         const iPhone15ProMax = 58900;
         const galaxyWatch = 12900;
 
@@ -160,6 +281,7 @@
             `
         }
 
+        // 訂購數量圖表
         const barGalaxyWatch7 = document.querySelector('.GalaxyWatch7');
         const barAppleiPhone15ProMax = document.querySelector('.AppleiPhone15ProMax');
 
@@ -185,6 +307,40 @@
             }
         };
         document.body.style.backgroundColor = getRandomColor(true);
+
+
+        // 產品表
+        const productData = [
+            {
+                src: 'https://shoplineimg.com/60614d7d6bccbe0037a8f350/650469fc1cf4e80014118a27/800x.jpg?',
+                title: 'iPhone 15 Pro Max',
+                num: 1125
+            },
+            {
+                src: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxITEhUSEhMVFRUVGBYXFxgYFxgXGBUbGRYYFhgWFxUYHiggGB0lGxUXITEhJSkrLi4uGh8zODMsNygtLisBCgoKDg0OFxAQFjQlHR8tLS0tLSs3LTUtLTAtLSsrLSstLS0tLS0rLSsrMDctLi01Ky0tKy0tNy0rLSsrNy4rLf/AABEIAOAA4AMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABgIDBAUHAQj/xABJEAACAQIDBAcFBAcFBQkAAAABAgADEQQSIQUxQVEGEyJhcYGRBzJCUqEUI7HBYnKCkqLR8BUzsrPhFlNjk/EIFyRDg6PD0uL/xAAbAQEBAQEBAQEBAAAAAAAAAAAAAQIDBQYEB//EACsRAQEAAgEDAgMIAwAAAAAAAAABAhEDEiExBEFRgbEFMmFxkaHB8CPR4f/aAAwDAQACEQMRAD8A7jERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBES3iK6opd2CqupJ3CBclutXVAWZgoGpJNrSGbf6aqUKYYkE6dYRaw5qOfed0g1RidWqMfEk/nM3IdOqdNMKDYF28EOvraYr9O6PCnUPjYTm+RfnM8yL8xmeqq6I3T2nwot6j+UtN0+HCif3hIBkTmZbq1KSgk30k6qJ7V9oVhfqlHi4msxntRce5SpsfE2Hnec6xmNz7hlUa7/AKkzR4jbKjRAT3208hxl3UdYoe1OvnUvRpmn8QFw37JuR6yY7E6d4TE1RSXOjN7vWKAGPyghjr4z5yXa995t5ETPwu1LkajxB1HfG6PqWJyroT08qiolHEv1lNyFWofeQnQZm+Je868bzqs3LsIiJQiIgIiICIiAiIgIiICIiBRWqqilmICjUk8JAele1xiQaajsA3XtFbm3vNbUgXOke1DHVQKYpOuQNZ1YEC+uoa/asAdLc9ZCjtDvmevV8JZtsU2egHvX7+cq+xU+c1R2kOc8/tIc5zabb7HTnv2SnNR/aHfPft3fA2VfCUypANu/fMGpj6eIZsL1aC9NsjqNc67t/re/A77zD2lsPHFFrjEpTp1bZUOa4uCwvbdpbwvI9hMQ9NwzDLUouLjvHC/JlO/k058vH1Y9vM8OvDydGU34vn8lrEqWBW9uB594mCdmD5vpMp6hJJO8kk+JNz+M8zTq4scYEjkZUNnI28WPMaH/AFmQGnuaBbwyvQbtHNTOmbkeGYcPHdO3eznpea1sLWN3C/dv84A90/pAcePjv47QrD3W1B017+BmT0dxbYXELlP92y1Kd+K31X8RLLofS8TG2bjkr0kq0zdXFx+YPeDpMmdAiIgIiICIiAiIgIiICa/bW0loU8xOp0Ucz/pM6pUCgsxAABJJ3ADUkmcP6fdJziesYVBSp36tGa/ua5yqjVnYW0HA7+Mlo1HSrpN9prsQ33VO6proT8T/AEAHcO+aaniKtT+6pVKneqMR+8BaaY7WSmLUKYb/AIlYB2vzWn7ieeY98xcRtHEVffq1X7izFf3RoPSZ6RJGw2M/3YXuapSU+heWTQxw1+zuRzXK/wDhJkY6hvlPpPabsnu3U911PqtjHSN8dqVENqlN18VImQm1Aymx4TX4XpFWAyuRUXlV7fpU99frM/DYTDYlwFY0HO9dLsOPVuNG/KSwdI6WY8dXRA3KxH8IA/CU9Eth0sbWrBxocMUJ4qxcZHHeBf0kf27iC1NuYIb03/Qza+yXbYTGdUx0rKVH6w7S/gw84jVQ/bmxquFrNRrLZl3Hgy3NnU8QbTAtOw+27Z96FGuF1RyjHkHFxfuuv175xy0WaZVz0Wlu09tILunOZJOddP7xLlTz03eB3HymGBL2Eazg+XrA6t7Gtr5xUo37JUVUHL4Wt6rOnz536G7T+xYpW+FDe3Om9wR4jX0E+hqVQMAym4IBBG4g6gzeNFURE0EREBERAREQERNT0q27TwWFq4mpuRdB8zHRVHibQIN7Y+mK0Kf2VDdn1qAGxI4U78Ad7HlYfFOD169Su+Zje2g4Kg+VRwHdv5y7tHHVcZXetVa7OSWPIXJyj1MvqoUWGgEzRZpYZR3nmf5S9NnhtgYmouZaRyncWKpfwDEGXf8AZjF/7tf+Yn85EYeM2TWpUqVd1Ap17mmcwJNte0B7txqO6YBnQ+kexK77PwNJVBemBnGZQB90BoSbHykcTobjTupp/wAxP5zGGe5u/G/tbFRlsLmNl0J9P9JYZWQ5WG7W279pTwPeJJ6mwcRh+1WpFRuDXDLr+kpIHLW0xsXhlqCx38Dy/rlNzJNr2y9rlwKVQ5mOiOdOs5o3Jh9ZZp1no1VdDZqbBlPIg3U+omjy5SUfQce7kwm5Soaq3YjrKdg54FTuqafW35y2a7tR9KbMxVHaWBVmAKV6dnXfla1mXxDX17gZ87Y/DGlVqUjvR2Q/skj8p0b2cbWGBxH2NnL0K5BSrbKDU9zMFubKxW2+/uHjId00xS1sZXrIAFZza3HL2c3ibX85m2WSws1dNFEWlVKmWZUUXZiAouBcnQC7EAaniRIjwSqZ+1Oj+Lwyq2JoPRDEhcxQ3IFz7jG3nNeIF3E1CBSqj4bq3gf9R9Z232Vbd67Dmgxu1LVe9CTb0OnhacOdvu3HDQ/WSb2a7XNDE0yT2c2Vv1X0PobHylnYfQkRE6BERAREQEREBOBe3zpL1uITA0z2KFmqW41GGg/ZU+rd07tjsUtKm9V9FpqznwUXP4T5KoM+MxVStUPactVc77FjoPK9h4RRkVdl1KC0+sUr1qCov6QOl7cN24yQ9C9krUJruLqhyoDuL2BLHnlBHme6aba2NetVL1Mt1ApgIMqKqaKqLc2A148TJv0SUDCU7cS5PjnYfkJiI2VapMR68u4iYGUky26EqNPNRofs/wCXNthcEAJZ2dR+7pj5Qn+XNogng8/qMplcZ8b9arExGBUqQQCCLEEXBB4ETkfSfZP2auUHuMMyX5HTKTxsQR4WnbLTm3tUQBsOeNqo8r0/zn6/R8tt6amTn209l1HotXVGK0zZmA0F+BPdvmtwGKyFX35eyw+am2hHl/8AWS3ZmKqsjYZTTCOGJZyFyjTPZmNgCAAdCTwkQqUerrNTuCAStxexB3MLgG2468p6WN9iJzstc9M0Sbml2kPzJl09UH/tDnI9tNmp1+rO6wA773IPmNPETP6OVWKI6mzUyaLE6gDRqbOOKjQHuLTYdK8NS6+iykVFGZWK3scpDAX52z7ri43mcsZq3F25O8mSOXlFRARYy5WpOpPZNuB01HrLTZvlPqJtybXDbNxtWjnRMTVorezfe1Ka5Rra91FhfdNeCZvOj3TjHYOmaNIqaZJOV0DAX327QtflukfeuSSctrkmwtYeEoqr3ynwMy9lcO9fyEwlYtpa15sMD7+m6xt6SD6cwVTNTRjvZVPqAZemHsc3w9E/8On/AIBMydQiIgIiICIiBC/bFjjS2Tibb6mSl5VKiq38GacQ6H7JqHC4jFgLlpk3udSEXMco7s06v7f6ltnIvzV0+is35SEbAGXo/VI+NqgPnWVPwExyXUSoVJj0G2gMrYdj2gS6d4IGYDvBF/M8pD5UjlSGUkEG4I0II4gwOo1qcu7OwN2kKw3TGsos9NKh+a5QnxsCPoJ0PonimqUErvTCF7lVDE9m9lYm3G1/Aifk9b6nDg4+rO632VIsLTsCOXV/5cyAsqxOMHVUrWJ1zC+q3FxfymJ9u/RHrPB9RzcWGessvaXxfeb/AJGWxsJyH2gbSFbFFVN1ojJ+0Tmf62H7MnvSbbpoYd6mgPuoObtovkNT4CccueJueJO8niTPS+zMpybzxnadt/G/8TJewdTLURjbRh7yhxyuUOjWve0xunOHdcQrsKt6iA3qoKbMVOUkINy2ygDulRMudNUW1FlFIE5r5KzVmNwpu5bce4d89aeYkZvQJs1atT4Mi1B4g6/Rpu+kuFtRLDejI3gM2U/RjI77O2/8cg50ag9Av8pNukmU0MQoIuqG44qbZhflpYxfLaCvWJ3ky0TPCw33G+3nylOccx6yI9IHKeZRymZQwiGkGLVC9ibZUyX10vvtMTKcoexyklQ1uySNSobdfugAJfwZ7Y8x9JjBxzHrMrDUlZcwqdoX0CEga6dq/hrA+huhGMFXA0G4hch8UOX8r+c3sivs/wAQpotTUAKtmUDgG1/EfWSqdJ4CIiUIiICIiBzL/tAU77ORvlrp9VZfzkJ2Cc3R6oB8DVCfKsrfgZ072x4E1dk4i2+n1dXySorN/BmnG+g22QMFisGabuz5smUDLeomXtknsi63vruM58k7JWiieiewjP2Bso4nEJR1ysbuR8KLqx7tNB3sJ2glFF2ZadNRdmOi00UakngAJEvZxsrq6BrsO1W93upqdP3mufALJFi+3Up0d6ravWH6KtahTP69VS36tE858x63knq/WdFv+Pj3v5fe/wBNNztd16whAAFAXQe8QLXJ42AA8phT0ma/b20xh6D1tLgWQHi50Ueup7gZ43Jnn6nntk75XtP2k+SoP0/2p1lcUVPZo3B76h970Fl/ekXhmJJJNySSTzJNyT4mJ9z6bgx4OLHjx9v7b865q6VFnYIgLMxsFG8k8BMjp9mHUoxckZrCph1oMAAo+H3x393fL2x8XlPV9RRrBze1QWIsCbrVBBTS55aTUdMcWHrKqpUphEAyVKjVCrEknKW1AIy6TvPvLGb0BNsap5Uan1C/zkw6QVlFCuQBdkOY8WOXKL+AsJDeiJy1ar8FUUx48foBJDVD1ytJBmLsNOar9438KGW+W4iz1LI1O1wzq9+RVWX6hv4RMfJM56OVnB5/S1x+MpIEiMvZdUZMpPuk+h1/G80OMzB2p5mKByyrclQW1JC7gTz7pmYqm9uwQD37jKcJRfU1LXNtASRpxPfrAtUkmVhmyuvfpLgUTG2kLIWG9dR+P5SDs3syxvaQH4lZPMdofQCdNnBeg2MY1KSJ7z1KZFt/NvoPpO9TeK0iImkIiICIiBYx+EWrSek/u1FZD4MCD+M+UNlUWw2MbC1ri7mhVAYoTZrCzXFgSAbngZ9bTgPt76NdViUxyDsV7K9vhqqND+0o9VPOSzYiW0cMKdQqpulzlO+4uRbN8ViCL8bX0vLNGlnZU+dlX95gv5yhMa1UBnZmI07TE27hfcOMrp1CrKw3qysPFSGH4Tnd6/Fl3WnSVbIOyq2UWG5RpoO4CY+DoMudny9ZVcu+U3UAdilTU8QlJVH6xc8Zcw+JWoi1UN1dQ6nuYXlyfz/Hmzwwz49fe1v49vb9fP5Nk5x7QtqdZWFBT2KOrd9QjX91bDxLSdbb2kMPQesd6jsj5nOiL6/QGcbZySWY3JJJPMk3J8yTPY+wvS9Wd5svGPafn7/pPqzSeymez6ll7NNVrmpVaoxLXJYkm5Nt1yd5NgPOZm06+Vco3t9Bx/l6zBw1DMQnzdpjyQb/AF/lNT4tRLehGH45Q2VGxDBtFY6LSRzwUkgt+irTpHs8wS18c+LCKi00ayrooepoCBzyq97WHa3CQrDDqMGD/wCZi2DAD4aeXsL39hr/APrjlOz9B9jHC4RFYWqP95U7mYDs+SgDyieWnIvaHSpJj6yUlyquW44ZioZrchdt3jIyVE3XTSsKuOxFRTcGoQDzygLf+GaTqjMVFiqWLZUXNbfYX/reJdRDbtAg8jp52mZsna9XC1DUoVercrlJspuLg2IYEbwJRj8TVrVGq1XLu2pY7z/IdwgWMgl7+zWq0yiKzs5ChVBZjrrYDXnLOQzpXsbonrnPKmfq4/lEG99m/Qo4UDEYgffEEIm/qgeJ/SI07h5yexE6hERAREQEREBNR0s2DTx2Eq4apudeyfkYaqw8DabeIHx7jMLVwdd6NVbMhKsOdjbMPSZ1NwQCDcGdg9tPQ9a1P7Yg7SC1UgagcKluIG5hysfhnC2FSg1iN+vNXHzKePj6zNiWJ30V6WNhR1VRS9EkkWIzUydTlvowJ1ykjiQeElr9OcDa4eoT8opOD6my/WcloYxG42PI/keMyZ5fqPsn0/Nn15Sy3zr3+v8ABtuukvSJ8WwuMlNCSiXvruzseLW8hu7zpxPIJtqZ+7i4sOLCYYTUiKpbxGICC58hzmNiNoKNF7R+nrxmudyxzMfP8lHE906yGhnzEu/n+SibjC0OrF3UF3ILruGUHSncbrjf/pMvY2wyLVqwy5dUQ/Dzd+ZlNKi9aqFQXaowVRzLGyj6iW1vTpvQHZp2jjDj6iZKNAgJSvmUVB28oOl1Utfd8g4WnUNuYrqsPWqXsUpuw8Qpt9Za6NbHXCYalh0+BRmPzMdWbzN5Eva9tk06FPDqbdcSW/VS2nmSPSXxEcdzmOsMuZxKWzsQtJSzsQqgC5JOgAHEkzmJL0RbZFLDu+MpNWxBLWQq5Ww90KR2QSdSTzkaq1rsSFygkkAbhyA8Jtdq9GsXhFR8V1a59FQOGe9r3KgbhuJvvImszCKLecztnsqwITDPVtrUa3kgsPqWnHcHTzMBvn0H0W2acPhaVJveAJb9ZiWI8r28pcfI2sRE6BERAREQEREBERApq0wylWAKsCCDqCDoQRPnrp70aODrVKWTrKL/AHlIG+q3OYKw1V1HEcAL77T6Hmj6X7BXGUCm6ovbptxDDhfkd3/SSwfLh2Wr60agHDJVIRr8lqe4/wDCe6Y9bCV6XvpVp+IYD13GS/auxzSqFStg1za3usNGX8CO490w6dGon91VqJ3KzAfu7pnqEX+1v85lKhnNhdjyuWPoLn6SUvUxPF1PeadMn1KS2z4s6dc4HJcqf4QI6hq6Gw6pGZwKa86vYv4U/fb0Ambg8Vh8O4IQ12G9jYFRx6tBovnv7p5/ZbMbuzN4sTMqngFUGw4GS5CT7ep5aJ/SIX11P0E2Xsk2KKmM61hcUVLj9Y9lfxJ8p50kog0qVtxa/wDBp+M33sqqBMTUp396kGI7wwt9GJiNV1GcF6fbdGLxbMPcp/dp3gE3bzN/K0630228uDwzP8b3SmP0iDqe4b/+s+f8glyrL3KJjHFqrWAN+Fu7lxl6oFAuTM/YPSOphwy4ZlQvvbq0L7t2cgkAcpkYjuWsWLE2+Ikkd2spyie1BmJZmJJJJJNySdSSeM8Wjc2HGQSj2f7MNTF0tLjMHPcqdq58wBO7yD+ynZoTDtVt2nbKD+iv/wCr/STidMZ2CIiaCIiAiIgIiICIiAiIgcv9qmyyKlOpTSyubu17hmF+zl+E2N78fW8H+yz6CxmESqhp1FDK28H+tPGcm6YbFGDfiUe5p8b2tdSeB1/rhm4bS5aRX7LH2WZH2lY+0LObTH+yx9mmR9oWOvWBhVNoYoAU+rVkTcTe5sCBuPKbroNiXoYuk/vszHrOFwwOY9wAAsO4CYJrL/XDvmfSVKK1H6xWcrkQKQbX3n8PSc+Xk6Zqeb4duHj6ru+J5/v4vfaF0oGMrBEFqVEsEPzm9i/cCALDl46RPSX8TRynTcfp3Szeda4KHRSLGXa1RCFAp0kyi33dNUJ/WZRdj4yi88Ld0Dywm16PbNNWtTUfGwUeZsT5C812GpZzbcBvnYPZj0fVKQxLr22uKd/hTdmHeTfXl4xJsTXA4RKVNaVMWVBYD+uMvxE6hERAREQEREBERAREQEREBMPauzKWIpmlWXMp8iDwII1BmZEDj/TToZ9kHW0sz0Tob6tTP6VuHfIfnXvn0eRfQzS7b6LYbEplZAhG50AVh521HcZi4jhWZe+LrzM6dX9l1OxyYhweGZVI87Wmvf2X1+FemfFSPyMnTVQHs8zPBYG4b6ScN7MMXwqUD4lh/wDHLLezTG86B8GP5qJNURO4YEf14zFrYdgdLkeWnjJj/wB3eOXULT/fEp/2Hx430gfB0/nGqIUFa9rG47pdpYQkXYkd3GTnBdAMa4OYJTtuztv8MgMmWweg2HoqpqqKtUHMWN8t+AC7iB3yzGojXQroZUaotXEU8tJRmVWtdz8N14DjrOnqLaDQCexNyaCIiUIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiIH/9k=',
+                title: 'Galaxy Watch 7',
+                num: 357
+            }
+        ];
+
+
+        const cardUL = document.querySelector(".card ul ");
+        cardUL.innerHTML = "";
+        for (let product of productData) {
+            const li = document.createElement('li');
+            console.log(product.title);
+            li.innerHTML =
+                `
+                <a href="#">
+                    <img src="${product.src}" alt="" title="" />
+                        <h4>${product.title}</h4>
+                    </a>
+                    <div class="info">
+                        <span>庫存</span>.<span>還有${product.num}隻</span>
+                    </div>
+                `;
+            cardUL.appendChild(li);
+        }
     </script>
 </body>
 

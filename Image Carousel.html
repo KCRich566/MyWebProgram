@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Carousel</title>
+</head>
+<body>
+    <h1>Image Carousel</h1>
+    <img src="https://picsum.photos/200/300?random=10" alt="a" id="slider" width="300">
+    <button onclick="prevImage()">Previous</button>
+    <button onclick="nextImage()">Next</button>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        
+        const images = []; //;
+        let currentIndex = 0;
+
+        // 原先img.src就會直接緩存，如此做法主要是可以在一開始載入網頁時就開始取得圖片。
+        // img.src會比較URL的變化，並且緩存內容。到時偵測到一樣的URL就直接使用。
+        async function loadImages(){
+            try{
+                const urls=['https://picsum.photos/200/300?random=10','https://picsum.photos/200/300?random=11','https://picsum.photos/200/300?random=12'];
+
+                for (let i = 0; i < urls.length; i++) {
+
+                    const response = await axios.get(urls[i], { responseType: 'blob' });
+                    // URL.createObject(): 由瀏覽器生成臨時的URL，Blob URLs用於引用在內存中儲存的二進位數據(如圖片、文件、影片等)
+                    // Blob URL 是以blob:協議開頭的URL，這個協議指向的是儲存在內存中的 Blob 物件（Binary Large Object，大型二進位對象）
+                    // 它允許瀏覽器臨時處理、顯示或者操作這些數據，而不需要將它們上傳到伺服器或存儲在本地硬碟上
+                    
+                    const imgURL = URL.createObjectURL(response.data);
+                    images.push(imgURL);
+                }
+            }catch (error) {
+                console.error('Error loading images:', error);
+            }
+        }
+        loadImages();
+
+        function showImage(index){
+            document.getElementById('slider').src = images[index];
+        }
+
+        function prevImage(){
+            currentIndex = (currentIndex === 0)? images.length -1: currentIndex-1;
+            showImage(currentIndex);
+        }
+
+        function nextImage(){
+            currentIndex = (currentIndex === images.length -1)? 0: currentIndex+1;
+            showImage(currentIndex)        
+        }
+    </script>
+</body>
+</html>
