@@ -7,12 +7,13 @@
     <title>Document</title>
     <style>
         * {
-            padding: 0;
             margin: 0;
-            box-sizing: border-box;
-            list-style: none;
+            padding: 0;
+            list-style-type: style none;
         }
 
+
+        /* 輪播圖 */
         .slider {
             width: 560px;
             height: 400px;
@@ -90,6 +91,36 @@
             height: 12px;
             opacity: 1;
         }
+
+        /* 抽獎 */
+        h2 {
+            text-align: center;
+        }
+
+        .box {
+            width: 600px;
+            margin: 50px auto;
+            display: flex;
+            font-size: 25px;
+            line-height: 40px;
+        }
+
+        .qs {
+            width: 450px;
+            height: 40px;
+            color: red;
+        }
+
+        .btns {
+            text-align: center;
+        }
+
+        .btns button {
+            width: 120px;
+            height: 35px;
+            margin: 0 50px;
+        }
+        
     </style>
 </head>
 
@@ -155,7 +186,7 @@
             let oldactive = document.querySelector('.slider-indicator li.active').classList.remove('active')
             document.querySelector(`.slider-indicator li:nth-child(${i + 1})`).classList.add('active');
         }
-        let timer = setInterval(fn, 100);
+        let carouselTimer = setInterval(fn, 100);
 
         //button
         const next = document.querySelector('.next');
@@ -185,14 +216,58 @@
 
         const slider = document.querySelector('.slider');
         slider.addEventListener('mouseover', function () {
-            clearInterval(timer);
+            clearInterval(carouselTimer);
         })
         slider.addEventListener('mouseleave', function(){
-            timer = setInterval(fn, 100);
+            carouselTimer = setInterval(fn, 100);
         })
 
 
 
+
+    </script>
+    
+    <h2>點名</h2>
+    <div class="box">
+        <span>名子是:</span>
+        <div class="qs">顯示姓名</div>
+    </div>
+    <div class="btns">
+        <button class="start">開始</button>
+        <button class="end">結束</button>
+    </div>
+
+    <script>
+        const arr = ['马超', '黄忠', '赵云', '关羽', '张飞']
+        const qsDiv = document.querySelector(".qs");
+
+        let timer = null;
+        let random = null;
+        const start = document.querySelector('.start');
+
+        start.addEventListener('click', function () {
+            if(timer !== null){
+                return;
+            }
+            timer = setInterval(function () {
+                random = parseInt(Math.random() * arr.length);
+                console.log("here");
+                qsDiv.innerHTML = arr[random];
+            }, 100);
+        })
+
+        const end = document.querySelector('.end');
+        end.addEventListener('click', function () {
+            clearInterval(timer);
+            arr.splice(random, 1);
+
+            if (arr.length === 1) {
+                start.disabled = true;
+                end.disabled = true;
+
+            }
+            timer = null;
+        })
 
     </script>
 </body>

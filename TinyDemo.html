@@ -100,9 +100,10 @@
         .clearfix {
             zoom: 1;
         }
+
         .cardBox .title {
             height: 45px;
-            
+
         }
 
         .cardBox .title h3 {
@@ -247,16 +248,58 @@
             </div>
         </div>
     </div>
+    <div>
+        <h2>關於時間</h2>
+        <div class="myTime"></div>
+        <div class="myStamp"></div>
+    </div>
+
+
+    <div>
+        <h2>關於倒計時器</h2>
+        <div class="countdown">
+        <p class="title">下課倒計時</p>
+        <p class="clock">
+            <span id="hour">00</span>
+            <i>:</i>
+            <span id="minutes">00</span>
+            <i>:</i>
+            <span id="second">00</span>
+
+        </p>
+    </div>
+</div>
     <script>
         // 訂購單
         const iPhone15ProMax = 58900;
         const galaxyWatch = 12900;
-
-        const user1 = +prompt('請輸入User1 Apple手機購買數量') || 300;
-        const user2 = +prompt('請輸入User2 Apple手機購買數量') || 20;
-        const user3 = +prompt('請輸入User3 Galaxy Watch7購買數量') || 80;
-        const user4 = +prompt('請輸入User4 Galaxy Watch7購買數量') || 100;
+        let user1, user2, user3, user4 = null;
+        if (localStorage.getItem('user1') === null) {
+            user1 = +prompt('請輸入User1 Apple手機購買數量') || 300;
+            localStorage.setItem('user1', user1)
+        } else {
+            user1 = Number(localStorage.getItem('user1'));
+        }
+        if (localStorage.getItem('user2') === null) {
+            user2 = +prompt('請輸入User2 Apple手機購買數量') || 20;
+            localStorage.setItem('user2', user2)
+        } else {
+            user2 = Number(localStorage.getItem('user2'));
+        }
+        if (localStorage.getItem('user3') === null) {
+            user3 = +prompt('請輸入User3 Galaxy Watch7購買數量') || 80;
+            localStorage.setItem('user3', user3)
+        } else {
+            user3 = Number(localStorage.getItem('user3'));
+        }
+        if (localStorage.getItem('user4') === null) {
+            user4 = +prompt('請輸入User4 Galaxy Watch7購買數量') || 100;
+            localStorage.setItem('user4', user4)
+        } else {
+            user4 = Number(localStorage.getItem('user4'));
+        }
         users = [user1, user2, user3, user4];
+        console.log(users);
         const table = document.querySelector('table');
         table.innerHTML =
             `
@@ -341,6 +384,88 @@
                 `;
             cardUL.appendChild(li);
         }
+
+        // 關於時間
+        // 時間戳:1970/01/01 00:00:00到現在的毫秒數 
+
+        // 實例化 new
+        // 取得當前時間
+        const date = new Date();
+        console.log(date);
+
+        // 取得指定時間
+        const spDate = new Date('2024-10-30 13:15:22.565');
+        console.log(spDate);
+
+        // 月份會得到0~11的數值，所以要加1
+        console.log('getMonth() +1 = ', date.getMonth() + 1);
+        // 星期幾
+        console.log('getDay() +1 = ', date.getDay() + 1);
+        console.log('toLocaleDateString() = ', date.toLocaleDateString());
+        console.log('toDateString() = ', date.toDateString());
+        console.log('toLocaleString() = ', date.toLocaleString());
+        
+        
+        const myTimeDiv = document.querySelector('.myTime');
+        const myStampDiv = document.querySelector('.myStamp');
+        
+        
+        function getMyDate(){
+            const date = new Date();
+            let h = date.getHours();
+            let m = date.getMinutes();
+            let s = date.getSeconds();
+            h = h < 10 ? '0' + h :h;
+            m = m < 10 ? '0'+ m : m;
+            s = s < 10 ? '0'+s:s;
+
+            return `今天是: ${date.getFullYear()}年${date.getMonth() +1}月${date.getDate()}日 ${h}:${m}:${s}`;
+        }
+
+        function getMyTimeFromStart(){
+            let currentDate = new Date();
+            return (currentDate - date);
+        }
+        
+        myTimeDiv.innerHTML = getMyDate();
+        setInterval(function(){
+            myTimeDiv.innerHTML = getMyDate();
+            myStampDiv.innerHTML = getMyTimeFromStart() + 'ms';
+        }, 1);
+
+
+        // 關於倒計時器
+        function randonColor() {
+            const countdown = document.querySelector('.countdown');
+            let r = Math.floor(Math.random() * 256);;
+            let g = Math.floor(Math.random() * 256);;
+            let b = Math.floor(Math.random() * 256);;
+            countdown.style.backgroundColor = `rgb(${r},${g},${b})`;
+        }
+
+        const last = +Date.now()  + 3600*1000;
+        function getCounterTime() {
+            const now = +new Date();
+            
+
+            const count = (last - now) / 1000;
+
+            let h = parseInt(count / 60 / 60 % 24);
+            let m = parseInt(count / 60 % 60);
+            let s = parseInt(count % 60);
+            h = h < 10 ? '0' + h : h;
+            m = m < 10 ? '0' + m : m;
+            s = s < 10 ? '0' + s : s;
+
+            document.querySelector('#hour').innerHTML = h;
+            document.querySelector('#minutes').innerHTML = m;
+            document.querySelector('#second').innerHTML = s;
+
+        }
+        randonColor();
+        getCounterTime();
+        setInterval(getCounterTime, 500);
+
     </script>
 </body>
 

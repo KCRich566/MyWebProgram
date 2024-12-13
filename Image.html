@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Manipulation Web</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        div {
+            text-align: center;
+            margin: 10px auto;
+        }
+
+        canvas {
+            margin: 0px auto;
+            background-color: #000;
+            display: block;
+            border: 5px outset gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="GoCenter Welcome">
+        <h2>Image Manipulate App</h2>
+        <p>請給我一個簡單的描述</p>
+    </div>
+    <div class="GoCenter ImageInfo">
+        <input type="file" name="imgInput" id="imgInput">
+    </div>
+    <div class="GoCenter Command">
+        <button class="btn btn-primary" id="originalSizeBtn">Original Size</button>
+        <button id="fitToCanvasBtn">Fit to Canvas</button>
+    </div>
+    <div id="rgbDisplay">
+        RGB: (0, 0, 0), Image Position: (0, 0), Scale: 1, Offset: (0, 0)
+    </div>
+    <div class="GoCenter Image">
+        <!-- 內建屬性影響畫布的解析度 -->
+        <!-- width 和 height 屬性直接影響畫布的繪圖區域大小 -->
+        <canvas id="canvas" height="600" width="600"></canvas>
+    </div>
+
+    <script>
+        const imgInput = document.querySelector("#imgInput");
+        const rgbDisplay = document.querySelector("#rgbDisplay");
+
+        const canvas = document.querySelector("#canvas");
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+        window.addEventListener('resize', (e) => {
+            const container = canvas.parentElement;
+            canvas.width = window.innerWidth * 0.9;
+            canvas.height = (window.innerHeight - container.offsetTop) * 0.95;
+            // resize畫不需要重畫
+            drawImage();
+
+        })
+        // 占滿剩餘高度
+        const container = canvas.parentElement;
+        canvas.width = window.innerWidth * 0.9;
+        canvas.height = (window.innerHeight - container.offsetTop) * 0.95;
+
+        let scale = 1; // 缩放比例
+        let offsetX = 0; // X 平移量
+        let offsetY = 0; // Y 平移量
+        let img = null; // 存储加载的图片
+        let imgOriginalWidth = 0; // 原始图片宽度
+        let imgOriginalHeight = 0; // 原始图片高度
+
+        let startX = 0, startY = 0; // 鼠标按下的起始位置
+        let isDragging = false; // 是否正在拖动图片
+        let dragStartX = 0, dragStartY = 0; // 拖动时的起始坐标
+
+        // 加载图片到画布
+        imgInput.addEventListener("change", (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                img = new Image();
+
+                reader.onload = function (e) {
+                    img.src = e.target.result;
+                    img.onload = function () {
+                        imgOriginalWidth = img.width;
+                        imgOriginalHeight = img.height;
+                        fitToCanvas();
+                        drawImage(); // 初次加载图片
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // 绘制图片
+        function drawImage() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
+            ctx.save(); // 保存状态
+            ctx.translate(offsetX, offsetY); // 应用平移
+            ctx.scale(scale, scale); // 应用缩放
+            ctx.drawImage(img, 0, 0); // 绘制图片
+            ctx.restore(); // 恢复状态
+        }
+
+
+        // 获取鼠标位置的 RGB 和图像像素坐标
+        canvas.addEventListener("mousemove", (event) => {
+            mousePositionInImage();
+
+            // 如果正在拖动图片，更新偏移量
+            if (isDragging) {
+                const deltaX = event.clientX - dragStartX;
+                const deltaY = event.clientY - dragStartY;
+                offsetX += deltaX;
+                offsetY += deltaY;
+                dragStartX = event.clientX;
+                dragStartY = event.clientY;
+                drawImage(); // 更新图片显示
+            }
+        });
+        function mousePositionInImage() {
+            const rect = canvas.getBoundingClientRect(); // 获取画布位置
+            const mouseX = event.clientX - rect.left; // 鼠标在画布上的 X 坐标
+            const mouseY = event.clientY - rect.top;  // 鼠标在画布上的 Y 坐标
+
+            // 转换鼠标坐标到图像坐标
+            const imgX = Math.floor((mouseX - offsetX) / scale); // 计算图像的原始 X 坐标
+            const imgY = Math.floor((mouseY - offsetY) / scale); // 计算图像的原始 Y 坐标
+
+            // 检查坐标是否在图片范围内
+            if (img && imgX >= 0 && imgY >= 0 && imgX < img.width && imgY < img.height) {
+                // 获取原始图像坐标上的像素数据
+                const imageData = ctx.getImageData(mouseX, mouseY, 1, 1);
+                const [r, g, b] = imageData.data; // 提取 RGB
+                updateDisplay(r, g, b, imgX, imgY); // 更新显示
+            } else {
+                updateDisplay(0, 0, 0, imgX, imgY); // 超出范围时显示默认值
+            }
+        }
+
+
+        // 鼠标按下，开始绘制矩形框或拖动图片
+        canvas.addEventListener("mousedown", (event) => {
+            const rect = canvas.getBoundingClientRect();
+            startX = event.clientX - rect.left - offsetX;
+            startY = event.clientY - rect.top - offsetY;
+
+            isDragging = true; // 开始拖动图片
+            dragStartX = event.clientX;
+            dragStartY = event.clientY;
+        });
+
+        // 鼠标释放，停止绘制或停止拖动
+        canvas.addEventListener("mouseup", () => {
+            isDragging = false; // 停止拖动
+            drawImage(); // 完成绘制后重绘图像
+        });
+
+        // 原始图片大小按钮
+        document.querySelector("#originalSizeBtn").addEventListener("click", () => {
+            scale = 1;
+            offsetX = 0;
+            offsetY = 0;
+            drawImage(); // 重新绘制图片
+            updateDisplay(); // 更新显示
+        });
+
+        // 适合显示大小按钮
+        document.querySelector("#fitToCanvasBtn").addEventListener("click", () => {
+            fitToCanvas();
+            drawImage();
+            updateDisplay(); // 更新显示
+        });
+        function fitToCanvas() {
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+            const scaleX = canvasWidth / imgOriginalWidth;
+            const scaleY = canvasHeight / imgOriginalHeight;
+            scale = Math.min(scaleX, scaleY); // 保持比例适应画布
+
+            offsetX = (canvasWidth - imgOriginalWidth * scale) / 2; // 居中显示
+            offsetY = (canvasHeight - imgOriginalHeight * scale) / 2;
+        }
+
+
+        // 更新显示内容
+        function updateDisplay(r = 0, g = 0, b = 0, imgX = 0, imgY = 0) {
+            rgbDisplay.textContent = `RGB: (${r}, ${g}, ${b}), Image Position: (${imgX}, ${imgY}), Scale: ${scale.toFixed(2)}, Offset: (${offsetX.toFixed(1)}, ${offsetY.toFixed(1)})`;
+        }
+
+        // 监听滚轮事件进行缩放
+        canvas.addEventListener("wheel", (event) => {
+            event.preventDefault(); // Prevent page scroll
+
+            zoomCalculate();
+            drawImage(); // Redraw the image
+            updateDisplay(); // Update the displayed information
+            mousePositionInImage()
+
+        });
+        function zoomCalculate() {
+            // Get mouse position
+            const mouseX = event.clientX - canvas.offsetLeft;
+            const mouseY = event.clientY - canvas.offsetTop;
+
+            // Calculate the image's coordinates based on the scaling and offset
+            const imgX = (mouseX - offsetX) / scale;
+            const imgY = (mouseY - offsetY) / scale;
+
+            // Determine if the mouse is inside the image bounds
+            const isMouseInsideImage = imgX >= 0 && imgY >= 0 && imgX < img.width && imgY < img.height;
+
+            // Zoom scaling factor (1.1 for zooming in, 0.9 for zooming out)
+            const scaleAmount = event.deltaY < 0 ? 1.1 : 0.9;
+            scale *= scaleAmount;
+
+            // Enforce scale limits
+            scale = Math.max(0.0001, Math.min(scale, 10));
+
+            // If mouse is outside the image, zoom towards the nearest edge
+            if (!isMouseInsideImage) {
+                // Adjust to zoom towards the closest edge
+                const closestX = Math.min(Math.max(imgX, 0), img.width);
+                const closestY = Math.min(Math.max(imgY, 0), img.height);
+                const closestMouseX = closestX * scale + offsetX;
+                const closestMouseY = closestY * scale + offsetY;
+
+                // Calculate the amount of offset change needed to zoom toward the image edge
+                offsetX += mouseX - closestMouseX;
+                offsetY += mouseY - closestMouseY;
+            } else {
+
+
+                offsetX = mouseX - imgX * scale;
+                offsetY = mouseY - imgY * scale;
+            }
+
+            // Adjust the scale if it goes below the fit-to-canvas scale
+            const scaleX = canvas.width / imgOriginalWidth;
+            const scaleY = canvas.height / imgOriginalHeight;
+            const fitScale = Math.min(scaleX, scaleY);
+
+            if (scale < fitScale) {
+                scale = fitScale;
+                offsetX = (canvas.width - imgOriginalWidth * scale) / 2;
+                offsetY = (canvas.height - imgOriginalHeight * scale) / 2;
+            }
+        }
+    </script>
+
+</body>
+
+</html>
