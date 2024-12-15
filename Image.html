@@ -258,72 +258,11 @@
 
         // 手機
 
-        let lastTouchDistance = 0; // 上一次触摸点之间的距离
-        let lastTouchCenter = { x: 0, y: 0 }; // 上一次触摸点的中心
-        let isPinching = false; // 是否正在进行缩放操作
+        let lastTouchDistance = 0;
+        let lastTouchCenter = { x: 0, y: 0 };
+        let isPinching = false;
 
-        // 触摸开始事件
-        canvas.addEventListener("touchstart", (event) => {
-            if (event.touches.length === 2) {
-                isPinching = true;
-                lastTouchDistance = getDistance(event.touches);
-                lastTouchCenter = getTouchCenter(event.touches);
-            } else if (event.touches.length === 1) {
-                isDragging = true; // 开始拖动
-                dragStartX = event.touches[0].clientX;
-                dragStartY = event.touches[0].clientY;
-            }
-        });
-
-        // 触摸移动事件
-        canvas.addEventListener("touchmove", (event) => {
-            event.preventDefault(); // 阻止默认滚动行为
-
-            if (isPinching && event.touches.length === 2) {
-                const currentDistance = getDistance(event.touches);
-                const currentCenter = getTouchCenter(event.touches);
-
-                // 缩放比例
-                const scaleAmount = currentDistance / lastTouchDistance;
-                scale *= scaleAmount;
-
-                // 限制缩放范围
-                scale = Math.max(0.0001, Math.min(scale, 10));
-
-                // 调整偏移量以保持缩放中心一致
-                offsetX += (currentCenter.x - lastTouchCenter.x) * (1 - scaleAmount);
-                offsetY += (currentCenter.y - lastTouchCenter.y) * (1 - scaleAmount);
-
-                lastTouchDistance = currentDistance;
-                lastTouchCenter = currentCenter;
-
-                drawImage(); // 重新绘制图片
-                updateDisplay();
-            } else if (isDragging && event.touches.length === 1) {
-                const deltaX = event.touches[0].clientX - dragStartX;
-                const deltaY = event.touches[0].clientY - dragStartY;
-                offsetX += deltaX;
-                offsetY += deltaY;
-
-                dragStartX = event.touches[0].clientX;
-                dragStartY = event.touches[0].clientY;
-
-                drawImage(); // 更新图片显示
-                updateDisplay();
-            }
-        });
-
-        // 触摸结束事件
-        canvas.addEventListener("touchend", (event) => {
-            if (event.touches.length < 2) {
-                isPinching = false;
-            }
-            if (event.touches.length === 0) {
-                isDragging = false;
-            }
-        });
-
-        // 获取两点之间的距离
+        // 获取两点间距离
         function getDistance(touches) {
             const [touch1, touch2] = touches;
             const dx = touch2.clientX - touch1.clientX;
@@ -331,14 +270,55 @@
             return Math.sqrt(dx * dx + dy * dy);
         }
 
-        // 获取两点的中心
-        function getTouchCenter(touches) {
-            const [touch1, touch2] = touches;
+        // 获取触摸中心点在画布的本地坐标
+        function getTouchCenterInCanvas(touches, canvas) {
+            const rect = canvas.getBoundingClientRect();
+            const touch1 = touches[0];
+            const touch2 = touches[1];
             return {
-                x: (touch1.clientX + touch2.clientX) / 2,
-                y: (touch1.clientY + touch2.clientY) / 2
+                x: ((touch1.clientX + touch2.clientX) / 2) - rect.left,
+                y: ((touch1.clientY + touch2.clientY) / 2) - rect.top
             };
         }
+
+        // 触摸开始
+        canvas.addEventListener("touchstart", (event) => {
+            if (event.touches.length === 2) {
+                isPinching = true;
+                lastTouchDistance = getDistance(event.touches);
+                lastTouchCenter = getTouchCenterInCanvas(event.touches, canvas);
+            }
+        });
+
+        // 触摸移动
+        canvas.addEventListener("touchmove", (event) => {
+            event.preventDefault();
+            if (isPinching && event.touches.length === 2) {
+                const currentDistance = getDistance(event.touches);
+                const currentCenter = getTouchCenterInCanvas(event.touches, canvas);
+
+                const scaleAmount = currentDistance / lastTouchDistance;
+                scale *= scaleAmount;
+                scale = Math.max(0.1, Math.min(scale, 10));
+
+                offsetX += (currentCenter.x - lastTouchCenter.x) * (1 - scaleAmount);
+                offsetY += (currentCenter.y - lastTouchCenter.y) * (1 - scaleAmount);
+
+                lastTouchDistance = currentDistance;
+                lastTouchCenter = currentCenter;
+
+                drawImage();
+                updateDisplay();
+            }
+        });
+
+        // 触摸结束
+        canvas.addEventListener("touchend", (event) => {
+            if (event.touches.length < 2) {
+                isPinching = false;
+            }
+        });
+
 
     </script>
 
